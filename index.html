@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- CHARACTER ENCODING & VIEWPORT -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- SEO / METADATA -->
+    <title>Maths CPI-2A @ EMINES</title>
+    <meta name="description"
+        content="Index des cours de mathématiques pour la promotion CPI-2A (Class2030) à UM6P-EMINES. Accès aux PDF, versions web, résumés et code source LaTeX.">
+    <meta name="author" content="Class2030 @ UM6P-EMINES">
+    <meta name="keywords" content="mathématiques, CPI-2A, EMINES, UM6P, LaTeX, cours, algèbre linéaire">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Cours de Maths CPI-2A — UM6P-EMINES">
+    <meta property="og:description" content="Index des cours de mathématiques pour la promotion CPI-2A.">
+    <meta property="og:type" content="website">
+
+    <style>
+        /* Reset */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 100%;
+        }
+
+        /* respect user browser preference */
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #111;
+            background: #fff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 1.25rem 3rem;
+        }
+
+        /* Skip link — visible only on keyboard focus */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .skip-link:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            padding: .25rem .5rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        header {
+            border-bottom: 2px solid #111;
+            padding-bottom: .5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        header p {
+            font-size: .9rem;
+            color: #444;
+        }
+
+        /* ── Toolbar ─────────────────────────────────────────────────── */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-bottom: .75rem;
+            align-items: center;
+        }
+
+        .toolbar label {
+            font-size: .85rem;
+            color: #444;
+            white-space: nowrap;
+        }
+
+        .toolbar input[type="search"],
+        .toolbar select {
+            font: inherit;
+            font-size: .9rem;
+            padding: .25rem .5rem;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background: #fff;
+            color: #111;
+        }
+
+        .toolbar input[type="search"] {
+            flex: 1 1 180px;
+        }
+
+        .toolbar button {
+            font: inherit;
+            font-size: .85rem;
+            padding: .25rem .6rem;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            background: #e0e0e0;
+        }
+
+        #no-results {
+            display: none;
+            font-style: italic;
+            color: #888;
+            margin-bottom: .5rem;
+            font-size: .9rem;
+        }
+
+        /* ── Table ───────────────────────────────────────────────────── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .95rem;
+        }
+
+        caption {
+            text-align: left;
+            font-weight: bold;
+            margin-bottom: .5rem;
+        }
+
+        thead th {
+            text-align: left;
+            border-bottom: 2px solid #111;
+            padding: .4rem .6rem;
+            white-space: nowrap;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+
+        tbody tr[hidden] {
+            display: none;
+        }
+
+        tbody td {
+            padding: .4rem .6rem;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .col-num {
+            text-align: center;
+            width: 3rem;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .col-num::after          { content: " ↕"; font-size: .7rem; color: #888; }
+        .col-num.sort-asc::after  { content: " ↑"; color: #111; }
+        .col-num.sort-desc::after { content: " ↓"; color: #111; }
+
+        .col-link {
+            text-align: center;
+            width: 5.5rem;
+        }
+
+        /* Anchor # next to chapter number */
+        .anchor-link {
+            font-size: .75rem;
+            margin-left: .25rem;
+            text-decoration: none;
+            color: #bbb;
+            vertical-align: middle;
+        }
+
+        .anchor-link:hover {
+            color: #005ea6;
+        }
+
+        /* ── Links ───────────────────────────────────────────────────── */
+        a {
+            color: #005ea6;
+        }
+
+        a:hover {
+            color: #003d6b;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #551a8b;
+        }
+
+        a:focus {
+            outline: 2px solid #005ea6;
+            outline-offset: 2px;
+        }
+
+        .na {
+            color: #888;
+            font-style: italic;
+            font-size: .85rem;
+        }
+
+        /* ── Footer ──────────────────────────────────────────────────── */
+        footer {
+            margin-top: 2rem;
+            padding-top: .75rem;
+            border-top: 1px solid #ddd;
+            font-size: .8rem;
+            color: #666;
+        }
+
+        footer a {
+            font-size: inherit;
+        }
+
+        #gh-commit {
+            margin-top: .4rem;
+        }
+
+        #gh-commit .commit-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .2rem .6rem;
+            align-items: baseline;
+        }
+
+        #gh-commit .commit-msg {
+            font-weight: bold;
+            color: #333;
+            margin-top: .15rem;
+        }
+
+        #gh-commit .commit-files {
+            margin-top: .2rem;
+            color: #555;
+        }
+
+        #gh-commit .commit-files code {
+            font-size: .78rem;
+            background: #f0f0f0;
+            padding: 0 .25rem;
+            border-radius: 2px;
+        }
+
+        /* ── Responsive ──────────────────────────────────────────────── */
+        @media (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tbody td {
+                padding-left: 45%;
+                position: relative;
+                border-bottom: none;
+                border-top: 1px solid #ddd;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: .6rem;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+            tbody tr {
+                border-bottom: 2px solid #ddd;
+                padding-bottom: .5rem;
+                margin-bottom: .5rem;
+            }
+
+            .col-num,
+            .col-link {
+                text-align: left;
+                width: auto;
+            }
+
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            a {
+                color: #000;
+                text-decoration: underline;
+            }
+
+            .skip-link,
+            .toolbar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#cours-table">Aller au contenu principal</a>
+
+    <header role="banner">
+        <h1>Cours de Maths — CPI-2A</h1>
+        <p>
+            © TXT.MA &nbsp;|&nbsp; Class2030 &nbsp;|&nbsp;
+            <a href="https://github.com/Samy-Y/maths-cpi2a" target="_blank" rel="noopener">GitHub</a>
+        </p>
+    </header>
+
+    <main id="main-content" role="main">
+
+        <!-- ── Toolbar: title search + reset ── -->
+        <div class="toolbar" role="search" aria-label="Filtres">
+            <label for="search-input">Titre :</label>
+            <input type="search" id="search-input" placeholder="Rechercher un titre…"
+                aria-label="Filtrer par titre">
+
+            <button type="button" id="reset-filters">Réinitialiser</button>
+        </div>
+
+        <p id="no-results" role="status" aria-live="polite">Aucun résultat.</p>
+
+        <table id="cours-table" aria-label="Liste des cours de mathématiques CPI-2A">
+            <caption>Chapitres</caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col-num" abbr="Numéro" id="th-num"
+                        aria-sort="none">N°</th>
+                    <th scope="col" abbr="Titre">Titre du chapitre</th>
+                    <th scope="col" class="col-link" abbr="Grade">Grade</th>
+                    <th scope="col" class="col-link" abbr="PDF">PDF</th>
+                    <th scope="col" class="col-link" abbr="Web">Web</th>
+                    <th scope="col" class="col-link" abbr="Résumé">Résumé</th>
+                    <th scope="col" class="col-link" abbr="Source LaTeX">Source (.tex)</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- data-num must equal the chapter number (integer) for the chapter filter -->
+                <tr id="ch01" data-title="révision de l'algèbre linéaire" data-num="1">
+                    <td class="col-num" data-label="N°">
+                        1<a class="anchor-link" href="#ch01" aria-label="Lien direct vers le chapitre 1">#</a>
+                    </td>
+                    <td data-label="Titre">Révision de l'algèbre linéaire</td>
+                    <td class="col-link" data-label="Grade"><span class="na">N/A</span></td>
+                    <td class="col-link" data-label="PDF">
+                        <a href="260907 CH01.pdf" aria-label="PDF CH01 : Révision de l'algèbre linéaire"
+                            type="application/pdf">PDF</a>
+                    </td>
+                    <td class="col-link" data-label="Web"><span class="na">N/A</span></td>
+                    <td class="col-link" data-label="Résumé">
+                        <a href="ch01.html" aria-label="Résumé CH01 : Révision de l'algèbre linéaire">Résumé</a>
+                    </td>
+                    <td class="col-link" data-label="Source (.tex)">
+                        <a href="260907 CH01.tex" aria-label="Code source LaTeX CH01">LaTeX</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer role="contentinfo">
+        <p>
+            Dépôt :
+            <a href="https://github.com/Samy-Y/maths-cpi2a" target="_blank" rel="noopener">
+                github.com/Samy-Y/maths-cpi2a
+            </a>
+        </p>
+        <div id="gh-commit" aria-live="polite">
+            <p><em>Chargement du dernier commit…</em></p>
+        </div>
+    </footer>
+
+    <script>
+        /* ================================================================
+           TITLE SEARCH FILTER
+        ================================================================ */
+        const searchInput = document.getElementById('search-input');
+        const resetBtn    = document.getElementById('reset-filters');
+        const noResults   = document.getElementById('no-results');
+        const tbody       = document.getElementById('table-body');
+
+        function applyFilter() {
+            const q = searchInput.value.trim().toLowerCase();
+            let visible = 0;
+            Array.from(tbody.querySelectorAll('tr')).forEach(row => {
+                const title = (row.dataset.title || '').toLowerCase();
+                const show  = !q || title.includes(q);
+                row.hidden  = !show;
+                if (show) visible++;
+            });
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+        }
+
+        searchInput.addEventListener('input', applyFilter);
+
+        resetBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            applyFilter();
+        });
+
+        /* ================================================================
+           N° COLUMN: SORT ASCENDING / DESCENDING
+        ================================================================ */
+        const thNum  = document.getElementById('th-num');
+        let sortDir  = 'none'; // 'asc' | 'desc'
+
+        thNum.addEventListener('click', () => {
+            sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+            thNum.classList.toggle('sort-asc',  sortDir === 'asc');
+            thNum.classList.toggle('sort-desc', sortDir === 'desc');
+            thNum.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
+
+            Array.from(tbody.querySelectorAll('tr'))
+                .sort((a, b) => {
+                    const na = parseInt(a.dataset.num || '0', 10);
+                    const nb = parseInt(b.dataset.num || '0', 10);
+                    return sortDir === 'asc' ? na - nb : nb - na;
+                })
+                .forEach(r => tbody.appendChild(r));
+        });
+
+        /* ================================================================
+           GITHUB LAST COMMIT (fetched client-side at page load)
+        ================================================================ */
+        const REPO  = 'Samy-Y/maths-cpi2a';
+        const ghDiv = document.getElementById('gh-commit');
+
+        (async function fetchLastCommit() {
+            try {
+                const res = await fetch(
+                    `https://api.github.com/repos/${REPO}/commits?per_page=1`,
+                    { headers: { Accept: 'application/vnd.github.v3+json' } }
+                );
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const [commit] = await res.json();
+
+                const sha     = commit.sha.slice(0, 7);
+                const url     = commit.html_url;
+                const message = commit.commit.message.split('\n')[0];
+                const author  = commit.commit.author.name;
+                const rawDate = commit.commit.author.date;
+                const date    = new Date(rawDate).toLocaleDateString('fr-FR', {
+                    year: 'numeric', month: 'long', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+
+                // Fetch the list of files changed in this commit
+                const resDetail = await fetch(
+                    `https://api.github.com/repos/${REPO}/commits/${commit.sha}`,
+                    { headers: { Accept: 'application/vnd.github.v3+json' } }
+                );
+                let filesHTML = '';
+                if (resDetail.ok) {
+                    const detail = await resDetail.json();
+                    const files  = (detail.files || []).map(f => f.filename);
+                    if (files.length) {
+                        filesHTML = `<p class="commit-files">Fichiers : ${
+                            files.map(f => `<code>${f}</code>`).join(', ')
+                        }</p>`;
+                    }
+                }
+
+                ghDiv.innerHTML = `
+                    <div class="commit-meta">
+                        <span>Dernier commit :</span>
+                        <a href="${url}" target="_blank" rel="noopener"
+                           aria-label="Voir le commit ${sha} sur GitHub"><code>${sha}</code></a>
+                        <time datetime="${rawDate}">${date}</time>
+                        <span>— ${author}</span>
+                    </div>
+                    <p class="commit-msg">${message}</p>
+                    ${filesHTML}`;
+            } catch (err) {
+                ghDiv.innerHTML =
+                    `<p><em>Impossible de charger le dernier commit (${err.message}).</em></p>`;
+            }
+        })();
+    </script>
+</body>
+
+</html>

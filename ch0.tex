@@ -1,0 +1,285 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{coursmodern}
+
+% 1. Paramétrage de la page de garde
+\CourseTitle{Espaces Vectoriels \& Dimension Finie}
+\CourseSubtitle{EMINES --- CPI2A (Class2030)}
+\ChapterNumber{01}
+\CourseAuthor{Samy Youssoufine}
+\LastUpdate{\today}
+\PrimarySite{maths2.txt.ma}{https://maths2.txt.ma}
+\MirrorSite{samy-y.github.io/maths-cpi2a}{https://samy-y.github.io/maths-cpi2a}
+
+% Activer ou commenter pour masquer la boîte de chantier
+\wiptrue
+
+\begin{document}
+
+\MakeSwissCover
+
+\tableofcontents
+
+\chapter{Groupes symétriques}
+
+\section{Permutations}
+
+\begin{definition}[Permutation et ensemble de permutations]
+    Soit $n \in \N^*$. Une \textbf{permutation} de $\{1, 2, \dots, n\}$ est une bijection de cet ensemble dans lui-même.
+
+    On écrit :
+    $$\sigma = \left(\begin{matrix} 1 & 2 & \dots & n \\ \sigma(1) & \sigma(2) & \dots & \sigma(n) \end{matrix}\right)$$
+    pour représenter la permutation $\sigma$.
+
+    On note $S_n$ l'ensemble de toutes les permutations de $\{1, 2, \dots, n\}$.
+\end{definition}
+
+\begin{example}[Permutation]
+    Par exemple, la permutation $\sigma$ suivante :
+    \[
+        \begin{array}{c|ccccc}
+            i & 1 & 2 & 3 & 4 & 5 \\
+            \hline
+            \sigma(i) & 3 & 1 & 5 & 4 & 2
+        \end{array}
+    \]
+    $\sigma$ est bel et bien une bijection de $\{1, 2, 3, 4, 5\}$ dans lui-même.
+\end{example}
+
+\begin{example}[Ensemble de permutations]
+    $S_2$ contient les permutations suivantes :
+    \[
+        S_2 = \left\{\left(\begin{matrix} 1 & 2 \\ 1 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 \\ 2 & 1 \end{matrix}\right)\right\}
+    \]
+    $S_3$ contient les permutations suivantes :
+    \[
+        S_3 = \left\{\left(\begin{matrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{matrix}\right), \left(\begin{matrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{matrix}\right)\right\}
+    \]
+\end{example}
+
+\begin{definition}[Composée de permutations]
+    Soient $\sigma_1$ et $\sigma_2$ deux permutations de $S_n$. La \textbf{composée} de $\sigma_1$ et $\sigma_2$, notée $\sigma_1 \circ \sigma_2$, est définie par :
+    $$\forall i \in [\![1,n]\!], (\sigma_1 \circ \sigma_2)(i) = \sigma_1(\sigma_2(i))$$
+\end{definition}
+
+\begin{example}[Composée de deux permutations]
+    Soient $\sigma_1$ et $\sigma_2$ les permutations définies par :
+    $$
+    \begin{cases}
+        \sigma_1 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 5 & 2 & 3 & 1 & 4 \end{matrix}\right) \\
+        \sigma_2 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 3 & 5 & 1 & 2 \end{matrix}\right)
+    \end{cases}
+    $$
+    La composée $\sigma_1 \circ \sigma_2$ est définie par :
+    $$
+    (\sigma_1 \circ \sigma_2)(i) = \sigma_1(\sigma_2(i))
+    $$
+    Essayons pour toutes les valeurs de $i$ :
+    \[
+    \begin{array}{c|ccccc}
+        i & 1 & 2 & 3 & 4 & 5 \\
+        \hline
+        \sigma_2(i) & 4 & 3 & 5 & 1 & 2 \\
+        \sigma_1(\sigma_2(i)) & \sigma_1(4) & \sigma_1(3) & \sigma_1(5) & \sigma_1(1) & \sigma_1(2) \\
+        & 1 & 3 & 4 & 5 & 2
+    \end{array}
+    \]
+    Ainsi, la composée $\sigma_1 \circ \sigma_2$ est donnée par :
+    $$
+    \sigma_1 \circ \sigma_2 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 1 & 3 & 4 & 5 & 2 \end{matrix}\right)
+    $$
+    Notons aussi que la composée $\sigma_2 \circ \sigma_1$ est donnée par :
+    $$
+    \sigma_2 \circ \sigma_1 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 3 & 5 & 1 & 2 \end{matrix}\right)
+    $$
+    Les deux composées sont différentes, ce qui montre que la composition de permutations n'est pas commutative.
+\end{example}
+
+\begin{definition}[Inverse d'une permutation]
+    Soit $\sigma$ une permutation de $S_n$. L'\textbf{inverse} de $\sigma$, notée $\sigma^{-1}$, est la permutation définie par :
+    $$\forall i \in [\![1,n]\!], \sigma^{-1}(\sigma(i)) = i$$
+\end{definition}
+
+\begin{example}[Inverse d'une permutation]
+    Réutilisons la permutation $\sigma_1$ définie par :
+    $$
+\sigma_1 = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 5 & 2 & 3 & 1 & 4 \end{matrix}\right)
+    $$
+    L'inverse de $\sigma_1$, noté $\sigma_1^{-1}$, est défini par :
+    $$
+\sigma_1^{-1}(\sigma_1(i)) = i
+    $$
+    Essayons pour toutes les valeurs de $i$ :
+    \[
+\begin{array}{c|ccccc}
+    i & 1 & 2 & 3 & 4 & 5 \\
+    \sigma_1^{-1}(i) & 4 & 2 & 3 & 5 & 1
+\end{array}
+    \]
+    Ainsi, l'inverse de $\sigma_1$ est donné par :
+    $$
+\sigma_1^{-1} = \left(\begin{matrix} 1 & 2 & 3 & 4 & 5 \\ 4 & 2 & 3 & 5 & 1 \end{matrix}\right)
+    $$
+\end{example}
+
+\begin{property}
+    Il y a $n!$ permutations de $\{1, 2, \dots, n\}$. Le cardinal de $S_n$ est donc $n!$.
+
+    $$\card{S_n} = n!$$
+\end{property}
+
+\begin{proof}
+    Chaque élément de $\{1, 2, \dots, n\}$ doit être envoyé vers un élément distinct de l'ensemble d'arrivée. Pour le premier élément, il y a $n$ choix possibles, pour le deuxième élément, il y a $n-1$ choix possibles (car on ne peut pas réutiliser l'élément déjà choisi pour le premier), pour le troisième élément, il y a $n-2$ choix possibles, et ainsi de suite jusqu'au dernier élément qui n'a plus qu'un seul choix possible.
+\end{proof}
+
+\begin{property}
+    \begin{enumerate}
+        \item \textbf{Associativité} : Pour toutes permutations $\sigma_1$, $\sigma_2$ et $\sigma_3$ de $S_n$, on a :
+        $$(\sigma_1 \circ \sigma_2) \circ \sigma_3 = \sigma_1 \circ (\sigma_2 \circ \sigma_3)$$
+        On hérite ces propriétés de l'associativité de la composition de fonctions.
+        \item \textbf{Existence d'un élément neutre} : Il existe une permutation $\Id$ dans $S_n$ telle que pour toute permutation $\sigma$ de $S_n$, on a :
+        $$\Id \circ \sigma = \sigma \circ \Id = \sigma$$
+        L'élément neutre est la permutation identité, notée $\Id$, définie par :
+        $$\Id = \left(\begin{matrix} 1 & 2 & \dots & n \\ 1 & 2 & \dots & n \end{matrix}\right)$$
+        \item \textbf{Existence d'inverses} : Pour toute permutation $\sigma$ de $S_n$, il existe une permutation $\sigma^{-1}$ de $S_n$ telle que :
+        $$\sigma \circ \sigma^{-1} = \sigma^{-1} \circ \sigma = \Id$$
+    \end{enumerate}
+\end{property}
+
+\chapter{Bases et Dimension Finie}
+
+\section{Théorèmes fondamentaux}
+
+\begin{definition}[Famille génératrice finie]
+Un espace vectoriel $E$ est dit de dimension finie s'il admet une famille génératrice finie.
+\end{definition}
+
+\todo{Recopier la démonstration de l'extraction d'une base libre.}
+
+\begin{theorem}[Théorème de la base incomplète]
+Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension finie $n$. Toute famille libre de vecteurs de $E$ peut être complétée en une base de $E$.
+\end{theorem}
+
+\begin{property}
+Si $F$ et $G$ sont deux sous-espaces de $E$ avec $F \subset G$ et $\dim(F) = \dim(G) < +\infty$, alors $F = G$.
+\end{property}
+
+\begin{consequence}
+Dans un espace de dimension $n$, toute famille libre de $n$ vecteurs est une base.
+\end{consequence}
+
+\begin{corollary}[Isomorphismes]
+Un endomorphisme $u \in \mathcal{L}(E)$ est injectif si et seulement s'il est surjectif.
+\end{corollary}
+
+\begin{application}
+Vérification de l'inversibilité d'une matrice carrée par inverse unilatéral.
+\end{application}
+
+\begin{remark}
+Par convention, l'espace nul $\{0_E\}$ a pour dimension 0.
+\end{remark}
+
+\begin{example}
+L'espace $\mathbb{R}_n[X]$ des polynômes de degré au plus $n$ est de dimension $n+1$.
+\end{example}
+
+\begin{attention}[Dimension infinie]
+\label{attention:dim_inf}
+La relation $\dim(F + G) = \dim F + \dim G - \dim(F \cap G)$ nécessite la dimension finie.
+\end{attention}
+
+% Exercice avec niveau de difficulté 2 étoiles et titre externe
+\begin{exercise}[2][Noyaux itérés de nilpotence]
+\label{exo:noyaux_iteres}
+Soit $u \in \mathcal{L}(E)$ avec $\dim(E) = n$. Montrer que la suite $(\ker(u^k))_{k \in \mathbb{N}}$ stationne au plus tard au rang $n$.
+\end{exercise}
+
+% Correction avec référence externe
+\begin{correction}[Exercice \ref{exo:noyaux_iteres}]
+On étudie la stricte inclusion des noyaux successifs avant le rang de stationnement.
+\end{correction}
+
+\begin{methodbox}[Pivot de Gauss]
+Échelonnement en colonnes pour extraire une sous-famille libre maximale.
+\end{methodbox}
+
+% 13e environnement libre : choix direct de l'icône FontAwesome, titre, couleur, argument
+\begin{customenv}{\faMicrochip}{Algorithmique}[cMeth][Décomposition LU]
+En calcul numérique matriciel, l'algorithme correspond directement à l'élimination de Gauss sans pivotage partiel.
+\end{customenv}
+
+% -----------------------------------------------------------------------
+% FIGURE DE TEST TIKZ 3D
+% -----------------------------------------------------------------------
+\section{Figure de test TikZ 3D}
+
+\begin{example}[Repère cartésien 3D et cube unité]
+La figure ci-dessous est un test de rendu TikZ 3D utilisant le paquet \texttt{tikz-3dplot}.
+Elle affiche un repère cartésien orienté, un cube unité aux faces semi-transparentes, et
+un vecteur diagonal $\vec{v} = \frac{1}{\sqrt{3}}(1,1,1)$.
+\end{example}
+
+\begin{figure}[h]
+  \centering
+  % Angles de vue : inclinaison 68°, rotation 115°
+  \tdplotsetmaincoords{68}{115}
+  \begin{tikzpicture}[tdplot_main_coords, scale=2.8,
+      axis/.style   = {thick, ->, >=Stealth},
+      edge3d/.style = {thick},
+      face/.style   = {opacity=0.12},
+    ]
+
+    %--- Faces du cube (dessinées avant les arêtes pour la transparence) ---
+    % Face inférieure  (z=0)
+    \fill[face, fill=cDef]   (0,0,0)--(1,0,0)--(1,1,0)--(0,1,0)--cycle;
+    % Face supérieure  (z=1)
+    \fill[face, fill=cThm]   (0,0,1)--(1,0,1)--(1,1,1)--(0,1,1)--cycle;
+    % Face avant       (y=0)
+    \fill[face, fill=cProp]  (0,0,0)--(1,0,0)--(1,0,1)--(0,0,1)--cycle;
+    % Face arrière     (y=1)
+    \fill[face, fill=cProp]  (0,1,0)--(1,1,0)--(1,1,1)--(0,1,1)--cycle;
+    % Face gauche      (x=0)
+    \fill[face, fill=cCor]   (0,0,0)--(0,1,0)--(0,1,1)--(0,0,1)--cycle;
+    % Face droite      (x=1)
+    \fill[face, fill=cCor]   (1,0,0)--(1,1,0)--(1,1,1)--(1,0,1)--cycle;
+
+    %--- Arêtes du cube ---
+    % Base
+    \draw[edge3d, cDef!70!black]
+      (0,0,0)--(1,0,0)--(1,1,0)--(0,1,0)--cycle;
+    % Sommet
+    \draw[edge3d, cThm!70!black]
+      (0,0,1)--(1,0,1)--(1,1,1)--(0,1,1)--cycle;
+    % Montants verticaux
+    \foreach \x/\y in {0/0, 1/0, 1/1, 0/1}{
+      \draw[edge3d, swissgray] (\x,\y,0)--(\x,\y,1);
+    }
+
+    %--- Axes cartésiens ---
+    \draw[axis, cDef]   (0,0,0) -- (1.6,0,0) node[anchor=north east,  font=\sffamily\bfseries\small]{$x$};
+    \draw[axis, cProp]  (0,0,0) -- (0,1.6,0) node[anchor=north west,  font=\sffamily\bfseries\small]{$y$};
+    \draw[axis, cThm]   (0,0,0) -- (0,0,1.6) node[anchor=south,       font=\sffamily\bfseries\small]{$z$};
+
+    % Origine
+    \fill[swissblack] (0,0,0) circle (0.018) node[below left, font=\sffamily\tiny]{$O$};
+
+    %--- Vecteur diagonal ---
+    \draw[->, >=Stealth, cAtt, ultra thick, dashed]
+      (0,0,0) -- (0.75,0.75,0.75)
+      node[right, font=\sffamily\small, text=cAtt]{$\vec{v}$};
+
+    % Projections pointillées du vecteur
+    \draw[cAtt!40, thin, dotted] (0.75,0.75,0.75)--(0.75,0.75,0);
+    \draw[cAtt!40, thin, dotted] (0.75,0.75,0.75)--(0.75,0,0.75);
+    \draw[cAtt!40, thin, dotted] (0.75,0.75,0.75)--(0,0.75,0.75);
+
+  \end{tikzpicture}
+  \caption{%
+    Test TikZ 3D --- Repère cartésien $(O, \vec{x}, \vec{y}, \vec{z})$,
+    cube unité aux faces colorées semi-transparentes,
+    et vecteur diagonal $\vec{v}$.%
+  }
+  \label{fig:test3d}
+\end{figure}
+
+\end{document}

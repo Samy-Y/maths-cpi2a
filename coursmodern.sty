@@ -1,0 +1,475 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{coursmodern}[Notes de cours TXT.MA Samy Youssoufine]
+\RequirePackage[french]{babel}
+
+% this was OBVIOUSLY vibe coded
+
+% ----------------------------------------------------------------------
+% 1. CHARGEMENT ROBUSTE DES POLICES (LuaLaTeX / XeLaTeX)
+% ----------------------------------------------------------------------
+% ----------------------------------------------------------------------
+% 1. POLICES (Source Sans Pro & Source Code Pro natifs TeX Live)
+% ----------------------------------------------------------------------
+\RequirePackage{fontspec}          % Chargement explicite requis (LuaLaTeX)
+\RequirePackage[default]{sourcesanspro}
+\RequirePackage{sourcecodepro}
+
+% Police monospace
+\IfFontExistsTF{Source Code Pro}{%
+  \setmonofont{Source Code Pro}[Scale = MatchLowercase]
+}{%
+  \setmonofont{SourceCodePro-Regular.otf}[Scale = MatchLowercase]
+}
+
+% ----------------------------------------------------------------------
+% 2. GÉOMÉTRIE & MARGES (Marges égales partout)
+% ----------------------------------------------------------------------
+\RequirePackage{geometry}
+\geometry{
+    a4paper,
+    margin=25mm,         % 25 mm en haut, bas, gauche et droite
+    marginparwidth=18mm, % Largeur de note marginale adaptée à la marge de 25 mm
+    marginparsep=3.5mm,  % Séparation texte-marge
+    headheight=14pt
+}
+\reversemarginpar
+
+% ----------------------------------------------------------------------
+% 3. PACKAGES TECHNIQUES
+% ----------------------------------------------------------------------
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{tikz-3dplot}       % Repères 3D (\tdplotsetmaincoords)
+\usetikzlibrary{calc,3d,decorations.markings,arrows.meta}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\RequirePackage{fontawesome5}
+\RequirePackage{marginnote}
+\RequirePackage{titlesec}
+\RequirePackage{fancyhdr}
+\RequirePackage{etoolbox}
+\RequirePackage{hyperref}
+% change href color to light blue
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue
+}
+
+
+% ----------------------------------------------------------------------
+% 4. COULEURS SÉMANTIQUES
+% ----------------------------------------------------------------------
+\definecolor{swissblack}{HTML}{0F172A}
+\definecolor{swissdark}{HTML}{334155}
+\definecolor{swissgray}{HTML}{64748B}
+\definecolor{swisslight}{HTML}{F8FAFC}
+\definecolor{swissline}{HTML}{E2E8F0}
+
+\definecolor{cDef}{HTML}{0284C7}
+\definecolor{cThm}{HTML}{4F46E5}
+\definecolor{cProp}{HTML}{0D9488}
+\definecolor{cCons}{HTML}{0284C7}
+\definecolor{cCor}{HTML}{2563EB}
+\definecolor{cApp}{HTML}{059669}
+\definecolor{cRem}{HTML}{475569}
+\definecolor{cEx}{HTML}{D97706}
+\definecolor{cAtt}{HTML}{DC2626}
+\definecolor{cExo}{HTML}{7C3AED}
+\definecolor{cCorr}{HTML}{15803D}
+\definecolor{cMeth}{HTML}{C026D3}
+\definecolor{starColor}{HTML}{FACC15} 
+
+\definecolor{wipYellow}{HTML}{FACC15}
+\definecolor{wipBlack}{HTML}{18181B}
+\definecolor{todoColor}{HTML}{D97706}
+
+% ----------------------------------------------------------------------
+% 5. VARIABLES DE CONFIGURATION
+% ----------------------------------------------------------------------
+\newcommand{\CourseTitle}[1]{\def\@CourseTitle{#1}}
+\newcommand{\CourseSubtitle}[1]{\def\@CourseSubtitle{#1}}
+\newcommand{\ChapterNumber}[1]{\def\@ChapterNumber{#1}}
+\newcommand{\CourseAuthor}[1]{\def\@CourseAuthor{#1}}
+\newcommand{\LastUpdate}[1]{\def\@LastUpdate{#1}}
+\newcommand{\PrimarySite}[2]{\def\@PrimarySiteText{#1}\def\@PrimarySiteURL{#2}}
+\newcommand{\MirrorSite}[2]{\def\@MirrorSiteText{#1}\def\@MirrorSiteURL{#2}}
+
+\newif\ifwip
+\wipfalse
+
+\CourseTitle{Titre du Cours}
+\CourseSubtitle{Notes de cours}
+\ChapterNumber{}
+\CourseAuthor{Auteur}
+\LastUpdate{\today}
+\PrimarySite{site-principal.org}{https://site-principal.org}
+\MirrorSite{miroir-secours.org}{https://miroir-secours.org}
+
+% ----------------------------------------------------------------------
+% 6. BANDEAU WORK IN PROGRESS
+% ----------------------------------------------------------------------
+\newcommand{\WipBanner}{%
+  \noindent
+  \begin{tikzpicture}
+    \clip[rounded corners=3pt] (0,0) rectangle (\linewidth, 1.4);
+    \fill[wipBlack] (0,0) rectangle (\linewidth, 1.4);
+    \begin{scope}
+      \clip (0, 1.15) rectangle (\linewidth, 1.4);
+      \fill[wipYellow] (0, 1.15) rectangle (\linewidth, 1.4);
+      \foreach \x in {-1, -0.6, ..., 22} {
+        \fill[wipBlack] (\x, 1.1) -- (\x + 0.25, 1.1) -- (\x + 0.45, 1.45) -- (\x + 0.2, 1.45) -- cycle;
+      }
+    \end{scope}
+    \node[anchor=west, text=wipYellow, font=\sffamily\bfseries\small] at (0.4, 0.75) {%
+      \faIcon{hard-hat} \hspace{2mm}WORK IN PROGRESS%
+    };
+    \node[anchor=west, text=white!85, font=\sffamily\footnotesize] at (0.4, 0.35) {%
+      Ce document est incomplet ou en révision. Certaines sections peuvent faire l'objet de modifications.%
+    };
+  \end{tikzpicture}\par
+}
+
+% ----------------------------------------------------------------------
+% 7. PAGE DE GARDE STYLE SUISSE
+% ----------------------------------------------------------------------
+\newcommand{\MakeSwissCover}{%
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[cDef] (current page.north west) rectangle ([yshift=-5pt]current page.north east);
+  \end{tikzpicture}
+  
+  \vspace*{1.5cm}
+  
+  \noindent
+  {\fontsize{10}{12}\selectfont\sffamily\bfseries\color{swissgray}\MakeUppercase{\@CourseSubtitle}}\par
+  \vspace{0.4cm}
+  
+  \ifdefempty{\@ChapterNumber}{}{%
+    \noindent
+    {\fontsize{44}{48}\selectfont\sffamily\bfseries\color{cDef}\@ChapterNumber}\par
+    \vspace{0.1cm}
+  }
+  
+  \noindent
+  {\fontsize{28}{34}\selectfont\sffamily\bfseries\color{swissblack}\@CourseTitle}\par
+  \vspace{0.6cm}
+  \noindent{\color{swissline}\rule{\linewidth}{1.2pt}}\par
+  \vspace{0.8cm}
+  
+  \ifwip
+    \noindent\WipBanner\par
+    \vspace{1.0cm}
+  \fi
+  
+  \vfill
+  
+  \noindent
+  \begin{minipage}[t]{0.45\linewidth}
+    {\fontsize{7.5}{9}\selectfont\sffamily\bfseries\color{swissgray}\MakeUppercase{Auteur}}\par\vspace{2pt}
+    {\fontsize{10}{12}\selectfont\sffamily\bfseries\color{swissblack}\@CourseAuthor}\par
+    \vspace{0.5cm}
+    {\fontsize{7.5}{9}\selectfont\sffamily\bfseries\color{swissgray}\MakeUppercase{Dernière mise à jour}}\par\vspace{2pt}
+    {\fontsize{9.5}{12}\selectfont\sffamily\color{swissblack}\@LastUpdate}\par
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.5\linewidth}
+    {\fontsize{7.5}{9}\selectfont\sffamily\bfseries\color{swissgray}\MakeUppercase{Dépôt principal}}\par\vspace{2pt}
+    {\fontsize{8.5}{11}\selectfont\sffamily\href{\@PrimarySiteURL}{\color{cDef}\texttt{\@PrimarySiteText}}}\par
+    \vspace{0.5cm}
+    {\fontsize{7.5}{9}\selectfont\sffamily\bfseries\color{swissgray}\MakeUppercase{Lien miroir (secours)}}\par\vspace{2pt}
+    {\fontsize{8.5}{11}\selectfont\sffamily\href{\@MirrorSiteURL}{\color{swissgray}\texttt{\@MirrorSiteText}}}\par
+  \end{minipage}
+  
+  \vspace*{1.2cm}
+  \newpage
+  \setcounter{page}{1}
+}
+
+% ----------------------------------------------------------------------
+% 8. EN-TÊTES ET PIEDS DE PAGE
+% ----------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancyhead[L]{%
+  \sffamily\fontsize{8}{10}\selectfont\color{swissgray}%
+  \ifdefempty{\@ChapterNumber}{}{\textbf{CH. \@ChapterNumber\quad\textbar\quad}}\@CourseTitle
+}
+\fancyhead[R]{%
+  \sffamily\fontsize{8}{10}\selectfont\bfseries\color{swissblack}\nouppercase{\leftmark}
+}
+\fancyfoot[R]{%
+  \sffamily\fontsize{8.5}{10}\selectfont\bfseries\color{swissblack}\thepage
+}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[R]{\sffamily\fontsize{8.5}{10}\selectfont\bfseries\color{swissblack}\thepage}
+}
+
+% ----------------------------------------------------------------------
+% 9. STRUCTURES DE TITRES
+% ----------------------------------------------------------------------
+\titleformat{\chapter}[block]
+  {\sffamily\raggedright}
+  {%
+    {\fontsize{26}{28}\selectfont\bfseries\color{swissblack}\thechapter}%
+    \hspace{4mm}{\color{swissline}\vline width 1.2pt}%
+  }
+  {4mm}
+  {\fontsize{19}{23}\selectfont\bfseries\color{swissblack}}
+\titlespacing*{\chapter}{0pt}{4mm}{7mm}
+
+\titleformat{\section}[block]
+  {\sffamily\fontsize{13}{16}\selectfont\bfseries\color{swissblack}}
+  {\thesection}{3.5mm}{}
+  [\vspace{1mm}\color{swissline}\hrule height 0.6pt]
+\titlespacing*{\section}{0pt}{5mm}{3mm}
+
+\titleformat{\subsection}[block]
+  {\sffamily\fontsize{10.5}{13}\selectfont\bfseries\color{swissdark}}
+  {\thesubsection}{3mm}{}
+\titlespacing*{\subsection}{0pt}{3.5mm}{1.5mm}
+
+% ----------------------------------------------------------------------
+% 10. DRAPEAU \todo EN MARGE GAUCHE (Sans paquet marginnote)
+% ----------------------------------------------------------------------
+\newcommand{\todo}[1]{%
+  \noindent\tikz[remember picture, overlay]{%
+    \node[anchor=east, inner sep=0pt, xshift=0mm] at (0, 0.3) {%
+      \begin{tikzpicture}
+        \fill[todoColor, rounded corners=1.5pt] (0,0) rectangle (18mm, 0.45);
+        \node[text=white, font=\sffamily\bfseries\fontsize{6}{7}\selectfont, inner sep=0pt] at (9mm, 0.225) {%
+          \faIcon{pen-square}\hspace{1.5mm}À RECOPIER%
+        };
+      \end{tikzpicture}%
+    };
+  }\ignorespaces%
+}
+
+% ----------------------------------------------------------------------
+% 11. EN-TÊTE UNIFORME DES ENVIRONNEMENTS
+% ----------------------------------------------------------------------
+\newcommand{\drawenvbadge}[5]{%
+  \begin{tikzpicture}[baseline={(0,0.2)}]
+    \fill[#1, rounded corners=0.8pt] (0,0) rectangle (0.14, 0.65);
+    \fill[#1, rounded corners=0.8pt] (0.24,0) rectangle (0.38, 0.65);
+    \fill[#1, rounded corners=0.8pt] (0.55, 0) -- (6.05, 0) -- (5.70, 0.65) -- (0.55, 0.65) -- cycle;
+    \node[anchor=west, text=white, font=\sffamily\bfseries\small, inner sep=0pt] at (0.75, 0.325) {%
+      \ifstrempty{#2}{#3}{#2\hspace{2.2mm}#3}%
+    };
+    \if\relax\detokenize{#4}\relax\else
+      \node[anchor=east, text=white, font=\sffamily\scriptsize, inner sep=0pt] at (5.52, 0.325) {#4};
+    \fi
+    \if\relax\detokenize{#5}\relax\else
+      \node[anchor=west, text=swissdark, font=\sffamily\bfseries\normalsize, inner sep=0pt] at (6.28, 0.325) {#5};
+    \fi
+  \end{tikzpicture}%
+}
+
+\newcommand{\exercisestars}[1]{%
+  \ifcase#1\relax
+  \or{\color{white}\faIcon{star}}%
+  \or{\color{white}\faIcon{star}}\hspace{1pt}{\color{white}\faIcon{star}}%
+  \or{\color{white}\faIcon{star}}\hspace{1pt}{\color{white}\faIcon{star}}\hspace{1pt}{\color{starColor}\faIcon{star}}%
+  \else #1%
+  \fi
+}
+
+\tcbset{
+  swissenvbase/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=white,
+    boxrule=0pt,
+    left=0pt,
+    right=0pt,
+    top=1.5mm,
+    bottom=2mm,
+    before skip=3.5mm,
+    after skip=3.5mm,
+    colbacktitle=white,
+    titlerule=0pt,
+    fonttitle=\normalfont,
+    attach boxed title to top left={yshift=0pt, xshift=0pt},
+    boxed title style={boxrule=0pt, colback=white, left=0pt, right=0pt, top=0pt, bottom=0pt}
+  }
+}
+
+% ----------------------------------------------------------------------
+% 12. DÉFINITION DES 13 ENVIRONNEMENTS
+% ----------------------------------------------------------------------
+
+% 1. Définition
+\newtcolorbox[auto counter]{definition}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cDef}{\faIcon{book}}{Définition \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 2. Théorème
+\newtcolorbox[auto counter]{theorem}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cThm}{\faIcon{star}}{Théorème \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 3. Propriété
+\newtcolorbox[auto counter]{property}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cProp}{\faIcon{sliders-h}}{Propriété \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 4. Conséquence
+\newtcolorbox[auto counter]{consequence}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cCons}{\faIcon{level-down-alt}}{Conséquence \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 5. Corollaire
+\newtcolorbox[auto counter]{corollary}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cCor}{\faIcon{angle-double-right}}{Corollaire \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 6. Application
+\newtcolorbox[auto counter]{application}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cApp}{\faIcon{rocket}}{Application \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 7. Remarque
+\newtcolorbox[auto counter]{remark}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cRem}{\faIcon{comment-dots}}{Remarque}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 8. Exemple
+\newtcolorbox[auto counter]{example}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cEx}{\faIcon{lightbulb}}{Exemple \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 9. Attention
+\newtcolorbox{attention}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cAtt}{\faIcon{exclamation-triangle}}{Attention !}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 10. Exercice
+% Compteur global (croissant sur tout le document) avec \refstepcounter
+% pour rendre \label/\ref opérationnels depuis le corps de l'environnement.
+\newcounter{exercisecounter}
+\NewDocumentEnvironment{exercise}{O{} O{}}{%
+  \refstepcounter{exercisecounter}%
+  \begin{tcolorbox}[
+    swissenvbase,
+    title={\drawenvbadge{cExo}{\faIcon{drafting-compass}}{Exercice~\theexercisecounter}{\ifstrempty{#1}{}{\exercisestars{#1}}}{\ifstrempty{#2}{}{(#2)}}}
+  ]
+}{%
+  \end{tcolorbox}
+}
+
+% 11. Correction
+\newtcolorbox{correction}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cCorr}{\faIcon{check-double}}{Correction}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 12. Méthode
+\newtcolorbox[auto counter]{methodbox}[1][]{
+  swissenvbase,
+  title={\drawenvbadge{cMeth}{\faIcon{magic}}{Méthode}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+
+% 13. Environnement personnalisé
+\NewDocumentEnvironment{customenv}{m m O{swissdark} O{}}{%
+  \begin{tcolorbox}[
+    swissenvbase,
+    title={\drawenvbadge{#3}{#1}{#2}{}{\ifstrempty{#4}{}{(#4)}}}
+  ]
+}{%
+  \end{tcolorbox}
+}
+
+% ----------------------------------------------------------------------
+% 13. MACROS
+% ----------------------------------------------------------------------
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Kset}{\mathbb{K}}
+\newcommand{\Uset}{\mathbb{U}}
+\newcommand{\Pset}{\mathcal{P}}
+\newcommand{\ch}{\mathrm{ch}}
+\newcommand{\sh}{\mathrm{sh}}
+\newcommand{\thh}{\mathrm{th}}
+\newcommand{\tg}{\mathrm{tg}}
+\newcommand{\arctg}{\mathrm{arctg}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\argch}{\mathrm{argch}}
+\newcommand{\argsh}{\mathrm{argsh}}
+\newcommand{\argth}{\mathrm{argth}}
+
+\newcommand{\legbinom}[2]{\mathrm{C}_{#1}^{#2}}
+\newcommand{\cclas}[1]{\mathcal{C}^{#1}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\parens}[1]{\left(#1\right)}
+\newcommand{\bracks}[1]{\left[#1\right]}
+\newcommand{\angles}[1]{\left\langle#1\right\rangle}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\inside}[1]{\overset{\circ}{#1}}
+\newcommand{\negli}[3]{\underset{#1\to#2}{o}\left(#3\right)}
+\newcommand{\nimplies}{\;\not\!\!\!\implies} % n'implique pas
+\newcommand{\card}[1]{\mathrm{card}\left(#1\right)}
+\newcommand{\cl}[1]{\mathcal{C}\ell\left(#1\right)} % classe d'équivalence
+\newcommand{\pgcd}{\mathrm{pgcd}}
+\newcommand{\ppcm}{\mathrm{ppcm}}
+\newcommand{\Isom}{\mathrm{Isom}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Ker}{\mathrm{Ker}}
+\newcommand{\Imf}{\mathrm{Im}}
+\newcommand{\Id}{\mathrm{id}}
+\newcommand{\Intr}{\mathrm{Int}}
+\newcommand{\Carac}{\mathrm{Car}}
+\newcommand{\ovl}[1]{\overline{#1}}
+\newcommand{\cfd}{\mathrm{CD}} % coefficient dominant
+\newcommand{\Vect}{\mathrm{Vect}}
+\newcommand{\rang}{\mathrm{rg}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\Mat}{\mathrm{Mat}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Com}{\mathrm{Com}}
+
+% Macro textuelles
+
+\newcommand{\ona}{\text{ On a }}
+\newcommand{\avec}{\text{ avec }}
+\newcommand{\donc}{\text{ donc }}
+\newcommand{\tq}{\text{ tel que }} % tel que (masculin singuler )
+\newcommand{\tqf}{\text{ telle que } } % tel que _féminin (singulier)
+\newcommand{\tqp}{\text{ tels que } } % tel que _pluriel (masculin)
+\newcommand{\tqpf}{\text{ telles que } } % tel que _pluriel _féminin
+\newcommand{\si}{\text{ si }}
+\newcommand{\ssi}{\text{ si et seulement si }}
+\newcommand{\et}{\text{ et }}
+\newcommand{\ou}{\text{ ou } }
+\newcommand{\pour}{\text{ pour }}
+\newcommand{\admet}{\text{ admet }}
+\newcommand{\car}{\text{ car } }
+\newcommand{\scq}{\text{ sachant que }}
+
+\endinput
