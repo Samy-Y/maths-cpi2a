@@ -8,6 +8,8 @@ Comme pour les leçons de la CPI-1A, les fichiers sont classés par grade de qua
 
 Les styles/boîtes utilisées sont dans `coursmodern.sty` si vous voulez ~~les plagier~~ vous en inspirer :).
 
+Note importante: il faut compiler les documents $\LaTeX$ source **deux fois** via LuaLatex (et je pense une fois via XeLaTeX) pour que l'indexage soit fait correctement.
+
 ## Nomenclatures
 
 À peu près comme pour la CPI-1A, sauf qu'ici c'est documenté.
