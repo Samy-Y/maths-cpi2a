@@ -26,4 +26,6 @@ Les styles/boîtes utilisées sont dans `coursmodern.sty` si vous voulez ~~les p
 
 ## License
 
+This was very evidently vibe-coded (I know how to code, I'm just lazy). But if, for some reason, you want to use this repo's content, do whatever you want to do with it:
+
 WTFPL (*Do what the fuck you want to* Public License) - <https://www.wtfpl.net/>

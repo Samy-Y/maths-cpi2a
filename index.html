@@ -16,12 +16,11 @@
     <meta name="robots" content="noindex, nofollow">
 
     <!-- OPEN GRAPH -->
-    <meta property="og:title" content="Cours de Maths CPI-2A — UM6P-EMINES">
+    <meta property="og:title" content="TXT.MA | Cours de Maths CPI-2A @ EMINES">
     <meta property="og:description" content="Index des cours de mathématiques pour la promotion CPI-2A.">
     <meta property="og:type" content="website">
 
     <style>
-        /* Reset */
         *,
         *::before,
         *::after {
@@ -34,7 +33,6 @@
             font-size: 100%;
         }
 
-        /* respect user browser preference */
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont,
@@ -47,7 +45,6 @@
             padding: 1rem 1.25rem 3rem;
         }
 
-        /* Skip link — visible only on keyboard focus */
         .skip-link {
             position: absolute;
             left: -9999px;
@@ -83,7 +80,6 @@
             color: #444;
         }
 
-        /* ── Toolbar ─────────────────────────────────────────────────── */
         .toolbar {
             display: flex;
             flex-wrap: wrap;
@@ -135,7 +131,6 @@
             font-size: .9rem;
         }
 
-        /* ── Table ───────────────────────────────────────────────────── */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -177,9 +172,21 @@
             white-space: nowrap;
         }
 
-        .col-num::after          { content: " ↕"; font-size: .7rem; color: #888; }
-        .col-num.sort-asc::after  { content: " ↑"; color: #111; }
-        .col-num.sort-desc::after { content: " ↓"; color: #111; }
+        .col-num::after {
+            content: " ↕";
+            font-size: .7rem;
+            color: #888;
+        }
+
+        .col-num.sort-asc::after {
+            content: " ↑";
+            color: #111;
+        }
+
+        .col-num.sort-desc::after {
+            content: " ↓";
+            color: #111;
+        }
 
         .col-link {
             text-align: center;
@@ -199,7 +206,6 @@
             color: #005ea6;
         }
 
-        /* ── Links ───────────────────────────────────────────────────── */
         a {
             color: #005ea6;
         }
@@ -224,7 +230,6 @@
             font-size: .85rem;
         }
 
-        /* ── Footer ──────────────────────────────────────────────────── */
         footer {
             margin-top: 2rem;
             padding-top: .75rem;
@@ -266,7 +271,6 @@
             border-radius: 2px;
         }
 
-        /* ── Responsive ──────────────────────────────────────────────── */
         @media (max-width: 600px) {
 
             table,
@@ -340,7 +344,7 @@
     <a class="skip-link" href="#cours-table">Aller au contenu principal</a>
 
     <header role="banner">
-        <h1>Cours de Maths — CPI-2A</h1>
+        <h1>Cours de Maths | CPI-2A</h1>
         <p>
             © TXT.MA &nbsp;|&nbsp; Class2030 &nbsp;|&nbsp;
             <a href="https://github.com/Samy-Y/maths-cpi2a" target="_blank" rel="noopener">GitHub</a>
@@ -349,11 +353,9 @@
 
     <main id="main-content" role="main">
 
-        <!-- ── Toolbar: title search + reset ── -->
         <div class="toolbar" role="search" aria-label="Filtres">
             <label for="search-input">Titre :</label>
-            <input type="search" id="search-input" placeholder="Rechercher un titre…"
-                aria-label="Filtrer par titre">
+            <input type="search" id="search-input" placeholder="Rechercher un titre…" aria-label="Filtrer par titre">
 
             <button type="button" id="reset-filters">Réinitialiser</button>
         </div>
@@ -364,8 +366,7 @@
             <caption>Chapitres</caption>
             <thead>
                 <tr>
-                    <th scope="col" class="col-num" abbr="Numéro" id="th-num"
-                        aria-sort="none">N°</th>
+                    <th scope="col" class="col-num" abbr="Numéro" id="th-num" aria-sort="none">N°</th>
                     <th scope="col" abbr="Titre">Titre du chapitre</th>
                     <th scope="col" class="col-link" abbr="Grade">Grade</th>
                     <th scope="col" class="col-link" abbr="PDF">PDF</th>
@@ -375,7 +376,6 @@
                 </tr>
             </thead>
             <tbody id="table-body">
-                <!-- data-num must equal the chapter number (integer) for the chapter filter -->
                 <tr id="ch01" data-title="révision de l'algèbre linéaire" data-num="1">
                     <td class="col-num" data-label="N°">
                         1<a class="anchor-link" href="#ch01" aria-label="Lien direct vers le chapitre 1">#</a>
@@ -415,17 +415,17 @@
            TITLE SEARCH FILTER
         ================================================================ */
         const searchInput = document.getElementById('search-input');
-        const resetBtn    = document.getElementById('reset-filters');
-        const noResults   = document.getElementById('no-results');
-        const tbody       = document.getElementById('table-body');
+        const resetBtn = document.getElementById('reset-filters');
+        const noResults = document.getElementById('no-results');
+        const tbody = document.getElementById('table-body');
 
         function applyFilter() {
             const q = searchInput.value.trim().toLowerCase();
             let visible = 0;
             Array.from(tbody.querySelectorAll('tr')).forEach(row => {
                 const title = (row.dataset.title || '').toLowerCase();
-                const show  = !q || title.includes(q);
-                row.hidden  = !show;
+                const show = !q || title.includes(q);
+                row.hidden = !show;
                 if (show) visible++;
             });
             noResults.style.display = visible === 0 ? 'block' : 'none';
@@ -441,12 +441,12 @@
         /* ================================================================
            N° COLUMN: SORT ASCENDING / DESCENDING
         ================================================================ */
-        const thNum  = document.getElementById('th-num');
-        let sortDir  = 'none'; // 'asc' | 'desc'
+        const thNum = document.getElementById('th-num');
+        let sortDir = 'none'; // 'asc' | 'desc'
 
         thNum.addEventListener('click', () => {
             sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-            thNum.classList.toggle('sort-asc',  sortDir === 'asc');
+            thNum.classList.toggle('sort-asc', sortDir === 'asc');
             thNum.classList.toggle('sort-desc', sortDir === 'desc');
             thNum.setAttribute('aria-sort', sortDir === 'asc' ? 'ascending' : 'descending');
 
@@ -462,7 +462,7 @@
         /* ================================================================
            GITHUB LAST COMMIT (fetched client-side at page load)
         ================================================================ */
-        const REPO  = 'Samy-Y/maths-cpi2a';
+        const REPO = 'Samy-Y/maths-cpi2a';
         const ghDiv = document.getElementById('gh-commit');
 
         (async function fetchLastCommit() {
@@ -474,12 +474,12 @@
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const [commit] = await res.json();
 
-                const sha     = commit.sha.slice(0, 7);
-                const url     = commit.html_url;
+                const sha = commit.sha.slice(0, 7);
+                const url = commit.html_url;
                 const message = commit.commit.message.split('\n')[0];
-                const author  = commit.commit.author.name;
+                const author = commit.commit.author.name;
                 const rawDate = commit.commit.author.date;
-                const date    = new Date(rawDate).toLocaleDateString('fr-FR', {
+                const date = new Date(rawDate).toLocaleDateString('fr-FR', {
                     year: 'numeric', month: 'long', day: 'numeric',
                     hour: '2-digit', minute: '2-digit'
                 });
@@ -492,11 +492,10 @@
                 let filesHTML = '';
                 if (resDetail.ok) {
                     const detail = await resDetail.json();
-                    const files  = (detail.files || []).map(f => f.filename);
+                    const files = (detail.files || []).map(f => f.filename);
                     if (files.length) {
-                        filesHTML = `<p class="commit-files">Fichiers : ${
-                            files.map(f => `<code>${f}</code>`).join(', ')
-                        }</p>`;
+                        filesHTML = `<p class="commit-files">Fichiers : ${files.map(f => `<code>${f}</code>`).join(', ')
+                            }</p>`;
                     }
                 }
 
@@ -506,7 +505,7 @@
                         <a href="${url}" target="_blank" rel="noopener"
                            aria-label="Voir le commit ${sha} sur GitHub"><code>${sha}</code></a>
                         <time datetime="${rawDate}">${date}</time>
-                        <span>— ${author}</span>
+                        <span>(${author})</span>
                     </div>
                     <p class="commit-msg">${message}</p>
                     ${filesHTML}`;
