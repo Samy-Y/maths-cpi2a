@@ -1,0 +1,10 @@
+{
+  "name": "maths-cpi2a-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Automated workflow tools for converting LaTeX coursmodern documents to HTML",
+  "dependencies": {
+    "mupdf": "^1.28.0"
+  }
+}

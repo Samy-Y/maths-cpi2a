@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{PAGE_TITLE}}</title>
+    <meta name="description" content="{{PAGE_DESCRIPTION}}">
+    <meta name="author" content="{{AUTHOR}}">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- FontAwesome 5 for semantic environment & banner icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW37fFSH1J9HVTqFqxDV5EFGLFiMGfyIXHBBMJq+6r8T6rHhxpgdS4i15HEpv6y6NTfJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- MathJax 3 Configuration with coursmodern.sty macros -->
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {'[+]': ['ams', 'color', 'newcommand']},
+            macros: {
+                R: "\\mathbb{R}",
+                C: "\\mathbb{C}",
+                Z: "\\mathbb{Z}",
+                N: "\\mathbb{N}",
+                Q: "\\mathbb{Q}",
+                Kset: "\\mathbb{K}",
+                Uset: "\\mathbb{U}",
+                Pset: "\\mathcal{P}",
+                ch: "\\operatorname{ch}",
+                sh: "\\operatorname{sh}",
+                thh: "\\operatorname{th}",
+                tg: "\\operatorname{tg}",
+                arctg: "\\operatorname{arctg}",
+                eps: "\\varepsilon",
+                argch: "\\operatorname{argch}",
+                argsh: "\\operatorname{argsh}",
+                argth: "\\operatorname{argth}",
+                legbinom: ["\\mathrm{C}_{#1}^{#2}", 2],
+                cclas: ["\\mathcal{C}^{#1}", 1],
+                abs: ["\\left|#1\\right|", 1],
+                norm: ["\\left\\|#1\\right\\|", 1],
+                set: ["\\left\\{#1\\right\\}", 1],
+                parens: ["\\left(#1\\right)", 1],
+                bracks: ["\\left[#1\\right]", 1],
+                angles: ["\\left\\langle#1\\right\\rangle", 1],
+                floor: ["\\left\\lfloor#1\\right\\rfloor", 1],
+                ceil: ["\\left\\lceil#1\\right\\rceil", 1],
+                inside: ["\\overset{\\circ}{#1}", 1],
+                negli: ["\\underset{#1\\to#2}{o}\\left(#3\\right)", 3],
+                nimplies: "\\;\\not\\!\\!\\!\\implies",
+                card: ["\\operatorname{card}\\left(#1\\right)", 1],
+                cl: ["\\mathcal{C}\\ell\\left(#1\\right)", 1],
+                pgcd: "\\operatorname{pgcd}",
+                ppcm: "\\operatorname{ppcm}",
+                Isom: "\\operatorname{Isom}",
+                Aut: "\\operatorname{Aut}",
+                Ker: "\\operatorname{Ker}",
+                Imf: "\\operatorname{Im}",
+                Id: "\\operatorname{id}",
+                Intr: "\\operatorname{Int}",
+                Carac: "\\operatorname{Car}",
+                ovl: ["\\overline{#1}", 1],
+                cfd: "\\operatorname{CD}",
+                Vect: "\\operatorname{Vect}",
+                rang: "\\operatorname{rg}",
+                GL: "\\operatorname{GL}",
+                Sp: "\\operatorname{Sp}",
+                diag: "\\operatorname{diag}",
+                Mat: "\\operatorname{Mat}",
+                Tr: "\\operatorname{Tr}",
+                Com: "\\operatorname{Com}",
+                ona: "\\text{ On a }",
+                avec: "\\text{ avec }",
+                donc: "\\text{ donc }",
+                tq: "\\text{ tel que }",
+                tqf: "\\text{ telle que }",
+                tqp: "\\text{ tels que }",
+                tqpf: "\\text{ telles que }",
+                si: "\\text{ si }",
+                ssi: "\\text{ si et seulement si }",
+                et: "\\text{ et }",
+                ou: "\\text{ ou }",
+                pour: "\\text{ pour }",
+                admet: "\\text{ admet }",
+                car: "\\text{ car }",
+                scq: "\\text{ sachant que }",
+                llbracket: "[\\![",
+                rrbracket: "]\\!]"
+            }
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        },
+        chtml: {
+            scale: 0.98,
+            displayAlign: 'center'
+        }
+    };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+{{INLINE_STYLES}}
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <nav class="top-nav" aria-label="Navigation principale">
+        <a href="index.html">← Retour à l'index</a>
+        <span style="font-size:0.8rem; color:var(--swiss-gray);">coursmodern &bull; TXT.MA</span>
+    </nav>
+
+    {{HEADER_BLOCK}}
+
+    {{WIP_BANNER}}
+
+    {{TOC_BLOCK}}
+
+    <main id="main-content" role="main">
+{{CONTENT_BODY}}
+    </main>
+
+    {{FOOTER_BLOCK}}
+</body>
+</html>

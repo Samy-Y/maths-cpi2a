@@ -38,3 +38,6 @@
 *.figlist
 *.makefile
 *.auxlock
+tools/.tmp/
+tools/node_modules/
+.build/
