@@ -224,8 +224,67 @@ Généralement, on utilise la notion de sous-groupe pour montrer qu'un ensemble 
 
 \begin{proof}
     On sait que $\ker(\varphi_g)$ est un sous-groupe de $(\Z,+)$, donc $\ker(\varphi_g) = n_0 \Z$ pour un certain $n_0 \in \N$. Si $\varphi_g$ est injectif, alors $\ker(\varphi_g) = \{ 0 \} = 0 \Z$, donc $n_0 = 0$. On a donc $\forall k \in \N^*, g^k \neq 1_G$, et $\forall i \ne j, g^i \neq g^j$, alors $\langle g \rangle$ est infini et donc $\ord(g) = +\infty$.
+
+    Dans le cas inverse où $\ord(g) < +\infty$, on a $\varphi_g$ est non-injectif et donc $\ker(\varphi_g) = n_0 \Z$ pour un certain $n_0 \in \N^*$. On a $n_0 \ge 1$, et $\Imf(\varphi_g) = \langle g \rangle$ est fini, donc $\ord(g) = |\langle g \rangle| = n_0$.
 \end{proof}
 
-% à revoir
+% à revoir et recopier
+
+Pour récapituler, pour un ordre infini, on a :
+\begin{align*}
+    \ord(g) = +\infty &\iff \varphi_g \text{ est injectif} \\
+    &\iff \ker(\varphi_g) = \{ 0 \} \\
+    &\iff \forall k \in \Z^*, g^k \neq 1_G
+    &\iff \langle g \rangle \text{ est infini} \\
+\end{align*}
+... et pour un ordre fini, on a :
+\begin{align*}
+    \ord(g) = n \in \N^* &\iff \ker(\varphi_g) = n \Z \\
+    &\iff \varphi_g \text{ est non-injectif} \\
+    &\iff \forall k \in \Z, g^k = 1_G \iff n \mid k \\
+    &\iff n = \min(\{ k \in \N^*, g^k = 1_G \}) \\
+\end{align*}
+
+\begin{remark}
+    
+\end{remark}
+
+% à recopier
+
+\begin{exercise}
+    Posons $\varphi_x : \Z \to \langle x \rangle$ définie par $k \mapsto x^k$.
+
+    Déterminer l'ordre de $(\bar 1, \hat 1)$ dans $(\Z/n\Z, \Z/m\Z, +)$.
+\end{exercise}
+
+\begin{corollary}
+    Pour $(G,\cdot)$ un groupe et $x \in G$, les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $x$ est d'ordre $n$
+        \item $n = \min(k \in \N^*, x^k = 1_G)$ ou $n = \min(k \in \N^*, kx = 0_G)$
+        \item $\boxed{\forall k \in Z, x^k = 1 \implies n \mid k}$ ou $\boxed{\forall k \in Z, kx = 0 \implies n \mid k}$
+    \end{enumerate}
+\end{corollary}
+
+% à recopier
+
+\begin{proof}
+\end{proof}
+
+\begin{exercise}
+    Soit $a,b \in G$ d'ordres finis $n,m$ respectivement avec $G$ un groupe abélien.
+
+    \begin{enumerate}
+        \item Montrer que $ab$ est aussi d'ordre fini divisant le ppcm de $n$ et $m$.
+        \item Montrer que $\ord(a^k) = \frac{n}{\pgcd(n,k)}$ pour tout $k \in \Z^*$.
+    \end{enumerate}
+\end{exercise}
+
+\begin{correction}
+    \begin{enumerate}
+        \item On a $(ab)^{\text{ppcm}(n,m)} = a^{\text{ppcm}(n,m)} b^{\text{ppcm}(n,m)} = 1_G 1_G = 1_G$ sachant que $n\vee m = kn = k'm$ avec $k,k' \in \Z$ et que $G$ est un groupe abélien donc $a$ et $b$ commutent. Donc $\ord(ab) \mid \text{ppcm}(n,m)$.
+        \item Nous allons démontrer que $\forall p \in \Z, (a^k)^p = 1_G \implies \frac{n}{n\vee k} \mid p$. En effet, $(a^k)^p = a^{kp} = 1_G$
+    \end{enumerate}
+\end{correction}
 
 \end{document}
