@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CH01 — Révision de l'algèbre linéaire — TXT.MA</title>
-    <meta name="description" content="Révision de l'algèbre linéaire — EMINES — CPI2A (Class2030)">
+    <title>CH01 — Révision de l'algèbre — TXT.MA</title>
+    <meta name="description" content="Révision de l'algèbre — EMINES — CPI2A (Class2030)">
     <meta name="author" content="Samy Youssoufine">
     <meta name="robots" content="noindex, nofollow">
 
@@ -764,7 +764,7 @@ footer.swiss-footer {
 <header class="swiss-header" role="banner">
     <div class="swiss-subtitle">EMINES — CPI2A (Class2030)</div>
     <div class="swiss-chapter-number">01</div>
-    <h1 class="swiss-title">Révision de l'algèbre linéaire</h1>
+    <h1 class="swiss-title">Révision de l'algèbre</h1>
     <hr class="swiss-divider">
     <div class="swiss-meta">
         <div class="meta-group">
@@ -879,7 +879,7 @@ pour les autres transpositions. Pour les cycles, on a : <span
 class="math display">\[(1\ 2\ 3) \circ (1\ 3\ 2) =
 \text{id}\]</span></p>
 
-<div class="env-card env-methodbox" id="methodbox-24" style="--env-color:#C026D3;">
+<div class="env-card env-methodbox" id="methodbox-36" style="--env-color:#C026D3;">
     <div class="env-header">
         <div class="env-accent-pills">
             <span class="env-pill"></span>
@@ -1311,7 +1311,7 @@ class="math inline">\(\ord(g) = |\langle g \rangle|\)</span>.</p>
     </div>
 </div>
 
-<div class="env-card env-remark" id="remark-16" style="--env-color:#475569;">
+<div class="env-card env-remark" id="remark-19" style="--env-color:#475569;">
     <div class="env-header">
         <div class="env-accent-pills">
             <span class="env-pill"></span>
@@ -1541,7 +1541,348 @@ class="math inline">\(\forall k \in \N^*, g^k \neq 1_G\)</span>, et
 <span class="math inline">\(\forall i \ne j, g^i \neq g^j\)</span>,
 alors <span class="math inline">\(\langle g \rangle\)</span> est infini
 et donc <span class="math inline">\(\ord(g) = +\infty\)</span>.</p>
+<p>Dans le cas inverse où <span class="math inline">\(\ord(g) &lt;
++\infty\)</span>, on a <span class="math inline">\(\varphi_g\)</span>
+est non-injectif et donc <span class="math inline">\(\ker(\varphi_g) =
+n_0 \Z\)</span> pour un certain <span class="math inline">\(n_0 \in
+\N^*\)</span>. On a <span class="math inline">\(n_0 \ge 1\)</span>, et
+<span class="math inline">\(\Imf(\varphi_g) = \langle g \rangle\)</span>
+est fini, donc <span class="math inline">\(\ord(g) = |\langle g \rangle|
+= n_0\)</span>.</p>
     <div class="proof-qed">&#9632;</div>
+</div>
+<p>Pour récapituler, pour un ordre infini, on a : <span
+class="math display">\[\begin{align*}
+    \ord(g) = +\infty &amp;\iff \varphi_g \text{ est injectif} \\
+    &amp;\iff \ker(\varphi_g) = \{ 0 \} \\
+    &amp;\iff \forall k \in \Z^*, g^k \neq 1_G
+    &amp;\iff \langle g \rangle \text{ est infini} \\
+\end{align*}\]</span> ... et pour un ordre fini, on a : <span
+class="math display">\[\begin{align*}
+    \ord(g) = n \in \N^* &amp;\iff \ker(\varphi_g) = n \Z \\
+    &amp;\iff \varphi_g \text{ est non-injectif} \\
+    &amp;\iff \forall k \in \Z, g^k = 1_G \iff n \mid k \\
+    &amp;\iff n = \min(\{ k \in \N^*, g^k = 1_G \}) \\
+\end{align*}\]</span></p>
+
+<div class="env-card env-remark" id="remark-20" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+    </div>
+</div>
+
+<div class="env-card env-exercise" id="exercise-1" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Posons <span class="math inline">\(\varphi_x : \Z \to \langle x
+\rangle\)</span> définie par <span class="math inline">\(k \mapsto
+x^k\)</span>.</p>
+<p>Déterminer l’ordre de <span class="math inline">\((\bar 1, \hat
+1)\)</span> dans <span class="math inline">\((\Z/n\Z, \Z/m\Z,
++)\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-corollary" id="corollary-1" style="--env-color:#2563EB;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+            <span>Corollaire 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Pour <span class="math inline">\((G,\cdot)\)</span> un groupe et
+<span class="math inline">\(x \in G\)</span>, les propriétés suivantes
+sont équivalentes :</p>
+<ol>
+<li><p><span class="math inline">\(x\)</span> est d’ordre <span
+class="math inline">\(n\)</span></p></li>
+<li><p><span class="math inline">\(n = \min(k \in \N^*, x^k =
+1_G)\)</span> ou <span class="math inline">\(n = \min(k \in \N^*, kx =
+0_G)\)</span></p></li>
+<li><p><span class="math inline">\(\boxed{\forall k \in Z, x^k = 1
+\implies n \mid k}\)</span> ou <span
+class="math inline">\(\boxed{\forall k \in Z, kx = 0 \implies n \mid
+k}\)</span></p></li>
+</ol>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-exercise" id="exercise-2" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(a,b \in G\)</span> d’ordres finis
+<span class="math inline">\(n,m\)</span> respectivement avec <span
+class="math inline">\(G\)</span> un groupe abélien.</p>
+<ol>
+<li><p>Montrer que <span class="math inline">\(ab\)</span> est aussi
+d’ordre fini divisant le ppcm de <span class="math inline">\(n\)</span>
+et <span class="math inline">\(m\)</span>.</p></li>
+<li><p>Montrer que <span class="math inline">\(\ord(a^k) =
+\frac{n}{\pgcd(n,k)}\)</span> pour tout <span class="math inline">\(k
+\in \Z^*\)</span>.</p></li>
+<li><p>Si <span class="math inline">\(\langle a \rangle \cap \langle b
+\rangle = \{ 1_G \}\)</span>, montrer que <span
+class="math inline">\(\ord(ab) = \ppcm(n,m)\)</span>.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-correction" id="correction-34" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ol>
+<li><p>On a <span class="math inline">\((ab)^{\ppcm(n,m)} =
+a^{\ppcm(n,m)} b^{\ppcm(n,m)} = 1_G 1_G = 1_G\)</span> sachant que <span
+class="math inline">\(n\vee m = kn = k&#39;m\)</span> avec <span
+class="math inline">\(k,k&#39; \in \Z\)</span> et que <span
+class="math inline">\(G\)</span> est un groupe abélien donc <span
+class="math inline">\(a\)</span> et <span
+class="math inline">\(b\)</span> commutent. Donc <span
+class="math inline">\(\ord(ab) \mid \ppcm(n,m)\)</span>.</p></li>
+<li><p>Nous allons démontrer que <span class="math inline">\(\forall p
+\in \Z, (a^k)^p = 1_G \implies \frac{n}{n\wedge k} \mid p\)</span>.
+<span class="math display">\[\begin{align*}
+            a^{kp} = 1_G &amp;\implies \ord(a) \mid kp \\
+            &amp;\implies n \mid kp \\
+            d = n \wedge k &amp;\implies n = \alpha d \et k = \beta d
+\avec \alpha \wedge \beta = 1 \\
+            &amp;\implies \alpha \xcancel d \mid \beta \xcancel d p \\
+            &amp;\implies \alpha \mid \beta p \\
+            &amp;\implies \alpha \mid p \text{ d&#39;après le théorème
+de Gauss} \et \scq \alpha\wedge\beta = 1 \\
+            &amp;\implies \frac{n}{d} \mid p \\
+\end{align*}\]</span></p></li>
+<li><p>recop</p></li>
+<li><p>recop</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-attention" id="attention-30" style="--env-color:#DC2626;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+            <span>Attention !</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Ce qui vient d’être abordé n’est valable que dans un groupe
+<strong>abélien</strong> !</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-21" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>En général, <span class="math inline">\(\ord(ab) \ne \ord(a) \vee
+\ord(b)\)</span> et <span class="math inline">\(\ord(ab) \ne \ord(a)
+\ord(b)\)</span>. Par exemple, pour un <span class="math inline">\(x \in
+G\)</span> avec <span class="math inline">\((G,\cdot)\)</span> un
+groupe, on a <span class="math inline">\(\ord(x) = n\)</span> et <span
+class="math inline">\(\ord(x^{-1}) = n\)</span>, mais <span
+class="math inline">\(\ord(xx^{-1}) = \ord(1_G) = 1 \ne n \vee n =
+n\)</span> et <span class="math inline">\(\ord(xx^{-1}) = \ord(1_G) = 1
+\ne n \cdot n = n^2\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-8" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 8</span>
+            
+        </div>
+        <span class="env-title">(Générateurs d'un groupe cyclique)</span>
+    </div>
+    <div class="env-body">
+<p>Les générateurs d’un groupe cyclique sont les éléments dont l’ordre
+est exactement égal à l’ordre du groupe.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-22" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>L’ordre des éléments d’un groupe sont les diviseurs de l’ordre du
+groupe (s’il est fini). En effet, si <span
+class="math inline">\(G\)</span> est un groupe d’ordre <span
+class="math inline">\(n\)</span> et <span class="math inline">\(g \in
+G\)</span> tel que <span class="math inline">\(g^n = 1\)</span>, alors
+<span class="math inline">\(\ord(g) \mid n\)</span> d’après le théorème
+de Lagrange.</p>
+    </div>
+</div>
+
+<div class="env-card env-property" id="property-7" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 7</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(G = \langle x \rangle =
+\{1,x,x^2,\ldots,x^{n-1}\}\)</span>. Les générateurs de <span
+class="math inline">\(G\)</span> sont les éléments <span
+class="math inline">\(x^k\)</span> tels que <span
+class="math inline">\(k \in \llbracket 1,n\rrbracket\)</span> et <span
+class="math inline">\(\pgcd(k,n) = 1\)</span>. On peut aussi prendre
+<span class="math inline">\(k \in \N^*\)</span> et effectuer des
+divisions euclidiennes pour ramener <span
+class="math inline">\(k\)</span> dans l’intervalle <span
+class="math inline">\(\llbracket 1,n\rrbracket\)</span> (ce n’est pas
+une condition nécessaire).</p>
+    </div>
+</div>
+
+<div class="env-card env-exercise" id="exercise-3" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 3</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,\cdot)\)</span> un groupe
+cyclique et <span class="math inline">\(H\)</span> un sous-groupe de
+<span class="math inline">\(G\)</span>. Montrer que <span
+class="math inline">\(H\)</span> est cyclique.</p>
+<p><em>Indice: étudier <span class="math inline">\(\{k \in \Z, a^k \in
+H\}\)</span></em></p>
+    </div>
+</div>
+
+<div class="env-card env-correction" id="correction-35" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>On remarque que <span class="math inline">\(\{k \in \Z, a^k \in
+H\}\)</span> est un sous-groupe de <span
+class="math inline">\((\Z,+)\)</span>, donc il est de la forme <span
+class="math inline">\(n\Z\)</span> pour <span
+class="math inline">\(n=\min(\N^* \cap A)\)</span>. Il faut maintenant
+montrer que <span class="math inline">\(H\)</span> est cyclique. On sait
+que <span class="math inline">\(H\)</span> est généré par <span
+class="math inline">\(a^n\)</span>. Par définition de <span
+class="math inline">\(n\)</span>, <span class="math inline">\(a^n \in
+H\)</span>, et donc <span class="math inline">\(\langle a^n \rangle
+\subset H\)</span>.</p>
+<p>Réciproquement, soit <span class="math inline">\(x \in H\)</span>
+quelconque. <span class="math inline">\(H\)</span> est un sous-groupe de
+<span class="math inline">\(G\)</span>, donc <span
+class="math inline">\(x \in G\)</span>. recop &lt;3</p>
+    </div>
 </div>
 
     </main>

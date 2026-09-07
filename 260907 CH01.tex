@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{report}
 \usepackage{coursmodern}
 
-\CourseTitle{Révision de l'algèbre linéaire}
+\CourseTitle{Révision de l'algèbre}
 \CourseSubtitle{EMINES --- CPI2A (Class2030)}
 \ChapterNumber{01}
 \CourseAuthor{Samy Youssoufine}
@@ -277,14 +277,62 @@ Pour récapituler, pour un ordre infini, on a :
     \begin{enumerate}
         \item Montrer que $ab$ est aussi d'ordre fini divisant le ppcm de $n$ et $m$.
         \item Montrer que $\ord(a^k) = \frac{n}{\pgcd(n,k)}$ pour tout $k \in \Z^*$.
+        \item Si $\langle a \rangle \cap \langle b \rangle = \{ 1_G \}$, montrer que $\ord(ab) = \ppcm(n,m)$.
     \end{enumerate}
 \end{exercise}
 
 \begin{correction}
     \begin{enumerate}
-        \item On a $(ab)^{\text{ppcm}(n,m)} = a^{\text{ppcm}(n,m)} b^{\text{ppcm}(n,m)} = 1_G 1_G = 1_G$ sachant que $n\vee m = kn = k'm$ avec $k,k' \in \Z$ et que $G$ est un groupe abélien donc $a$ et $b$ commutent. Donc $\ord(ab) \mid \text{ppcm}(n,m)$.
-        \item Nous allons démontrer que $\forall p \in \Z, (a^k)^p = 1_G \implies \frac{n}{n\vee k} \mid p$. En effet, $(a^k)^p = a^{kp} = 1_G$
+        \item On a $(ab)^{\ppcm(n,m)} = a^{\ppcm(n,m)} b^{\ppcm(n,m)} = 1_G 1_G = 1_G$ sachant que $n\vee m = kn = k'm$ avec $k,k' \in \Z$ et que $G$ est un groupe abélien donc $a$ et $b$ commutent. Donc $\ord(ab) \mid \ppcm(n,m)$.
+        \item Nous allons démontrer que $\forall p \in \Z, (a^k)^p = 1_G \implies \frac{n}{n\wedge k} \mid p$.
+        \begin{align*}
+            a^{kp} = 1_G &\implies \ord(a) \mid kp \\
+            &\implies n \mid kp \\
+            d = n \wedge k &\implies n = \alpha d \et k = \beta d \avec \alpha \wedge \beta = 1 \\
+            &\implies \alpha \xcancel d \mid \beta \xcancel d p \\
+            &\implies \alpha \mid \beta p \\
+            &\implies \alpha \mid p \text{ d'après le théorème de Gauss} \et \scq \alpha\wedge\beta = 1 \\
+            &\implies \frac{n}{d} \mid p \\
+        \end{align*}
+        \item recop
+        \item recop
     \end{enumerate}
 \end{correction}
+% à recopier
+
+\begin{attention}
+    Ce qui vient d'être abordé n'est valable que dans un groupe \textbf{abélien} !
+\end{attention}
+
+\begin{remark}
+    En général, $\ord(ab) \ne \ord(a) \vee \ord(b)$ et $\ord(ab) \ne \ord(a) \ord(b)$. Par exemple, pour un $x \in G$ avec $(G,\cdot)$ un groupe, on a $\ord(x) = n$ et $\ord(x^{-1}) = n$, mais $\ord(xx^{-1}) = \ord(1_G) = 1 \ne n \vee n = n$ et $\ord(xx^{-1}) = \ord(1_G) = 1 \ne n \cdot n = n^2$.
+\end{remark}
+
+\begin{definition}[Générateurs d'un groupe cyclique]
+    Les générateurs d'un groupe cyclique sont les éléments dont l'ordre est exactement égal à l'ordre du groupe.
+\end{definition}
+
+\begin{remark}
+    L'ordre des éléments d'un groupe sont les diviseurs de l'ordre du groupe (s'il est fini). En effet, si $G$ est un groupe d'ordre $n$ et $g \in G$ tel que $g^n = 1$, alors $\ord(g) \mid n$ d'après le théorème de Lagrange.
+\end{remark}
+
+\begin{property}
+    Soit $G = \langle x \rangle = \{1,x,x^2,\ldots,x^{n-1}\}$. Les générateurs de $G$ sont les éléments $x^k$ tels que $k \in [\![1,n]\!]$ et $\pgcd(k,n) = 1$. On peut aussi prendre $k \in \N^*$ et effectuer des divisions euclidiennes pour ramener $k$ dans l'intervalle $[\![1,n]\!]$ (ce n'est pas une condition nécessaire).
+\end{property}
+
+\begin{exercise}
+    Soit $(G,\cdot)$ un groupe cyclique et $H$ un sous-groupe de $G$. Montrer que $H$ est cyclique.
+
+
+    \textit{Indice: étudier $\{k \in \Z, a^k \in H\}$}
+\end{exercise}
+
+\begin{correction}
+    On remarque que $\{k \in \Z, a^k \in H\}$ est un sous-groupe de $(\Z,+)$, donc il est de la forme $n\Z$ pour $n=\min(\N^* \cap A)$. Il faut maintenant montrer que $H$ est cyclique. On sait que $H$ est généré par $a^n$. Par définition de $n$, $a^n \in H$, et donc $\langle a^n \rangle \subset H$. 
+    
+    Réciproquement, soit $x \in H$ quelconque. $H$ est un sous-groupe de $G$, donc $x \in G$. recop <3
+\end{correction}
+
+% "ça peut être un exo dans l'examen" > le seul sous groupe cyclique d'ordre 
 
 \end{document}
