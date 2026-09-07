@@ -1,8 +1,6 @@
-%!TEX program = xelatex
 \documentclass[11pt,a4paper]{report}
 \usepackage{coursmodern}
 
-% 1. Paramétrage de la page de garde
 \CourseTitle{Révision de l'algèbre linéaire}
 \CourseSubtitle{EMINES --- CPI2A (Class2030)}
 \ChapterNumber{01}
@@ -11,7 +9,6 @@
 \PrimarySite{maths2.txt.ma}{https://maths2.txt.ma}
 \MirrorSite{samy-y.github.io/maths-cpi2a}{https://samy-y.github.io/maths-cpi2a}
 
-% Activer ou commenter pour masquer la boîte de chantier
 \wiptrue
 
 \begin{document}
@@ -20,6 +17,215 @@
 
 \tableofcontents
 
-\chapter{not started yet lol}
+\chapter{Structure de groupe}
+
+\begin{definition}
+    $(G, *)$ est dit groupe si :
+    \begin{itemize}
+        \item $G$ possède un élément neutre $1_G$ pour l'opération $*$, c'est-à-dire que pour tout $x \in G$, on a $1_G * x = x * 1_G = x$.
+        \item Pour tout $x,y,z \in G$, on a $(x * y) * z = x * (y * z)$ (associativité).
+        \item $G$ est stable par passage à la matrice, c'est-à-dire que pour tout $x \in G$, il existe un élément $x^{-1} \in G$ tel que $x * x^{-1} = x^{-1} * x = 1_G$.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item \textbf{Exemples triviaux :} $(\Z,+), (\Q,+), (\R,+), (\C,+), (\R^*,\times), (\C^*,\times)$.
+        \item $(\R^I,+)$ et $(\C^I,+)$ sont des groupes pour tout intervalle $I \subset \R$.
+        \item $(\GL_n(\R),\cdot)$ et $(\GL_n(\C),\cdot)$ sont des groupes pour tout $n \in \N^*$.
+        \item $(\R^\N, +)$ et $(\C^\N, +)$ sont des groupes.
+        \item $(S_n, \circ)$ est un groupe pour tout $n \in \N^*$.
+    \end{itemize}
+\end{example}
+
+Élaborons encore plus le dernier exemple sur les permutations. Considérons le cas particulier de $S_3$.
+$$S_3 = \{ \text{id}, (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2) \}$$
+L'inverse de la transposition $(1\ 2)$ est elle-même, en effet :
+$$(1\ 2) \circ (1\ 2) = \text{id}$$
+On remarque qu'il en est de même pour les autres transpositions. Pour les cycles, on a :
+$$(1\ 2\ 3) \circ (1\ 3\ 2) = \text{id}$$
+
+\begin{methodbox}[Règles de calcul]
+    \begin{enumerate}
+        \item \textbf{Avec la notation multiplicative :}
+        \begin{enumerate}
+            \item Pour $(G,\cdot)$ un groupe et $n \in \N^*$, on a : $a^n = \underbrace{a \cdot a \cdots a}_{n \text{ fois}}$ et $a^{-n} = (a^{-1})^n$.
+            \item Par convention, $a^0 = 1_G$.
+            \item $\forall a,b \in G, (ab)^{-1} = b^{-1} a^{-1}$.
+            \item $\forall n,m \in \Z, a^{n+m} = a^n a^m$.
+        \end{enumerate}
+        \item \textbf{Avec la notation additive :}
+        \begin{itemize}
+            \item Pour $(G,+)$ un groupe et $n \in \N^*$, on a : $n a = \underbrace{a + a + \cdots + a}_{n \text{ fois}}$ et $-n a = (-a) + (-a) + \cdots + (-a)$.
+            \item $\forall n,m \in \Z, n a + m a = (n+m) a$.
+            \item $\forall n,m \in \Z, n (m a) = (nm) a = m (n a)$.
+        \end{itemize}
+        \item Les égalités $(ab)^n = a^n b^n$ et $n(a+b) = n a + n b$ ne sont pas valables en général, mais uniquement si les lois sont commutatives (groupes abéliens).
+    \end{enumerate}
+\end{methodbox}
+
+\begin{definition}[Sous-groupe]
+    Soit $(G, *)$ un groupe et $H \subset G$. On dit que $H$ est un sous-groupe de $G$ si :
+    \begin{itemize}
+        \item $H$ est non vide.
+        \item $H$ est stable par l'opération $*$, c'est-à-dire que pour tout $x,y \in H$, on a $x * y \in H$.
+        \item $H$ est stable par passage à l'inverse, c'est-à-dire que pour tout $x \in H$, on a $x^{-1} \in H$.
+    \end{itemize}
+\end{definition}
+
+Généralement, on utilise la notion de sous-groupe pour montrer qu'un ensemble est un groupe, ce qui est plus simple que de vérifier les trois axiomes de la définition d'un groupe. On utilise aussi souvent la proposition ci-dessous.
+
+\begin{property}
+    Soit $(G, *)$ un groupe et $H \subset G$ tel que $H \neq \emptyset$.
+
+    $H$ est un sous-groupe de $G$ $\iff$ pour tout $x,y \in H$, on a $x * y^{-1} \in H$.
+\end{property}
+
+\begin{example}
+    \begin{itemize}
+        \item $\R$ est un sous-groupe de $(\C,+)$.
+        \item $\R^*$ est un sous-groupe de $(\C^*,\times)$.
+        \item Posons $\Uset = \{ z \in \C^*, |z| = 1 \}$. $\Uset$ est un sous-groupe de $(\C^*,\times)$.
+    \end{itemize}
+\end{example}
+
+\begin{property}
+    Soit $(G,*)$ un groupe. Soit $H$ et $K$ deux sous-groupes de $G$.
+    \begin{enumerate}
+        \item $H \cap K$ est un sous-groupe de $G$.
+        \item $H \cup K$ est un sous-groupe de $G$ $\iff$ $H \subset K$ ou $K \subset H$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    Montrons que $H \cap K$ est un sous-groupe de $G$. Soient $x,y \in H \cap K$. On a bien $x * y^{-1} \in H$ et $x * y^{-1} \in K$ comme $H$ et $K$ sont des sous-groupes de $G$. Donc $x * y^{-1} \in H \cap K$. Ainsi, $H \cap K$ est un sous-groupe de $G$.
+\end{proof}
+
+\begin{proof}
+    Montrons que $H \cup K$ est un sous-groupe de $G$ $\iff$ $H \subset K$ ou $K \subset H$. Dans le sens indirect ($\impliedby$), la démonstration est triviale.
+    
+    Dans le sens direct ($\implies$), on suppose par absurde que $H \not\subset K$ et $K \not\subset H$. Alors il existe $x \in H$ tel que $x \notin K$ et il existe $y \in K$ tel que $y \notin H$. Par contre, on a toujours $x,y \in H \cup K$, donc $x * y \in H \cup K$, ce qui veut dire que $xy \in H$ ou $xy \in K$.
+    
+    Si $xy \in H$, alors $y = x^{-1} * (xy) \in H$, ce qui est une contradiction. Si $xy \in K$, alors $x = (xy) * y^{-1} \in K$, ce qui est encore une contradiction. Ainsi, on a bien montré que $H \cup K$ est un sous-groupe de $G$ $\iff$ $H \subset K$ ou $K \subset H$.
+\end{proof}
+
+\begin{property}
+    Soit $I$ un ensemble dénombrable (éventuellement infini) et soit $(H)_{i \in I}$ une famille de sous-groupes d'un groupe $(G,*)$. Alors $\bigcap_{i \in I} H_i$ est un sous-groupe de $G$.
+\end{property}
+
+\begin{definition}[Ordre d'un groupe]
+    L'ordre d'un groupe $G$, noté $|G|$, est le cardinal de l'ensemble $G$.
+\end{definition}
+
+\begin{theorem}[Théorème de Lagrange]
+    Soit $(G,*)$ un groupe fini et soit $H$ un sous-groupe de $G$. Alors $|H|$ divise $|G|$.
+
+    En posant $|G| = n$ et $|H| = m$, on a $m \mid n$ et donc $n = m \cdot k$ pour un certain entier $k \in \N^*$.
+\end{theorem}
+
+\begin{definition}[Sous-groupe engendré par un élément]
+    Soit $(G,\cdot)$ un groupe.
+    \begin{itemize}
+        \item $G$ est dit \textbf{monogène} s'il existe un élément $g \in G$ tel que $G = \{ g^n, n \in \Z \}$. On note alors $G = \langle g \rangle$ et on dit que $g$ est un générateur de $G$ (en notation additive, on écrit $G = \langle g \rangle = \{ n g, n \in \Z \}$).
+        \item $G$ est un groupe cyclique si $G$ est monogène et fini.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item $\Z = \langle 1 \rangle = \langle -1 \rangle$ est un groupe monogène.
+        \item $\Uset_n = \langle e^{2 i \pi / n} \rangle$ est un groupe cyclique.
+        \item $\Z/n\Z = \langle \bar 1 \rangle$ est un groupe cyclique.
+    \end{itemize}
+\end{example}
+
+\begin{definition}
+    On appelle le groupe monogène $\langle g \rangle$ le groupe engendré par le singleton $g$.
+\end{definition}
+
+\begin{property}
+    Il s'agit du plus petit groupe contenant $g$.
+\end{property}
+
+\begin{example}
+    Dans $(\Z/6\Z)$, on a :
+    \begin{itemize}
+        \item $\langle \bar 1 \rangle = \{ \bar 1, \bar 2, \bar 3, \bar 4, \bar 5, \bar 0 \} = \Z/6\Z$.
+        \item $\langle \bar 2 \rangle = \{ \bar 2, \bar 4, \bar 0 \}$.
+        \item $\langle \bar 3 \rangle = \{ \bar 3, \bar 0 \}$.
+        \item $\langle \bar 4 \rangle = \{ \bar 4, \bar 2, \bar 0 \}$.
+        \item $\langle \bar 5 \rangle = \{ \bar 5, \bar 4, \bar 3, \bar 2, \bar 1, \bar 0 \} = \Z/6\Z$.
+    \end{itemize}
+\end{example}
+
+\begin{definition}[Ordre d'un élément]
+    Soit $(G,*)$ un groupe et $g \in G$. L'ordre de $g$, noté $\ord(g)$ est défini par $\ord(g) = |\langle g \rangle|$.
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item L'ordre de l'élément est 1 si et seulement si c'est l'élément neutre : $\ord(x) = 1 \iff x = 1_G$.
+        \item $\ord(x) = |\langle x \rangle| = |\langle x^{-1} \rangle| = \ord(x^{-1})$. En effet, $\langle x \rangle = \{ x^n, n \in \Z \} = \{ (x^{-1})^{-n}, n \in \Z \} = \langle x^{-1} \rangle$.
+    \end{itemize}
+\end{remark}
+
+\begin{example}
+    Dans $(\Z/6\Z)$, on a :
+    \begin{itemize}
+        \item $\ord(\bar 0) = 1$.
+        \item $\ord(\bar 1) = 6$.
+        \item $\ord(\bar 2) = 3$.
+        \item $\ord(\bar 3) = 2$.
+        \item $\ord(\bar 4) = 3$.
+        \item $\ord(\bar 5) = 6$.
+    \end{itemize}
+    L'ordre d'une transposition est 2 et l'ordre d'un cycle de longueur $k$ est $k$ (à démontrer en tant qu'exercice).
+\end{example}
+
+\begin{definition}[Morphisme de groupes]
+    Soit $(G,*)$ et $(H,\cdot)$ deux groupes. Une application $\varphi: G \to H$ est un morphisme de groupes si pour tous $x, y \in G$, on a $\varphi(x * y) = \varphi(x) \cdot \varphi(y)$.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}
+        \item L'application $\mathrm{exp} : (\R,+) \to (\R^*,\times)$ définie par $\mathrm{exp}(x) = e^x$ est un morphisme de groupes.
+        \item La signature $\eps : (S_n, \circ) \to (\{ -1, 1 \}, \times)$ est un morphisme de groupes.
+    \end{enumerate}
+\end{example}
+
+\begin{property}
+    Soit $\varphi: G \to H$ un morphisme de groupes. Alors :
+    \begin{enumerate}
+        \item $\varphi$ est injectif $\iff$ $\ker(\varphi) = \varphi^-1(\{1_H\})= \{ 1_G \}$.
+        \item $\varphi$ est surjectif $\iff$ $\Imf(\varphi) = H$.
+        \item $\varphi$ est un isomorphisme $\iff$ $\varphi$ est bijectif.
+    \end{enumerate}
+\end{property}
+
+\begin{property}
+    Soit $\varphi : G \to H$ un isomorphisme. Alors $\forall x \in G, \ord(x) = \ord(\varphi(x))$.
+\end{property}
+
+\begin{proof}
+    On a $\langle \varphi(x) \rangle = \{ \varphi(x)^n, n \in \Z \} = \{ \varphi(x^n), n \in \Z \} = \varphi(\langle x \rangle)$. Comme $\varphi$ est bijective, on a $|\langle x \rangle| = |\langle \varphi(x) \rangle|$, donc $\ord(x) = |\langle x \rangle| = |\langle \varphi(x) \rangle| = \ord(\varphi(x))$.
+\end{proof}
+
+% à revoir pcq g pa suivi 💀
+
+\begin{example}
+    Soit $g \in G$, $\varphi_g : \Z \to G$ définie par $k \mapsto g^k$ est un morphisme de groupes.
+
+    Le noyau $\ker(\varphi_g) = \{ k \in \Z, g^k = 1_G \}$ est un sous-groupe de $(\Z,+)$, donc $\ker(\varphi_g) = n \Z$ pour un certain $n \in \N$. L'image $\Imf(\varphi_g) = \varphi_g(\Z) = \langle g \rangle$ est un sous-groupe de $G$.
+\end{example}
+
+\begin{theorem}
+    Soit $(G,\cdot)$ un groupe et $g \in G$. Alors $\ord(g) = +\infty \iff \varphi_g$ est injectif et $\ord(g) = n \in \N^* \iff \ker(\varphi_g) = n \Z$.
+\end{theorem}
+
+\begin{proof}
+    On sait que $\ker(\varphi_g)$ est un sous-groupe de $(\Z,+)$, donc $\ker(\varphi_g) = n_0 \Z$ pour un certain $n_0 \in \N$. Si $\varphi_g$ est injectif, alors $\ker(\varphi_g) = \{ 0 \} = 0 \Z$, donc $n_0 = 0$. On a donc $\forall k \in \N^*, g^k \neq 1_G$, et $\forall i \ne j, g^i \neq g^j$, alors $\langle g \rangle$ est infini et donc $\ord(g) = +\infty$.
+\end{proof}
+
+% à revoir
 
 \end{document}

@@ -76,6 +76,7 @@
                 Mat: "\\operatorname{Mat}",
                 Tr: "\\operatorname{Tr}",
                 Com: "\\operatorname{Com}",
+                ord: "\\operatorname{o}",
                 ona: "\\text{ On a }",
                 avec: "\\text{ avec }",
                 donc: "\\text{ donc }",
@@ -770,7 +771,7 @@ footer.swiss-footer {
             <h3>Auteur</h3>
             <p>Samy Youssoufine</p>
             <h3>Dernière mise à jour</h3>
-            <p>6 septembre 2026</p>
+            <p>7 septembre 2026</p>
         </div>
         <div class="meta-group">
             <h3>Dépôt principal</h3>
@@ -796,12 +797,752 @@ footer.swiss-footer {
     
 <nav class="toc-box" aria-label="Table des matières">
     <h2>Table des matières</h2>
-    <ol><li><a href="#not-started-yet-lol"><strong>not started yet lol</strong></a></li>
+    <ol><li><a href="#structure-de-groupe"><strong>Structure de groupe</strong></a></li>
     </ol>
 </nav>
 
     <main id="main-content" role="main">
-<h1 id="not-started-yet-lol">not started yet lol</h1>
+<h1 id="structure-de-groupe">Structure de groupe</h1>
+
+<div class="env-card env-definition" id="definition-1" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span class="math inline">\((G, *)\)</span> est dit groupe si :</p>
+<ul>
+<li><p><span class="math inline">\(G\)</span> possède un élément neutre
+<span class="math inline">\(1_G\)</span> pour l’opération <span
+class="math inline">\(*\)</span>, c’est-à-dire que pour tout <span
+class="math inline">\(x \in G\)</span>, on a <span
+class="math inline">\(1_G * x = x * 1_G = x\)</span>.</p></li>
+<li><p>Pour tout <span class="math inline">\(x,y,z \in G\)</span>, on a
+<span class="math inline">\((x * y) * z = x * (y * z)\)</span>
+(associativité).</p></li>
+<li><p><span class="math inline">\(G\)</span> est stable par passage à
+la matrice, c’est-à-dire que pour tout <span class="math inline">\(x \in
+G\)</span>, il existe un élément <span class="math inline">\(x^{-1} \in
+G\)</span> tel que <span class="math inline">\(x * x^{-1} = x^{-1} * x =
+1_G\)</span>.</p></li>
+</ul>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-1" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ul>
+<li><p><strong>Exemples triviaux :</strong> <span
+class="math inline">\((\Z,+), (\Q,+), (\R,+), (\C,+), (\R^*,\times),
+(\C^*,\times)\)</span>.</p></li>
+<li><p><span class="math inline">\((\R^I,+)\)</span> et <span
+class="math inline">\((\C^I,+)\)</span> sont des groupes pour tout
+intervalle <span class="math inline">\(I \subset \R\)</span>.</p></li>
+<li><p><span class="math inline">\((\GL_n(\R),\cdot)\)</span> et <span
+class="math inline">\((\GL_n(\C),\cdot)\)</span> sont des groupes pour
+tout <span class="math inline">\(n \in \N^*\)</span>.</p></li>
+<li><p><span class="math inline">\((\R^\N, +)\)</span> et <span
+class="math inline">\((\C^\N, +)\)</span> sont des groupes.</p></li>
+<li><p><span class="math inline">\((S_n, \circ)\)</span> est un groupe
+pour tout <span class="math inline">\(n \in \N^*\)</span>.</p></li>
+</ul>
+    </div>
+</div>
+<p>Élaborons encore plus le dernier exemple sur les permutations.
+Considérons le cas particulier de <span
+class="math inline">\(S_3\)</span>. <span class="math display">\[S_3 =
+\{ \text{id}, (1\ 2), (1\ 3), (2\ 3), (1\ 2\ 3), (1\ 3\ 2) \}\]</span>
+L’inverse de la transposition <span class="math inline">\((1\
+2)\)</span> est elle-même, en effet : <span class="math display">\[(1\
+2) \circ (1\ 2) = \text{id}\]</span> On remarque qu’il en est de même
+pour les autres transpositions. Pour les cycles, on a : <span
+class="math display">\[(1\ 2\ 3) \circ (1\ 3\ 2) =
+\text{id}\]</span></p>
+
+<div class="env-card env-methodbox" id="methodbox-24" style="--env-color:#C026D3;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-magic" aria-hidden="true"></i>
+            <span>Méthode</span>
+            
+        </div>
+        <span class="env-title">(Règles de calcul)</span>
+    </div>
+    <div class="env-body">
+<ol>
+<li><p><strong>Avec la notation multiplicative :</strong></p>
+<ol>
+<li><p>Pour <span class="math inline">\((G,\cdot)\)</span> un groupe et
+<span class="math inline">\(n \in \N^*\)</span>, on a : <span
+class="math inline">\(a^n = \underbrace{a \cdot a \cdots a}_{n \text{
+fois}}\)</span> et <span class="math inline">\(a^{-n} =
+(a^{-1})^n\)</span>.</p></li>
+<li><p>Par convention, <span class="math inline">\(a^0 =
+1_G\)</span>.</p></li>
+<li><p><span class="math inline">\(\forall a,b \in G, (ab)^{-1} = b^{-1}
+a^{-1}\)</span>.</p></li>
+<li><p><span class="math inline">\(\forall n,m \in \Z, a^{n+m} = a^n
+a^m\)</span>.</p></li>
+</ol></li>
+<li><p><strong>Avec la notation additive :</strong></p>
+<ul>
+<li><p>Pour <span class="math inline">\((G,+)\)</span> un groupe et
+<span class="math inline">\(n \in \N^*\)</span>, on a : <span
+class="math inline">\(n a = \underbrace{a + a + \cdots + a}_{n \text{
+fois}}\)</span> et <span class="math inline">\(-n a = (-a) + (-a) +
+\cdots + (-a)\)</span>.</p></li>
+<li><p><span class="math inline">\(\forall n,m \in \Z, n a + m a = (n+m)
+a\)</span>.</p></li>
+<li><p><span class="math inline">\(\forall n,m \in \Z, n (m a) = (nm) a
+= m (n a)\)</span>.</p></li>
+</ul></li>
+<li><p>Les égalités <span class="math inline">\((ab)^n = a^n
+b^n\)</span> et <span class="math inline">\(n(a+b) = n a + n b\)</span>
+ne sont pas valables en général, mais uniquement si les lois sont
+commutatives (groupes abéliens).</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-2" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 2</span>
+            
+        </div>
+        <span class="env-title">(Sous-groupe)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G, *)\)</span> un groupe et <span
+class="math inline">\(H \subset G\)</span>. On dit que <span
+class="math inline">\(H\)</span> est un sous-groupe de <span
+class="math inline">\(G\)</span> si :</p>
+<ul>
+<li><p><span class="math inline">\(H\)</span> est non vide.</p></li>
+<li><p><span class="math inline">\(H\)</span> est stable par l’opération
+<span class="math inline">\(*\)</span>, c’est-à-dire que pour tout <span
+class="math inline">\(x,y \in H\)</span>, on a <span
+class="math inline">\(x * y \in H\)</span>.</p></li>
+<li><p><span class="math inline">\(H\)</span> est stable par passage à
+l’inverse, c’est-à-dire que pour tout <span class="math inline">\(x \in
+H\)</span>, on a <span class="math inline">\(x^{-1} \in
+H\)</span>.</p></li>
+</ul>
+    </div>
+</div>
+<p>Généralement, on utilise la notion de sous-groupe pour montrer qu’un
+ensemble est un groupe, ce qui est plus simple que de vérifier les trois
+axiomes de la définition d’un groupe. On utilise aussi souvent la
+proposition ci-dessous.</p>
+
+<div class="env-card env-property" id="property-1" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G, *)\)</span> un groupe et <span
+class="math inline">\(H \subset G\)</span> tel que <span
+class="math inline">\(H \neq \emptyset\)</span>.</p>
+<p><span class="math inline">\(H\)</span> est un sous-groupe de <span
+class="math inline">\(G\)</span> <span
+class="math inline">\(\iff\)</span> pour tout <span
+class="math inline">\(x,y \in H\)</span>, on a <span
+class="math inline">\(x * y^{-1} \in H\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-2" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ul>
+<li><p><span class="math inline">\(\R\)</span> est un sous-groupe de
+<span class="math inline">\((\C,+)\)</span>.</p></li>
+<li><p><span class="math inline">\(\R^*\)</span> est un sous-groupe de
+<span class="math inline">\((\C^*,\times)\)</span>.</p></li>
+<li><p>Posons <span class="math inline">\(\Uset = \{ z \in \C^*, |z| = 1
+\}\)</span>. <span class="math inline">\(\Uset\)</span> est un
+sous-groupe de <span
+class="math inline">\((\C^*,\times)\)</span>.</p></li>
+</ul>
+    </div>
+</div>
+
+<div class="env-card env-property" id="property-2" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,*)\)</span> un groupe. Soit <span
+class="math inline">\(H\)</span> et <span
+class="math inline">\(K\)</span> deux sous-groupes de <span
+class="math inline">\(G\)</span>.</p>
+<ol>
+<li><p><span class="math inline">\(H \cap K\)</span> est un sous-groupe
+de <span class="math inline">\(G\)</span>.</p></li>
+<li><p><span class="math inline">\(H \cup K\)</span> est un sous-groupe
+de <span class="math inline">\(G\)</span> <span
+class="math inline">\(\iff\)</span> <span class="math inline">\(H
+\subset K\)</span> ou <span class="math inline">\(K \subset
+H\)</span>.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>Montrons que <span class="math inline">\(H \cap K\)</span> est un
+sous-groupe de <span class="math inline">\(G\)</span>. Soient <span
+class="math inline">\(x,y \in H \cap K\)</span>. On a bien <span
+class="math inline">\(x * y^{-1} \in H\)</span> et <span
+class="math inline">\(x * y^{-1} \in K\)</span> comme <span
+class="math inline">\(H\)</span> et <span
+class="math inline">\(K\)</span> sont des sous-groupes de <span
+class="math inline">\(G\)</span>. Donc <span class="math inline">\(x *
+y^{-1} \in H \cap K\)</span>. Ainsi, <span class="math inline">\(H \cap
+K\)</span> est un sous-groupe de <span
+class="math inline">\(G\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>Montrons que <span class="math inline">\(H \cup K\)</span> est un
+sous-groupe de <span class="math inline">\(G\)</span> <span
+class="math inline">\(\iff\)</span> <span class="math inline">\(H
+\subset K\)</span> ou <span class="math inline">\(K \subset H\)</span>.
+Dans le sens indirect (<span class="math inline">\(\impliedby\)</span>),
+la démonstration est triviale.</p>
+<p>Dans le sens direct (<span class="math inline">\(\implies\)</span>),
+on suppose par absurde que <span class="math inline">\(H \not\subset
+K\)</span> et <span class="math inline">\(K \not\subset H\)</span>.
+Alors il existe <span class="math inline">\(x \in H\)</span> tel que
+<span class="math inline">\(x \notin K\)</span> et il existe <span
+class="math inline">\(y \in K\)</span> tel que <span
+class="math inline">\(y \notin H\)</span>. Par contre, on a toujours
+<span class="math inline">\(x,y \in H \cup K\)</span>, donc <span
+class="math inline">\(x * y \in H \cup K\)</span>, ce qui veut dire que
+<span class="math inline">\(xy \in H\)</span> ou <span
+class="math inline">\(xy \in K\)</span>.</p>
+<p>Si <span class="math inline">\(xy \in H\)</span>, alors <span
+class="math inline">\(y = x^{-1} * (xy) \in H\)</span>, ce qui est une
+contradiction. Si <span class="math inline">\(xy \in K\)</span>, alors
+<span class="math inline">\(x = (xy) * y^{-1} \in K\)</span>, ce qui est
+encore une contradiction. Ainsi, on a bien montré que <span
+class="math inline">\(H \cup K\)</span> est un sous-groupe de <span
+class="math inline">\(G\)</span> <span
+class="math inline">\(\iff\)</span> <span class="math inline">\(H
+\subset K\)</span> ou <span class="math inline">\(K \subset
+H\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-property" id="property-3" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 3</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(I\)</span> un ensemble dénombrable
+(éventuellement infini) et soit <span class="math inline">\((H)_{i \in
+I}\)</span> une famille de sous-groupes d’un groupe <span
+class="math inline">\((G,*)\)</span>. Alors <span
+class="math inline">\(\bigcap_{i \in I} H_i\)</span> est un sous-groupe
+de <span class="math inline">\(G\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-3" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 3</span>
+            
+        </div>
+        <span class="env-title">(Ordre d'un groupe)</span>
+    </div>
+    <div class="env-body">
+<p>L’ordre d’un groupe <span class="math inline">\(G\)</span>, noté
+<span class="math inline">\(|G|\)</span>, est le cardinal de l’ensemble
+<span class="math inline">\(G\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-theorem" id="theorem-1" style="--env-color:#4F46E5;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-star" aria-hidden="true"></i>
+            <span>Théorème 1</span>
+            
+        </div>
+        <span class="env-title">(Théorème de Lagrange)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,*)\)</span> un groupe fini et
+soit <span class="math inline">\(H\)</span> un sous-groupe de <span
+class="math inline">\(G\)</span>. Alors <span
+class="math inline">\(|H|\)</span> divise <span
+class="math inline">\(|G|\)</span>.</p>
+<p>En posant <span class="math inline">\(|G| = n\)</span> et <span
+class="math inline">\(|H| = m\)</span>, on a <span
+class="math inline">\(m \mid n\)</span> et donc <span
+class="math inline">\(n = m \cdot k\)</span> pour un certain entier
+<span class="math inline">\(k \in \N^*\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-4" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 4</span>
+            
+        </div>
+        <span class="env-title">(Sous-groupe engendré par un élément)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,\cdot)\)</span> un groupe.</p>
+<ul>
+<li><p><span class="math inline">\(G\)</span> est dit
+<strong>monogène</strong> s’il existe un élément <span
+class="math inline">\(g \in G\)</span> tel que <span
+class="math inline">\(G = \{ g^n, n \in \Z \}\)</span>. On note alors
+<span class="math inline">\(G = \langle g \rangle\)</span> et on dit que
+<span class="math inline">\(g\)</span> est un générateur de <span
+class="math inline">\(G\)</span> (en notation additive, on écrit <span
+class="math inline">\(G = \langle g \rangle = \{ n g, n \in \Z
+\}\)</span>).</p></li>
+<li><p><span class="math inline">\(G\)</span> est un groupe cyclique si
+<span class="math inline">\(G\)</span> est monogène et fini.</p></li>
+</ul>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-3" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 3</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ul>
+<li><p><span class="math inline">\(\Z = \langle 1 \rangle = \langle -1
+\rangle\)</span> est un groupe monogène.</p></li>
+<li><p><span class="math inline">\(\Uset_n = \langle e^{2 i \pi / n}
+\rangle\)</span> est un groupe cyclique.</p></li>
+<li><p><span class="math inline">\(\Z/n\Z = \langle \bar 1
+\rangle\)</span> est un groupe cyclique.</p></li>
+</ul>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-5" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 5</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>On appelle le groupe monogène <span class="math inline">\(\langle g
+\rangle\)</span> le groupe engendré par le singleton <span
+class="math inline">\(g\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-property" id="property-4" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 4</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Il s’agit du plus petit groupe contenant <span
+class="math inline">\(g\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-4" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 4</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Dans <span class="math inline">\((\Z/6\Z)\)</span>, on a :</p>
+<ul>
+<li><p><span class="math inline">\(\langle \bar 1 \rangle = \{ \bar 1,
+\bar 2, \bar 3, \bar 4, \bar 5, \bar 0 \} = \Z/6\Z\)</span>.</p></li>
+<li><p><span class="math inline">\(\langle \bar 2 \rangle = \{ \bar 2,
+\bar 4, \bar 0 \}\)</span>.</p></li>
+<li><p><span class="math inline">\(\langle \bar 3 \rangle = \{ \bar 3,
+\bar 0 \}\)</span>.</p></li>
+<li><p><span class="math inline">\(\langle \bar 4 \rangle = \{ \bar 4,
+\bar 2, \bar 0 \}\)</span>.</p></li>
+<li><p><span class="math inline">\(\langle \bar 5 \rangle = \{ \bar 5,
+\bar 4, \bar 3, \bar 2, \bar 1, \bar 0 \} = \Z/6\Z\)</span>.</p></li>
+</ul>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-6" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 6</span>
+            
+        </div>
+        <span class="env-title">(Ordre d'un élément)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,*)\)</span> un groupe et <span
+class="math inline">\(g \in G\)</span>. L’ordre de <span
+class="math inline">\(g\)</span>, noté <span
+class="math inline">\(\ord(g)\)</span> est défini par <span
+class="math inline">\(\ord(g) = |\langle g \rangle|\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-16" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ul>
+<li><p>L’ordre de l’élément est 1 si et seulement si c’est l’élément
+neutre : <span class="math inline">\(\ord(x) = 1 \iff x =
+1_G\)</span>.</p></li>
+<li><p><span class="math inline">\(\ord(x) = |\langle x \rangle| =
+|\langle x^{-1} \rangle| = \ord(x^{-1})\)</span>. En effet, <span
+class="math inline">\(\langle x \rangle = \{ x^n, n \in \Z \} = \{
+(x^{-1})^{-n}, n \in \Z \} = \langle x^{-1} \rangle\)</span>.</p></li>
+</ul>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-5" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 5</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Dans <span class="math inline">\((\Z/6\Z)\)</span>, on a :</p>
+<ul>
+<li><p><span class="math inline">\(\ord(\bar 0) = 1\)</span>.</p></li>
+<li><p><span class="math inline">\(\ord(\bar 1) = 6\)</span>.</p></li>
+<li><p><span class="math inline">\(\ord(\bar 2) = 3\)</span>.</p></li>
+<li><p><span class="math inline">\(\ord(\bar 3) = 2\)</span>.</p></li>
+<li><p><span class="math inline">\(\ord(\bar 4) = 3\)</span>.</p></li>
+<li><p><span class="math inline">\(\ord(\bar 5) = 6\)</span>.</p></li>
+</ul>
+<p>L’ordre d’une transposition est 2 et l’ordre d’un cycle de longueur
+<span class="math inline">\(k\)</span> est <span
+class="math inline">\(k\)</span> (à démontrer en tant qu’exercice).</p>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-7" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 7</span>
+            
+        </div>
+        <span class="env-title">(Morphisme de groupes)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,*)\)</span> et <span
+class="math inline">\((H,\cdot)\)</span> deux groupes. Une application
+<span class="math inline">\(\varphi: G \to H\)</span> est un morphisme
+de groupes si pour tous <span class="math inline">\(x, y \in G\)</span>,
+on a <span class="math inline">\(\varphi(x * y) = \varphi(x) \cdot
+\varphi(y)\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-6" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 6</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ol>
+<li><p>L’application <span class="math inline">\(\mathrm{exp} : (\R,+)
+\to (\R^*,\times)\)</span> définie par <span
+class="math inline">\(\mathrm{exp}(x) = e^x\)</span> est un morphisme de
+groupes.</p></li>
+<li><p>La signature <span class="math inline">\(\eps : (S_n, \circ) \to
+(\{ -1, 1 \}, \times)\)</span> est un morphisme de groupes.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-property" id="property-5" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 5</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(\varphi: G \to H\)</span> un
+morphisme de groupes. Alors :</p>
+<ol>
+<li><p><span class="math inline">\(\varphi\)</span> est injectif <span
+class="math inline">\(\iff\)</span> <span
+class="math inline">\(\ker(\varphi) = \varphi^-1(\{1_H\})= \{ 1_G
+\}\)</span>.</p></li>
+<li><p><span class="math inline">\(\varphi\)</span> est surjectif <span
+class="math inline">\(\iff\)</span> <span
+class="math inline">\(\Imf(\varphi) = H\)</span>.</p></li>
+<li><p><span class="math inline">\(\varphi\)</span> est un isomorphisme
+<span class="math inline">\(\iff\)</span> <span
+class="math inline">\(\varphi\)</span> est bijectif.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-property" id="property-6" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 6</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(\varphi : G \to H\)</span> un
+isomorphisme. Alors <span class="math inline">\(\forall x \in G, \ord(x)
+= \ord(\varphi(x))\)</span>.</p>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>On a <span class="math inline">\(\langle \varphi(x) \rangle = \{
+\varphi(x)^n, n \in \Z \} = \{ \varphi(x^n), n \in \Z \} =
+\varphi(\langle x \rangle)\)</span>. Comme <span
+class="math inline">\(\varphi\)</span> est bijective, on a <span
+class="math inline">\(|\langle x \rangle| = |\langle \varphi(x)
+\rangle|\)</span>, donc <span class="math inline">\(\ord(x) = |\langle x
+\rangle| = |\langle \varphi(x) \rangle| = \ord(\varphi(x))\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-example" id="example-7" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 7</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(g \in G\)</span>, <span
+class="math inline">\(\varphi_g : \Z \to G\)</span> définie par <span
+class="math inline">\(k \mapsto g^k\)</span> est un morphisme de
+groupes.</p>
+<p>Le noyau <span class="math inline">\(\ker(\varphi_g) = \{ k \in \Z,
+g^k = 1_G \}\)</span> est un sous-groupe de <span
+class="math inline">\((\Z,+)\)</span>, donc <span
+class="math inline">\(\ker(\varphi_g) = n \Z\)</span> pour un certain
+<span class="math inline">\(n \in \N\)</span>. L’image <span
+class="math inline">\(\Imf(\varphi_g) = \varphi_g(\Z) = \langle g
+\rangle\)</span> est un sous-groupe de <span
+class="math inline">\(G\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-theorem" id="theorem-2" style="--env-color:#4F46E5;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-star" aria-hidden="true"></i>
+            <span>Théorème 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\((G,\cdot)\)</span> un groupe et
+<span class="math inline">\(g \in G\)</span>. Alors <span
+class="math inline">\(\ord(g) = +\infty \iff \varphi_g\)</span> est
+injectif et <span class="math inline">\(\ord(g) = n \in \N^* \iff
+\ker(\varphi_g) = n \Z\)</span>.</p>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>On sait que <span class="math inline">\(\ker(\varphi_g)\)</span> est
+un sous-groupe de <span class="math inline">\((\Z,+)\)</span>, donc
+<span class="math inline">\(\ker(\varphi_g) = n_0 \Z\)</span> pour un
+certain <span class="math inline">\(n_0 \in \N\)</span>. Si <span
+class="math inline">\(\varphi_g\)</span> est injectif, alors <span
+class="math inline">\(\ker(\varphi_g) = \{ 0 \} = 0 \Z\)</span>, donc
+<span class="math inline">\(n_0 = 0\)</span>. On a donc <span
+class="math inline">\(\forall k \in \N^*, g^k \neq 1_G\)</span>, et
+<span class="math inline">\(\forall i \ne j, g^i \neq g^j\)</span>,
+alors <span class="math inline">\(\langle g \rangle\)</span> est infini
+et donc <span class="math inline">\(\ord(g) = +\infty\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
 
     </main>
 
