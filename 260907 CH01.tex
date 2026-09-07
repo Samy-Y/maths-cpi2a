@@ -9,15 +9,15 @@
 \PrimarySite{maths2.txt.ma}{https://maths2.txt.ma}
 \MirrorSite{samy-y.github.io/maths-cpi2a}{https://samy-y.github.io/maths-cpi2a}
 
-\wiptrue
+% \wiptrue
 
 \begin{document}
 
 \MakeSwissCover
 
-\tableofcontents
+% \tableofcontents
 
-\chapter{Structure de groupe}
+% \chapter{Structure de groupe}
 
 \begin{definition}
     $(G, *)$ est dit groupe si :
@@ -219,13 +219,22 @@ Généralement, on utilise la notion de sous-groupe pour montrer qu'un ensemble 
 \end{example}
 
 \begin{theorem}
-    Soit $(G,\cdot)$ un groupe et $g \in G$. Alors $\ord(g) = +\infty \iff \varphi_g$ est injectif et $\ord(g) = n \in \N^* \iff \ker(\varphi_g) = n \Z$.
+    Soit $(G,\cdot)$ un groupe et $g \in G$.
+    
+    Alors $\ord(g) = +\infty \iff \varphi_g$ est injectif et $\ord(g) = n \in \N^* \iff \ker(\varphi_g) = n \Z$.
 \end{theorem}
 
 \begin{proof}
-    On sait que $\ker(\varphi_g)$ est un sous-groupe de $(\Z,+)$, donc $\ker(\varphi_g) = n_0 \Z$ pour un certain $n_0 \in \N$. Si $\varphi_g$ est injectif, alors $\ker(\varphi_g) = \{ 0 \} = 0 \Z$, donc $n_0 = 0$. On a donc $\forall k \in \N^*, g^k \neq 1_G$, et $\forall i \ne j, g^i \neq g^j$, alors $\langle g \rangle$ est infini et donc $\ord(g) = +\infty$.
+    Comme $\ker(\varphi_g)$ est un sous-groupe de $(\Z,+)$, il existe un unique $n_0 \in \N$ tel que $\ker(\varphi_g) = n_0 \Z$.
 
-    Dans le cas inverse où $\ord(g) < +\infty$, on a $\varphi_g$ est non-injectif et donc $\ker(\varphi_g) = n_0 \Z$ pour un certain $n_0 \in \N^*$. On a $n_0 \ge 1$, et $\Imf(\varphi_g) = \langle g \rangle$ est fini, donc $\ord(g) = |\langle g \rangle| = n_0$.
+    \begin{itemize}
+        \item Si $n_0 = 0$, alors $\ker(\varphi_g) = \{0\}$, ce qui équivaut à l'injectivité de $\varphi_g$. L'application étant injective, les puissances $(g^k)_{k \in \Z}$ sont deux à deux distinctes, donc $|\langle g \rangle| = +\infty$, c'est-à-dire $\ord(g) = +\infty$.
+        
+        \item Si $n_0 \in \N^*$, la division euclidienne par $n_0$ montre que $\langle g \rangle = \{g^0, g^1, \dots, g^{n_0-1}\}$ avec des éléments deux à deux distincts, donc $|\langle g \rangle| = n_0$. Par unicité du générateur positif d'un sous-groupe de $\Z$, on a pour tout $n \in \N^*$ :
+        \[
+        \ord(g) = n \iff n_0 = n \iff \ker(\varphi_g) = n\Z.
+        \]
+    \end{itemize}
 \end{proof}
 
 % à revoir et recopier
@@ -246,10 +255,8 @@ Pour récapituler, pour un ordre infini, on a :
 \end{align*}
 
 \begin{remark}
-    
+    Si, pour un élément $x \in G$, l'ordre de $x$ est fini $\ord(x) < +\infty$, alors $\ker(\varphi_x) = \ord(x) \Z$ et $\forall k \in \Z, x^k = 1_G \iff \ord(x) \mid k$.
 \end{remark}
-
-% à recopier
 
 \begin{exercise}
     Posons $\varphi_x : \Z \to \langle x \rangle$ définie par $k \mapsto x^k$.
@@ -258,6 +265,7 @@ Pour récapituler, pour un ordre infini, on a :
 \end{exercise}
 
 \begin{corollary}
+    \label{cor:ordre}
     Pour $(G,\cdot)$ un groupe et $x \in G$, les propriétés suivantes sont équivalentes :
     \begin{enumerate}
         \item $x$ est d'ordre $n$
@@ -266,10 +274,7 @@ Pour récapituler, pour un ordre infini, on a :
     \end{enumerate}
 \end{corollary}
 
-% à recopier
-
-\begin{proof}
-\end{proof}
+Il est recommandé de bien assimiler la preuve du théorème de Lagrange et la démonstration du corollaire \ref{cor:ordre}.
 
 \begin{exercise}
     Soit $a,b \in G$ d'ordres finis $n,m$ respectivement avec $G$ un groupe abélien.
