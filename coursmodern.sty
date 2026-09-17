@@ -249,8 +249,8 @@
     \node[anchor=east, inner sep=0pt, xshift=0mm] at (0, 0.3) {%
       \begin{tikzpicture}
         \fill[todoColor, rounded corners=1.5pt] (0,0) rectangle (18mm, 0.45);
-        \node[text=white, font=\sffamily\bfseries\fontsize{6}{7}\selectfont, inner sep=0pt] at (9mm, 0.225) {%
-          \faIcon{pen-square}\hspace{1.5mm}À RECOPIER%
+        \node[text=white, font=\sffamily\bfseries\fontsize{6}{7}\selectfont, inner sep=0pt] at (16.5mm, 0.225) {%
+          =\faIcon{pen-square}\hspace{1.5mm}À RECOPIER%
         };
       \end{tikzpicture}%
     };
@@ -303,7 +303,8 @@
     titlerule=0pt,
     fonttitle=\normalfont,
     attach boxed title to top left={yshift=0pt, xshift=0pt},
-    boxed title style={boxrule=0pt, colback=white, left=0pt, right=0pt, top=0pt, bottom=0pt}
+    boxed title style={boxrule=0pt, colback=white, left=0pt, right=0pt, top=0pt, bottom=0pt},
+    before upper={\setlength{\parskip}{1em}}
   }
 }
 

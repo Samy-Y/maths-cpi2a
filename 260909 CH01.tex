@@ -1,0 +1,367 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{coursmodern}
+
+\CourseTitle{Algèbre générale}
+\CourseSubtitle{EMINES --- CPI2A (Class2030)}
+\ChapterNumber{01}
+\CourseAuthor{Samy Youssoufine}
+\LastUpdate{\today}
+\PrimarySite{maths2.txt.ma}{https://maths2.txt.ma}
+\MirrorSite{samy-y.github.io/maths-cpi2a}{https://samy-y.github.io/maths-cpi2a}
+
+\wiptrue
+
+\begin{document}
+
+\MakeSwissCover
+
+\tableofcontents
+
+\chapter{Algèbre engendrée par un élément} 
+
+\begin{definition}[Algèbre]
+    $(E,+,\cdot,\times)$ est dite une $\Kset$-algèbre si :
+    \begin{enumerate}
+        \item $(E,+,\cdot)$ est un $\Kset$-espace vectoriel.
+        \item $(E,+,\times)$ est un anneau.
+        \item L'application ``produit'' $f : E \times E \to E$ définie par $(x,y) \mapsto xy$ est bilinéaire. Après calculs, on obtient que pour tout $x,y \in E$ et $\lambda \in \Kset$ :
+        \begin{enumerate}
+            \item $(\lambda x)y = \lambda(xy)$
+            \item $x(\lambda y) = \lambda(xy)$
+        \end{enumerate}
+    \end{enumerate}
+    Si l'anneau $(E,+,\times)$ est commutatif (resp. intègre), alors l'algèbre $(E,+,\cdot,\times)$ est dite commutative (resp. intègre).
+\end{definition}
+
+\begin{attention}
+    Un anneau est par définition unitaire.
+\end{attention}
+
+\begin{remark}[Justification de la simplification]
+    Par définition, le produit est bilinéaire si et seulement si pour tous $x, y \in E$, les applications partielles $L_x : z \mapsto xz$ et $R_y : z \mapsto zy$ sont linéaires.
+    
+    Or, l'additivité de ces applications partielles est déjà garantie par la structure d'anneau de $(E,+,\times)$ via la distributivité :
+    \[
+        (x_1 + x_2)y = x_1 y + x_2 y \quad \text{et} \quad x(y_1 + y_2) = xy_1 + xy_2
+    \]
+    Une application additive ($\forall x,y \in E, \varphi(x+y) = \varphi(x) + \varphi(y)$) entre espaces vectoriels étant linéaire si et seulement si elle est homogène ($\forall \lambda \in \Kset, \, \varphi(\lambda z) = \lambda \varphi(z)$), la bilinéarité se ramène strictement aux deux conditions d'homogénéité :
+    \[
+        \forall (x,y) \in E^2, \quad \forall \lambda \in \Kset, \quad (\lambda x)y = \lambda(xy) = x(\lambda y)
+    \]
+\end{remark}
+
+\begin{methodbox}[Détails des calculs]
+    On rappelle que la bilinéarité de $f$ signifie que pour tout $x,x',y,y' \in E$ et pour tout $\lambda \in \Kset$ :
+    \begin{enumerate}
+        \item $f(x+x',y) = f(x,y) + f(x',y)$
+        \item $f(x,y+y') = f(x,y) + f(x,y')$
+    \end{enumerate}
+    En utilisant les propriétés de l'anneau $(E,+,\times)$, on peut montrer que ces deux conditions sont équivalentes à celles mentionnés dans la définition.
+\end{methodbox}
+\todo
+
+% REVOIR calculs
+
+\begin{example}
+    \begin{enumerate}
+        \item \textbf{Algèbre des matrices} : $(\mathcal M_n(\Kset),+,\cdot,\times)$ est une $\Kset$-algèbre non commutative et non intègre si $n \geq 2$. En effet, $E_{1,1} \times E_{1,2} = E_{1,2}$ mais $E_{1,2} \times E_{1,1} = 0$.
+        \item \textbf{Algèbre des endomorphismes} : $(\mathcal L(E),+,\cdot,\circ)$ est une $\Kset$-algèbre non commutative et non intègre si $\dim E \geq 2$. En effet, $\mathcal L(E)$ est isomorphe à $\mathcal M_n(\Kset)$ avec $n = \dim E$. Son élément unité est l'application identité $\Id_E$.
+        \item \textbf{Algèbre des polynômes} : $(\Kset[X],+,\cdot,\times)$ est une $\Kset$-algèbre commutative et intègre. Son élément unité est le polynôme constant $1 \in \Kset[X]$. Utiliser la loi rond $\circ$ au lieu de $\times$ n'est pas possible parce que la distributivité n'est pas conservée ; les polynômes ne sont pas des applications linéaires.
+        \item \textbf{Algèbre des applications de $I$ vers $\R$} : $(\R^I, +,\cdot,\times)$ est une $\Kset$-algèbre avec $x+y : t \mapsto x(t) + y(t)$ et $xy : t \mapsto x(t)y(t)$. Son élément unité est l'application $1_{\R^I} : t \mapsto 1$ de $I \to \R$. Il s'agit d'une algèbre commutative mais non intègre (même en se restreignant à des applications continues !). En effet, en posant $x(t) = t + |t|$ et $y(t) = t - |t|$ (non nulles), on trouve que $xy = t^2 - |t|^2 = 0$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Sous-algèbre]
+    Soit $E$ une $\Kset$-algèbre.
+
+    $S$ est dite \textbf{sous-algèbre} de $E$ si $S$ est un sous-espace vectoriel de $E$ et un sous-anneau de $E$.
+\end{definition}
+
+\begin{property}
+    $S$ est une sous-algèbre de $E$ si et seulement si :
+    \begin{enumerate}
+        \item $1_E \in S$
+        \item $\forall x,y \in S, \forall \lambda \in \Kset, \begin{cases} \lambda x + y \in S \\ xy \in S\end{cases}$  
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    Le sens direct découle immédiatement de la définition d'une sous-algèbre unitaire. Réciproquement, supposons ces conditions vérifiées :
+    \begin{itemize}
+        \item Comme $1_E \in S$, la partie $S$ est non vide. La stabilité par combinaisons linéaires ($\lambda x + y \in S$) en fait donc un sous-espace vectoriel de $(E,+,\cdot)$.
+        \item Cette structure vectorielle garantit déjà la stabilité par soustraction (pour $\lambda = -1$), ce qui assure que $(S,+)$ est un sous-groupe additif. En y ajoutant la stabilité par produit ($xy \in S$) et la présence de l'unité ($1_E \in S$), $S$ est également un sous-anneau de $(E,+,\times)$.
+    \end{itemize}
+    Les propriétés d'associativité et de bilinéarité étant automatiquement conservées par restriction, $S$ hérite de la structure d'algèbre unitaire.
+\end{proof}
+
+\begin{example}
+    $T_n^s(\Kset)$ (l'ensemble des matrices triangulaires supérieures) est une sous-algèbre de $\mathcal M_n(\Kset)$. En effet : $x \in T_n^s(\Kset) \iff \forall i > j, x_{i,j} = 0$. On peut alors retrouver les conditions de caractérisation d'une sous-algèbre :
+    \begin{enumerate}
+        \item $I_n$ est diagonale donc triangulaire supérieure.
+        \item \begin{itemize}
+            \item Si $i > j$, on a $(xy)_{ij} = \sum_{k=1}^n x_{ik}y_{kj}$. Dans le cas où $i \le k$ et $k \le j$, on aura $i \le j$ ce qui est absurde. Donc $\forall k \in [\![1,n]\!]$, on a $i > k$ ou $k > j$, c'est-à-dire $x_{ik} = 0$ ou $y_{kj} = 0$. Par suite, $x_{ik}y_{kj} = 0$ pour tout $k \in [\![1,n]\!]$ et donc $(xy)_{ij} = 0$ pour tout $i > j$.
+            \item La stabilité est vérifiée et donc $xy \in T_n^s(\Kset)$.
+        \end{itemize}
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Morphisme d'algèbres]
+    Soient $E$ et $F$ deux $\Kset$-algèbres. Une application $f : E \to F$ est dite un morphisme d'algèbres si :
+    \begin{enumerate}
+        \item $\forall (x,y) \in E^2,\forall \lambda \in \Kset, f(\lambda x + y) = \lambda f(x) + f(y) \et f(xy) = f(x)f(y)$
+        \item $f(1_E) = 1_F$
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Si $S$ est une sous-algèbre de $E$, alors $u(S)$ est une sous-algèbre de $F$, en particulier pour $S = E$. Alors $\Imf(u) = u(E)$ est une sous-algèbre de $F$. En revanche, ce n'est pas vrai pour le noyau $\Ker(u)$, qui est un sous-espace vectoriel de $E$ mais jamais un sous-anneau parce qu'il ne contient pas l'élément unité $1_E$ (car $f(1_E) = 1_F \neq 0$). Néanmoins, le noyau a une structure d'idéal de $E$ ; il est absorbant car $\forall x \in E, \forall y \in \Ker(u), xy \in \Ker(u)$.
+
+    En résumé :
+    \begin{enumerate}
+        \item $\Imf(u)$ est une sous-algèbre de $F$.
+        \item $\Ker(u)$ est un idéal de $E$. C'est aussi un idéal bilatère de $E$, c'est-à-dire que $E\times \ker(u) \subset \ker(u)$, $\ker(u) \times E \subset \ker(u)$ et $(\ker(u),+)$ est un sous-groupe de $(E,+)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    Soit $E$ une $\Kset$-algèbre, $a \in E$, et $f : \Kset[X] \to E$ l'application définie par $f(P) = P(a)$ avec $P(a) = \sum_{k=1}^n \lambda_k a^k + \lambda_0 \cdot 1_E$. Alors $f$ est un morphisme d'algèbres. En effet, pour tout $P,Q \in \Kset[X]$ et $\lambda \in \Kset$, on a :
+    \begin{enumerate}
+        \item $f(\lambda P + Q) = (\lambda P + Q)(a) = \lambda P(a) + Q(a) = \lambda f(P) + f(Q)$
+        \item $f(PQ) = (PQ)(a) = P(a)Q(a) = f(P)f(Q)$
+        \item $f(1_{\Kset[X]}) = 1_{\Kset[X]}(a) = 1_E$
+    \end{enumerate}
+    En conséquence, $\Imf(f) = \{P(a) \mid P \in \Kset[X]\}$ est une sous-algèbre de $E$ engendrée par l'élément $a$. On la note $\Kset[a]$. Il s'agit aussi de la plus petite sous-algèbre de $E$ contenant $a$.
+\end{example}
+
+\begin{property}
+    $\Kset[a] = \{P(a) \mid P \in \Kset[X]\}$ est la plus petite sous-algèbre de $E$ contenant $a$.
+\end{property}
+
+\begin{proof}
+    L'ensemble $\Kset[a]$ est une sous-algèbre de $E$ (image de $\Kset[X]$ par le morphisme d'évaluation) et contient $a = X(a)$.
+
+    Soit $S$ une sous-algèbre de $E$ contenant $a$. Comme $S$ est un sous-anneau unitaire, $a^0 = 1_E \in S$, puis par stabilité sous le produit, $a^k \in S$ pour tout $k \in \mathbb{N}$. $S$ étant également un sous-espace vectoriel, il est stable par combinaisons linéaires : pour tout $P = \sum_{k=0}^n \lambda_k X^k \in \Kset[X]$, on a $P(a) = \sum_{k=0}^n \lambda_k a^k \in S$. 
+
+    On en déduit l'inclusion $\Kset[a] \subset S$, ce qui établit que $\Kset[a]$ est la plus petite sous-algèbre de $E$ contenant $a$.
+\end{proof}
+
+\begin{example}
+    Soient $E = \mathcal{M}_2(\mathbb{R})$ et $A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$. On pose :
+    \[
+        S = \left\{ \begin{pmatrix} \alpha & \beta \\ \beta & \alpha \end{pmatrix} \;\middle|\; (\alpha, \beta) \in \mathbb{R}^2 \right\} = \operatorname{Vect}\left(I_2, \, \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}\right)
+    \]
+    Montrons que $\mathbb{R}[A] = S$.
+
+    \medskip
+    \textbf{1. Inclusion $\mathbb{R}[A] \subset S$ :}
+    Le polynôme caractéristique de $A$ donne la relation annulatrice :
+    \[
+        A^2 - \operatorname{tr}(A)A + \det(A)I_2 = A^2 - 2A - 3I_2 = 0
+    \]
+    Pour tout $n \in \mathbb{N}$, la division euclidienne de $X^n$ par $P(X) = X^2 - 2X - 3 = (X+1)(X-3)$ s'écrit :
+    \[
+        X^n = Q(X)P(X) + a_n X + b_n
+    \]
+    En évaluant en $X = -1$ et $X = 3$, on obtient :
+    \[
+        \begin{cases}
+            (-1)^n = -a_n + b_n \\
+            3^n = 3a_n + b_n
+        \end{cases}
+        \iff
+        \begin{cases}
+            a_n = \frac{1}{4}\left(3^n - (-1)^n\right) \\
+            b_n = \frac{1}{4}\left(3^n + 3(-1)^n\right)
+        \end{cases}
+    \]
+    Comme $P(A) = 0$, il vient :
+    \[
+        A^n = a_n A + b_n I_2 = \begin{pmatrix} a_n + b_n & 2a_n \\ 2a_n & a_n + b_n \end{pmatrix} \in S
+    \]
+    $S$ étant un sous-espace vectoriel stable par combinaison linéaire, pour tout $Q \in \mathbb{R}[X]$, $Q(A) = \sum \lambda_k A^k \in S$. Donc $\mathbb{R}[A] \subset S$.
+
+    \medskip
+    \textbf{2. Inclusion $S \subset \mathbb{R}[A]$ :}
+    Soit $M = \begin{pmatrix} \alpha & \beta \\ \beta & \alpha \end{pmatrix} \in S$. On cherche $(x,y) \in \mathbb{R}^2$ tel que $M = x I_2 + y A$ :
+    \[
+        \begin{pmatrix} \alpha & \beta \\ \beta & \alpha \end{pmatrix} = \begin{pmatrix} x + y & 2y \\ 2y & x + y \end{pmatrix}
+        \iff 
+        \begin{cases}
+            y = \frac{\beta}{2} \\
+            x = \alpha - \frac{\beta}{2}
+        \end{cases}
+    \]
+    Le système admet toujours une solution, d'où $M \in \operatorname{Vect}(I_2, A) \subset \mathbb{R}[A]$, ce qui donne $S \subset \mathbb{R}[A]$.
+    
+    On conclut que $\mathbb{R}[A] = S$.
+\end{example}
+
+\begin{remark}[Méthode alternative pour $A^n$ via le binôme de Newton]
+    En posant $B = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$, on remarque que $B^2 = I_2$ et $A = I_2 + 2B$. 
+    Comme $I_2$ et $B$ commutent, la formule du binôme assure l'existence de scalaires $(\alpha_n, \beta_n)$ tels que :
+    \[
+        A^n = (I_2 + 2B)^n = \alpha_n I_2 + \beta_n B = \begin{pmatrix} \alpha_n & \beta_n \\ \beta_n & \alpha_n \end{pmatrix} \in S
+    \]
+
+    Dans l'exemple précédent, on peut simplifier les expressions de $\alpha_n$ et $\beta_n$ trouvées. En effet, nous avons seulement utilisé le fait que la matrice $B^2 = I_2$. On peut aussi prendre $B = I_2$ pour que les calculs précédents donnent $A = I_2 + 2I_2 = 3I_2$ et au final obtenir $3^n I_2 = \alpha_n I_2 + \beta_n I_2 = (\alpha_n + \beta_n)I_2$. Par conséquent, on obtient $\alpha_n + \beta_n = 3^n$.
+
+    On pourrait aussi prendre la matrice $B = -I_2$ pour retrouver $B^2 = I_2$ et obtenir $(-1)^n I_2 = \alpha_n I_2 - \beta_n I_2 = (\alpha_n - \beta_n)I_2$. Par conséquent, on obtient $\alpha_n - \beta_n = (-1)^n$. En résolvant le système d'équations obtenu :
+    $$\begin{cases} \alpha_n + \beta_n = 3^n \\ \alpha_n - \beta_n = (-1)^n\end{cases}$$
+
+    On trouve $\alpha_n = \frac{3^n + (-1)^n}{2}$ et $\beta_n = \frac{3^n - (-1)^n}{2}$. Ces expressions peuvent être différentes selon la base $(A,B)$ choisie, mais on retrouve la même expression pour $A^n$.
+\end{remark}
+
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    Un idéal $I$ de $\Kset[X]$ est soit nul soit engendré par un polynôme unitaire $P$ de $\Kset[X]$. En effet, si $I \neq \{0\}$, on peut choisir un polynôme $P \in I$ de degré minimal (via double-inclusion dont un sens est démontré par division euclidienne) pour montrer que $I = P_0 \Kset[X]$.
+\end{customenv}
+
+\begin{property}[Étude de dimension]
+    Soit $a \in E$. L'ensemble $I_a = \{P \in \Kset[X] \mid P(a) = 0\}$ est un idéal de $\Kset[X]$, appelé l'idéal annulateur de $a$. Deux cas disjoints se présentent :
+    \begin{enumerate}
+        \item Si $I_a = \{0\}$, le morphisme d'évaluation induit un isomorphisme $\Kset[X] \simeq \Kset[a]$. La famille $(a^k)_{k \in \mathbb{N}}$ est une base de $\Kset[a]$ et $\dim(\Kset[a]) = \infty$.
+        \item Si $I_a \neq \{0\}$, il existe un unique polynôme unitaire $\pi_a \in \Kset[X]$, appelé polynôme minimal de $a$, tel que :
+        \[
+            I_a = \pi_a \Kset[X], \quad \text{c'est-à-dire} \quad P(a) = 0 \iff \pi_a \mid P
+        \]
+        En posant $d = \deg(\pi_a)$, la famille $(1_E, a, a^2, \dots, a^{d-1})$ est une base de $\Kset[a]$, et $\dim(\Kset[a]) = d$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    Considérons le morphisme d'algèbres $f : \Kset[X] \to \Kset[a]$ défini par $P \mapsto P(a)$, surjectif par définition, de noyau $\ker(f) = I_a$.
+
+    \textbf{1. Cas $I_a = \{0\}$ :}
+    L'application $f$ est injective, donc est un isomorphisme d'espaces vectoriels. L'image de la base canonique $(X^k)_{k \in \mathbb{N}}$ de $\Kset[X]$ par cet isomorphisme est $(f(X^k))_{k \in \mathbb{N}} = (a^k)_{k \in \mathbb{N}}$, qui constitue ainsi une base de $\Kset[a]$. En particulier, $\dim(\Kset[a]) = \infty$.
+
+    \textbf{2. Cas $I_a \neq \{0\}$ :}
+    L'anneau $\Kset[X]$ étant principal, l'idéal non nul $I_a$ admet un unique générateur unitaire noté $\pi_a$, de degré minimal $d = \deg(\pi_a) \ge 1$. Montrons que $\mathcal{B} = (1_E, a, \dots, a^{d-1})$ est une base de $\Kset[a]$ :
+    \begin{itemize}
+        \item \textbf{Liberté :} Soit $(\lambda_0, \dots, \lambda_{d-1}) \in \Kset^d$ tel que $\sum_{k=0}^{d-1} \lambda_k a^k = 0$. Le polynôme $Q = \sum_{k=0}^{d-1} \lambda_k X^k$ vérifie $Q(a) = 0$, donc $Q \in I_a$, d'où $\pi_a \mid Q$. Or, $\deg(Q) \le d-1 < \deg(\pi_a)$, ce qui impose $Q = 0$, et par identification $\lambda_0 = \dots = \lambda_{d-1} = 0$. La famille est libre.
+        \item \textbf{Génération :} Pour tout $x \in \Kset[a]$, il existe $P \in \Kset[X]$ tel que $x = P(a)$. La division euclidienne de $P$ par $\pi_a$ donne $P = Q\pi_a + R$ avec $\deg(R) < d$. Comme $\pi_a(a) = 0$, on en déduit :
+        \[
+            x = P(a) = Q(a)\pi_a(a) + R(a) = R(a) \in \operatorname{Vect}(1_E, a, \dots, a^{d-1})
+        \]
+    \end{itemize}
+    La famille $(1_E, a, \dots, a^{d-1})$ est libre et génératrice, c'est donc une base de $\Kset[a]$, d'où $\dim(\Kset[a]) = d$.
+\end{proof}
+\todo
+
+\begin{example}
+    Soit $A = \begin{pmatrix} 1 & \dots & 1 \\ \vdots & \ddots & \vdots \\ 1 & \dots & 1 \end{pmatrix} \in \mathcal{M}_n(\mathbb{R})$ avec $n \ge 2$.
+    
+    Un calcul direct donne $A^2 = nA$, c'est-à-dire $A^2 - nA = 0$. Le polynôme $P(X) = X(X - n)$ est donc annulateur de $A$, d'où :
+    \[
+        \pi_A \mid X(X - n) \implies \pi_A \in \{1, \, X, \, X - n, \, X(X - n)\}
+    \]
+    On élimine les diviseurs stricts :
+    \begin{itemize}
+        \item $\pi_A \neq 1$ car $1(A) = I_n \neq 0$.
+        \item $\pi_A \neq X$ car $A \neq 0$.
+        \item $\pi_A \neq X - n$ car $A \neq n I_n$ (pour $n \ge 2$).
+    \end{itemize}
+    On en déduit que $\pi_A = X^2 - nX$. Par conséquent, $\deg(\pi_A) = 2$, la famille $(I_n, A)$ forme une base de $\mathbb{R}[A]$ et $\dim(\mathbb{R}[A]) = 2$.
+\end{example}
+
+\begin{exercise}
+    $u \in \mathcal L(E)$ avec $2 \le \dim(E) < \infty$ tel que $\rang(u) = 1$. Montrer que $\Pi_u = X^2 - \Tr(u)X$.
+\end{exercise}
+
+\begin{correction}
+
+\end{correction}
+\todo
+
+\begin{remark}
+    Le degré d'un polynôme minimal $\pi_a$ vaut $1$ si et seulement si la famille $(1_E,a)$ est liée, c'est-à-dire si et seulement si $a$ est un multiple scalaire de l'élément unité $1_E$ (homothétie).
+
+    Dans ce cas, le polynôme minimal est $\pi_a = X - \lambda$ avec $\lambda \in \Kset$ tel que $a = \lambda 1_E$.
+
+    Dans le cas contraire où $a \ne \lambda 1_E$ pour tout $\lambda \in \Kset$, le polynôme minimal $\pi_a$ est de degré $d \ge 2$ et la famille $(1_E, a)$ est libre. On résout alors $a^2 = \lambda_0 1_E + \lambda_1 a$ pour voir si elle admet des solutions pour $\lambda_0, \lambda_1 \in \Kset$. Si c'est le cas, on obtient $\pi_a = X^2 - \lambda_1 X - \lambda_0$ et $\dim(\Kset[a]) = 2$. Sinon, on continue avec $a^3$ et ainsi de suite \textbf{jusqu'à trouver un polynôme annulateur minimal}.
+
+    En effet, il faut trouver le plus petit $d \ge 1$ tel que $a^d \in \Vect(1_E, a, \dots, a^{d-1})$. Le polynôme minimal $\pi_a$ est alors de degré $d$ et la famille $(1_E, a, \dots, a^{d-1})$ est une base de $\Kset[a]$, car $a^d = \sum_{i=0}^{d-1} \lambda_i a^i$ implique $\pi_a = X^d - \sum_{i=0}^{d-1} \lambda_i X^i$.
+\end{remark}
+
+\begin{example}
+    Prenons $E = \mathcal M_3(\R)$.
+
+    Soit $a = \left(\begin{matrix} 2 & -1 & 2 \\ -1 & 2 & -2 \\ 1 & -1 & 3 \end{matrix}\right)$. Calculons $\pi_a$.
+
+    On a $a \ne \lambda I_3$ pour tout $\lambda \in \R$, donc $\deg(\pi_a) \ge 2$. On calcule :
+    \[
+        a^2 = \begin{pmatrix} 7 & -6 & 12 \\ -6 & 7 & -12 \\ 6 & -6 & 13 \end{pmatrix}, \quad
+    \]
+    On cherche $\lambda_0, \lambda_1 \in \R$ tels que $a^2 = \lambda_1 a + \lambda_0 I_3$. En comparant les coefficients, on obtient le système :
+    \[
+        \begin{cases}
+            7 = 2\lambda_1 + \lambda_0 \\
+            -6 = -\lambda_1 \\
+            12 = 2\lambda_1 \\
+            -6 = -\lambda_1 \\
+            7 = 2\lambda_1 + \lambda_0 \\
+            -12 = -2\lambda_1 \\
+            6 = \lambda_1 \\
+            -6 = -\lambda_1 \\
+            13 = 3\lambda_1 + \lambda_0
+        \end{cases}
+    \]
+    Donc $\lambda_1 = 6$ et $\lambda_0 = -5$. Ainsi, $a^2 = 6a - 5I_3$, et le polynôme minimal est $\pi_a(X) = X^2 - 6X + 5$. La dimension de $\R[a]$ est donc $2$, et une base est donnée par $(I_3, a)$.   
+\end{example}
+
+\begin{remark}
+    Si $\Kset$ est un sous-corps de $\mathbb L$, alors on peut considérer que $\mathbb L$ est une $\Kset$-algèbre. En particulier, $\mathbb C$ est une $\R$-algèbre et $\R$ est une $\Q$-algèbre.
+\end{remark}
+
+\begin{exercise}
+    Prenons $E = \R$ une $\Q$-algèbre (ce qui est possible car $\Q$ est un sous-anneau et un sous-espace vectoriel de $\R$)
+
+    Soit $a = \sqrt 2 + \sqrt 3$.
+
+    Montrer que le polynôme minimal $\pi_a$ existe et donner son expression.
+\end{exercise}
+
+\begin{correction}
+    On doit construire un polynôme dont les racines sont $\sqrt 2 + \sqrt 3$ mais à coefficients rationnels. On a :
+    \begin{align*}
+        a = \sqrt2+\sqrt3 &\implies (a-\sqrt2)^2 = 3 \\
+        &\implies a^2 - 2a\sqrt2 + 2 = 3 \\
+        &\implies a^2 - 1 = 2a\sqrt2 \\
+        &\implies (a^2 - 1)^2 = 8a^2 \\
+    \end{align*}
+    On en déduit que le polynôme $P(X) = (X^2 - 1)^2 - 8X^2 = X^4 - 10X^2 + 1$ est annulateur de $a$.
+
+    On a $P \in \Q[X] \setminus \{0\}$ (et il est annulateur), donc $\pi_a$ existe et $\pi_a \mid P$.
+
+    Vérifions pour le cas $\deg \pi_a = 1$. On vérifie si $P$ admet des racines dans $\Q$. Si $\frac pq$ est une racine de $P$ avec $p\wedge q = 1$, alors $p\mid a_0 = 1$ et $q \mid a_4$ (résultat démontré en TD), donc $p \mid 1$ et $q \mid 1$, ce qui implique que $\frac pq = \pm 1$. Or, $P(\pm 1) = 1 - 10 + 1 = -8 \ne 0$, donc $P$ n'admet pas de racines rationnelles. Par conséquent, $\deg \pi_a \ge 2$.
+
+    Si $\pi_a = D_1D_2$ et $\deg D_1 = 3$, alors $D_1$ admet une racine rationnelle $\frac pq$ avec $p\wedge q = 1$. Par le même raisonnement que précédemment, on obtient que $\frac pq = \pm 1$, ce qui est impossible car $P(\pm 1) \ne 0$. Donc $\deg D_1 \ne 3$ et $\deg \pi_a \ne 3$.
+
+    On en déduit que $\deg \pi_a \in \{2,4\}$.
+
+    Supposons par absurde que $\deg \pi_a = 2$. Cela implique que :
+    $$\pi_a(X) = (X-a)(X-b)$$
+    avec $a = \sqrt 2 + \sqrt 3 \in \R$ et $b \in \R$.
+
+    On a aussi $P(-X) = P(X)$, donc $-a$ est racine de $P$. DOnc les racines de $P$ sont $\sqrt 2 \pm \sqrt 3$ et $-\sqrt 2 \pm \sqrt 3$.    
+
+    \textbf{Dans le cas où $b=-a$ :}
+    On a $\pi_a(X) = (X-a)(X+a) = X^2 - a^2$. Or, $a^2 = 5 + 2\sqrt 6 \notin \Q$, donc $\pi_a \notin \Q[X]$ ce qui est absurde. Donc $b \ne -a$. Donc $\pi_a \ne X^2 - a^2$
+
+    \textbf{Dans le cas où $b = \sqrt 3 - \sqrt 2$ :}
+    On a $\pi_a(X) = (X-a)(X-b) = X^2 - (a+b)X + ab$. Or, $a+b = 2\sqrt 3 \notin \Q$, donc $\pi_a \notin \Q[X]$ ce qui est absurde. Donc $b \ne \sqrt 3 - \sqrt 2$.
+
+    \textbf{Dans le cas où $b = \sqrt 2 - \sqrt 3$ :}
+    On a $\pi_a(X) = (X-a)(X-b) = X^2 - (a+b)X + ab$. Or, $a+b = 2\sqrt 2 \notin \Q$, donc $\pi_a \notin \Q[X]$ ce qui est absurde. Donc $b \ne \sqrt 2 - \sqrt 3$.
+
+    Donc $\pi_a \ne X^2 - (a+b)X + ab$ pour $b \in \{-a, \sqrt 3 - \sqrt 2, \sqrt 2 - \sqrt 3\}$.
+
+    On en déduit que $\deg \pi_a \ne 2$.
+
+    Donc $\pi_a = P = X^4 - 10X^2 + 1$.
+\end{correction}
+% à revoir
+
+\begin{customenv}{\faIcon{sticky-note}}{Note}
+    La division euclidienne est conservée dans $\Q[X]$ et même dans n'importe quel corps $\Kset$ (pour justifier la division $\pi_a = D_1D_2$).
+\end{customenv}
+
+\end{document}
