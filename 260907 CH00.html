@@ -757,7 +757,7 @@ footer.swiss-footer {
 
     <nav class="top-nav" aria-label="Navigation principale">
         <a href="index.html">← Retour à l'index</a>
-        <span style="font-size:0.8rem; color:var(--swiss-gray);">coursmodern &bull; TXT.MA</span>
+        <span style="font-size:0.8rem; color:var(--swiss-gray);">TXT.MA</span>
     </nav>
 
     
@@ -771,7 +771,7 @@ footer.swiss-footer {
             <h3>Auteur</h3>
             <p>Samy Youssoufine</p>
             <h3>Dernière mise à jour</h3>
-            <p>7 septembre 2026</p>
+            <p>17 septembre 2026</p>
         </div>
         <div class="meta-group">
             <h3>Dépôt principal</h3>
@@ -783,26 +783,10 @@ footer.swiss-footer {
 </header>
 
     
-<div class="wip-banner" role="note" aria-label="Document en cours de rédaction">
-    <div class="wip-stripes"></div>
-    <div class="wip-content">
-        <i class="fas fa-hard-hat wip-icon" aria-hidden="true"></i>
-        <div class="wip-text">
-            <strong>WORK IN PROGRESS</strong>
-            <p>Ce document est incomplet ou en révision. Certaines sections peuvent faire l'objet de modifications ultérieures.</p>
-        </div>
-    </div>
-</div>
 
     
-<nav class="toc-box" aria-label="Table des matières">
-    <h2>Table des matières</h2>
-    <ol><li><a href="#structure-de-groupe"><strong>Structure de groupe</strong></a></li>
-    </ol>
-</nav>
 
     <main id="main-content" role="main">
-<h1 id="structure-de-groupe">Structure de groupe</h1>
 
 <div class="env-card env-definition" id="definition-1" style="--env-color:#0284C7;">
     <div class="env-header">
@@ -1521,34 +1505,39 @@ class="math inline">\(G\)</span>.</p>
     </div>
     <div class="env-body">
 <p>Soit <span class="math inline">\((G,\cdot)\)</span> un groupe et
-<span class="math inline">\(g \in G\)</span>. Alors <span
-class="math inline">\(\ord(g) = +\infty \iff \varphi_g\)</span> est
-injectif et <span class="math inline">\(\ord(g) = n \in \N^* \iff
-\ker(\varphi_g) = n \Z\)</span>.</p>
+<span class="math inline">\(g \in G\)</span>.</p>
+<p>Alors <span class="math inline">\(\ord(g) = +\infty \iff
+\varphi_g\)</span> est injectif et <span class="math inline">\(\ord(g) =
+n \in \N^* \iff \ker(\varphi_g) = n \Z\)</span>.</p>
     </div>
 </div>
 
 <div class="proof-box">
     <div class="proof-header">Démonstration</div>
-<p>On sait que <span class="math inline">\(\ker(\varphi_g)\)</span> est
-un sous-groupe de <span class="math inline">\((\Z,+)\)</span>, donc
-<span class="math inline">\(\ker(\varphi_g) = n_0 \Z\)</span> pour un
-certain <span class="math inline">\(n_0 \in \N\)</span>. Si <span
-class="math inline">\(\varphi_g\)</span> est injectif, alors <span
-class="math inline">\(\ker(\varphi_g) = \{ 0 \} = 0 \Z\)</span>, donc
-<span class="math inline">\(n_0 = 0\)</span>. On a donc <span
-class="math inline">\(\forall k \in \N^*, g^k \neq 1_G\)</span>, et
-<span class="math inline">\(\forall i \ne j, g^i \neq g^j\)</span>,
-alors <span class="math inline">\(\langle g \rangle\)</span> est infini
-et donc <span class="math inline">\(\ord(g) = +\infty\)</span>.</p>
-<p>Dans le cas inverse où <span class="math inline">\(\ord(g) &lt;
-+\infty\)</span>, on a <span class="math inline">\(\varphi_g\)</span>
-est non-injectif et donc <span class="math inline">\(\ker(\varphi_g) =
-n_0 \Z\)</span> pour un certain <span class="math inline">\(n_0 \in
-\N^*\)</span>. On a <span class="math inline">\(n_0 \ge 1\)</span>, et
-<span class="math inline">\(\Imf(\varphi_g) = \langle g \rangle\)</span>
-est fini, donc <span class="math inline">\(\ord(g) = |\langle g \rangle|
-= n_0\)</span>.</p>
+<p>Comme <span class="math inline">\(\ker(\varphi_g)\)</span> est un
+sous-groupe de <span class="math inline">\((\Z,+)\)</span>, il existe un
+unique <span class="math inline">\(n_0 \in \N\)</span> tel que <span
+class="math inline">\(\ker(\varphi_g) = n_0 \Z\)</span>.</p>
+<ul>
+<li><p>Si <span class="math inline">\(n_0 = 0\)</span>, alors <span
+class="math inline">\(\ker(\varphi_g) = \{0\}\)</span>, ce qui équivaut
+à l’injectivité de <span class="math inline">\(\varphi_g\)</span>.
+L’application étant injective, les puissances <span
+class="math inline">\((g^k)_{k \in \Z}\)</span> sont deux à deux
+distinctes, donc <span class="math inline">\(|\langle g \rangle| =
++\infty\)</span>, c’est-à-dire <span class="math inline">\(\ord(g) =
++\infty\)</span>.</p></li>
+<li><p>Si <span class="math inline">\(n_0 \in \N^*\)</span>, la division
+euclidienne par <span class="math inline">\(n_0\)</span> montre que
+<span class="math inline">\(\langle g \rangle = \{g^0, g^1, \dots,
+g^{n_0-1}\}\)</span> avec des éléments deux à deux distincts, donc <span
+class="math inline">\(|\langle g \rangle| = n_0\)</span>. Par unicité du
+générateur positif d’un sous-groupe de <span
+class="math inline">\(\Z\)</span>, on a pour tout <span
+class="math inline">\(n \in \N^*\)</span> : <span
+class="math display">\[\ord(g) = n \iff n_0 = n \iff \ker(\varphi_g) =
+n\Z.\]</span></p></li>
+</ul>
     <div class="proof-qed">&#9632;</div>
 </div>
 <p>Pour récapituler, pour un ordre infini, on a : <span
@@ -1579,6 +1568,12 @@ class="math display">\[\begin{align*}
         
     </div>
     <div class="env-body">
+<p>Si, pour un élément <span class="math inline">\(x \in G\)</span>,
+l’ordre de <span class="math inline">\(x\)</span> est fini <span
+class="math inline">\(\ord(x) &lt; +\infty\)</span>, alors <span
+class="math inline">\(\ker(\varphi_x) = \ord(x) \Z\)</span> et <span
+class="math inline">\(\forall k \in \Z, x^k = 1_G \iff \ord(x) \mid
+k\)</span>.</p>
     </div>
 </div>
 
@@ -1605,7 +1600,7 @@ x^k\)</span>.</p>
     </div>
 </div>
 
-<div class="env-card env-corollary" id="corollary-1" style="--env-color:#2563EB;">
+<div class="env-card env-corollary" id="cor:ordre" style="--env-color:#2563EB;">
     <div class="env-header">
         <div class="env-accent-pills">
             <span class="env-pill"></span>
@@ -1619,9 +1614,10 @@ x^k\)</span>.</p>
         
     </div>
     <div class="env-body">
-<p>Pour <span class="math inline">\((G,\cdot)\)</span> un groupe et
-<span class="math inline">\(x \in G\)</span>, les propriétés suivantes
-sont équivalentes :</p>
+<p><span id="cor:ordre" data-label="cor:ordre"></span> Pour <span
+class="math inline">\((G,\cdot)\)</span> un groupe et <span
+class="math inline">\(x \in G\)</span>, les propriétés suivantes sont
+équivalentes :</p>
 <ol>
 <li><p><span class="math inline">\(x\)</span> est d’ordre <span
 class="math inline">\(n\)</span></p></li>
@@ -1635,11 +1631,10 @@ k}\)</span></p></li>
 </ol>
     </div>
 </div>
-
-<div class="proof-box">
-    <div class="proof-header">Démonstration</div>
-    <div class="proof-qed">&#9632;</div>
-</div>
+<p>Il est recommandé de bien assimiler la preuve du théorème de Lagrange
+et la démonstration du corollaire <a href="#cor:ordre"
+data-reference-type="ref"
+data-reference="cor:ordre">[cor:ordre]</a>.</p>
 
 <div class="env-card env-exercise" id="exercise-2" style="--env-color:#7C3AED;">
     <div class="env-header">
@@ -1890,7 +1885,7 @@ class="math inline">\(x \in G\)</span>. recop &lt;3</p>
     
 <footer class="swiss-footer" role="contentinfo">
     <div>&copy; Samy Youssoufine &bull; EMINES &bull; Class2030</div>
-    <div>Généré via <code>coursmodern</code> workflow &bull; <a href="index.html">Index</a></div>
+    <div><a href="index.html">Index</a></div>
 </footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
 \documentclass[11pt,a4paper]{report}
 \usepackage{coursmodern}
 
-\CourseTitle{Algèbre générale}
+\CourseTitle{Algèbre engendrée}
 \CourseSubtitle{EMINES --- CPI2A (Class2030)}
 \ChapterNumber{01}
 \CourseAuthor{Samy Youssoufine}
@@ -17,7 +17,7 @@
 
 \tableofcontents
 
-\chapter{Algèbre engendrée par un élément} 
+\chapter{Notions de base}
 
 \begin{definition}[Algèbre]
     $(E,+,\cdot,\times)$ est dite une $\Kset$-algèbre si :
@@ -37,7 +37,7 @@
     Un anneau est par définition unitaire.
 \end{attention}
 
-\begin{remark}[Justification de la simplification]
+\begin{methodbox}[Justification de la simplification]
     Par définition, le produit est bilinéaire si et seulement si pour tous $x, y \in E$, les applications partielles $L_x : z \mapsto xz$ et $R_y : z \mapsto zy$ sont linéaires.
     
     Or, l'additivité de ces applications partielles est déjà garantie par la structure d'anneau de $(E,+,\times)$ via la distributivité :
@@ -48,19 +48,7 @@
     \[
         \forall (x,y) \in E^2, \quad \forall \lambda \in \Kset, \quad (\lambda x)y = \lambda(xy) = x(\lambda y)
     \]
-\end{remark}
-
-\begin{methodbox}[Détails des calculs]
-    On rappelle que la bilinéarité de $f$ signifie que pour tout $x,x',y,y' \in E$ et pour tout $\lambda \in \Kset$ :
-    \begin{enumerate}
-        \item $f(x+x',y) = f(x,y) + f(x',y)$
-        \item $f(x,y+y') = f(x,y) + f(x,y')$
-    \end{enumerate}
-    En utilisant les propriétés de l'anneau $(E,+,\times)$, on peut montrer que ces deux conditions sont équivalentes à celles mentionnés dans la définition.
 \end{methodbox}
-\todo
-
-% REVOIR calculs
 
 \begin{example}
     \begin{enumerate}
@@ -104,6 +92,8 @@
         \end{itemize}
     \end{enumerate}
 \end{example}
+
+\chapter{Morphismes d'algèbres et algèbres engendrées}
 
 \begin{definition}[Morphisme d'algèbres]
     Soient $E$ et $F$ deux $\Kset$-algèbres. Une application $f : E \to F$ est dite un morphisme d'algèbres si :
@@ -214,6 +204,8 @@
 \begin{customenv}{\faIcon{bell}}{Rappel}
     Un idéal $I$ de $\Kset[X]$ est soit nul soit engendré par un polynôme unitaire $P$ de $\Kset[X]$. En effet, si $I \neq \{0\}$, on peut choisir un polynôme $P \in I$ de degré minimal (via double-inclusion dont un sens est démontré par division euclidienne) pour montrer que $I = P_0 \Kset[X]$.
 \end{customenv}
+
+\chapter{Dimension de l'algèbre engendrée par un élément}
 
 \begin{property}[Étude de dimension]
     Soit $a \in E$. L'ensemble $I_a = \{P \in \Kset[X] \mid P(a) = 0\}$ est un idéal de $\Kset[X]$, appelé l'idéal annulateur de $a$. Deux cas disjoints se présentent :
@@ -358,6 +350,8 @@
 
     Donc $\pi_a = P = X^4 - 10X^2 + 1$.
 
+    Une base de $\Q[a]$ est donc donnée par $(1, a, a^2, a^3)$ et $\dim(\Q[a]) = 4$.
+
     On peut aboutir aux mêmes résultats en généralisant pour un certain couple $(r_1,r_2)$ tels que $r_1^2 = 2$ et $r_2^2 = 3$ et en considérant $a = r_1 + r_2$. On obtient le même polynôme minimal $\pi_a = X^4 - 10X^2 + 1$.
 \end{correction}
 % à revoir
@@ -365,5 +359,164 @@
 \begin{customenv}{\faIcon{sticky-note}}{Note}
     La division euclidienne est conservée dans $\Q[X]$ et même dans n'importe quel corps $\Kset$ (pour justifier la division $\pi_a = D_1D_2$).
 \end{customenv}
+
+\chapter{Éléments inversibles de $\Kset[a]$}
+
+\begin{property}
+    Lorsque l'idéal $I_a$ est réduit à $\{0\}$, les seuls éléments inversibles de $\Kset[a]$ sont les multiples scalaires de $1_E$.
+    $$\Uset(\Kset[a]) = \{\lambda 1_E \mid \lambda \in \Kset^*\}$$
+\end{property}
+
+\begin{proof}
+    En posant $u : \Kset[X] \to \Kset[a]$ avec $P \mapsto P(a)$ un isomorphisme, on a $u(P) = P(u)$ dans $\Kset[a]$ si et seulement si $P$ est inversible dans $\Kset[X]$. Or, les seuls polynômes inversibles dans $\Kset[X]$ sont les polynômes constants non nuls $\lambda \in \Kset^*$. Donc $P(a) = \lambda 1_E$ avec $\lambda \in \Kset^*$, ce qui prouve la propriété.
+\end{proof}
+
+\begin{property}
+    Dans le cas où $I_a = \pi_a \Kset[X]$ avec $\deg(\pi_a) = d \ge 1$, les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $P(a)$ est inversible dans $E$.
+        \item $P(a)$ est inversible dans $\Kset[a]$.
+        \item $P \wedge \pi_a = 1$.
+    \end{enumerate}
+\end{property}
+
+\begin{proof}
+    On décompose la démonstration en trois implications : de 3 à 2, de 2 à 1 et de 1 à 3.
+    \begin{itemize}
+        \item \textbf{3 $\implies$ 2 :} Si $P \wedge \pi_a = 1$, il existe $U,V \in \Kset[X]$ tels que $UP + V\pi_a = 1$. En évaluant en $a$, on obtient $U(a)P(a) + V(a)\pi_a(a) = U(a)P(a) = 1_E$, donc $P(a)$ est inversible dans $\Kset[a]$.
+        \item \textbf{2 $\implies$ 1 :} Si $P(a)$ est inversible dans $\Kset[a]$, il existe $Q(a) \in \Kset[a]$ tel que $P(a)Q(a) = 1_E$. Comme $\Kset[a] \subset E$, $P(a)$ est inversible dans $E$.
+        \item \textbf{1 $\implies$ 3 :} Supposons que $P(a)$ est inversible dans $E$.
+        
+        On pose $D = P \wedge \pi_a$. Alors $D \mid P$ et $D \mid \pi_a$, donc il existe $P_1, P_2 \in \Kset[X]$ tels que $P = DP_1$ et $\pi_a = DP_2$ avec $P_1 \wedge P_2 = 1$.
+        
+        En évaluant en $a$, on obtient $P(a) = D(a)P_1(a)$ et comme $P(a)$ est inversible dans $E$ alors $\exists y \in E$ tel que $P(a)y = 1_E$, donc $D(a)P_1(a)y = 1_E$ donc $P_2(a)D(a)P_1(a)y = P_2(a)$.
+        
+        Or $\pi_a = P_2D$ donc $\pi_a(a) = 0$ et donc $P_2(a)D(a)P_1(a)y = 0$. On obtient donc $P_2(a) = 0$, donc $\pi_a \mid P_2$ et donc $DP_2 \mid P_2$ et donc $D = 1$ sachant que $D$ est unitaire. Donc $P \wedge \pi_a = 1$.
+    \end{itemize}
+\end{proof}
+\todo
+% A REVOIR !!
+
+\begin{example}
+    Prenons $E= \mathcal M_n(\R)$.
+
+    Soit $A = \left(\begin{matrix} \alpha & \cdots & \cdots & \cdots & \cdots \\ \vdots & \ddots & (1) & \cdots & \vdots \\ \vdots & (1) & \ddots & (1) & \vdots \\ \vdots & \cdots & (1) & \ddots & \vdots \\ \cdots & \cdots & \cdots & \cdots & \alpha\end{matrix}\right)$ avec $\alpha \in \R$.
+
+    Déterminons quelles valeurs $\alpha$ de $\R$ permettent à $M$ d'être inversible, et donnons son inverse.
+
+    % On peut écrire :
+    % $$M = \left(\begin{matrix} 1 & \cdots & \cdots \\ \vdots & \ddots & (1) \\ \vdots & (1) & \ddots \\ \vdots & \cdots & (1) \\ \cdots & \cdots & 1\end{matrix}\right) + (\alpha - 1)I_n = A + (\alpha - 1)I_n$$
+
+    % Et on sait déjà que $\pi_A = X^2 - nX$ est le polynôme minimal de $A$. Donc $\pi_M(X) = \pi_{A + (\alpha - 1)I_n}(X) = \pi_A(X - (\alpha - 1)) = (X - (\alpha - 1))^2 - n(X - (\alpha - 1))$.
+
+    On peut aussi déterminer les conditions d'inversibilité en calculant le déterminant de $M$, puis déterminer la matrice inverse en résolvant le système $MX = I_n$.
+\end{example}
+\todo
+% à revoir /!\
+
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    Deux polynômes $P,Q \in \R(X]$ sont premiers entre eux si et seulement s'ils n'ont aucune racines communes dans $\C$ (pas seulement dans $\R$).
+\end{customenv}
+
+\begin{exercise}
+    Montrer que l'inverse d'une matrice triangulaire supérieure $A \in \mathcal M_n(\Kset)$ est triangulaire supérieure.
+\end{exercise}
+
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    Les matrices triangulaires supérieures forment une sous-algèbre de $\mathcal M_n(\Kset)$.
+\end{customenv}
+
+\begin{correction}
+    Comme $T_n^s(\Kset)$ forme une sous-algèbre de $\mathcal M_n(\Kset)$, $\Kset[A] \subset T_n^s(\Kset)$. Comme $A$ est inversible, alors $A^{-1} \in \Kset[A] \subset T_n^s(\Kset)$, donc $A^{-1}$ est triangulaire supérieure.
+\end{correction}
+
+\begin{remark}
+    Si $\pi_a$ existe alors :
+    $$a \text{ inversible } \iff \pi_a(0) \ne 0$$
+\end{remark}
+
+\begin{proof}
+    On écrit $a = P(a)$ tel que $P(X) = X$. Alors $a$ est inversible $\iff P \wedge \pi_a = 1$ si et seulement si $\pi_a(0) \ne 0$.
+\end{proof}
+
+\begin{exercise}
+    Prenons $E$ un $\Kset$-espace vectoriel et $u \in \mathcal L(E)$ tel que $\pi_u$ existe (ce qui est toujours le cas si $\dim(E) < \infty$). Montrer que les propriétés suivantes sont équivalentes :
+    \begin{enumerate}[label=(\roman*)]
+        \item $u$ est injective.
+        \item $u$ est surjective.
+        \item $u$ est bijective.
+        \item $\pi_u(0) \ne 0$.
+    \end{enumerate}
+    Avec $\pi_u$ le polynôme minimal de $u$ dans l'algèbre $(\mathcal L(E), +, \cdot, \circ)$.
+\end{exercise}
+
+\begin{customenv}{\faIcon{sticky-note}}{Note}
+    Même dans un espace vectoriel de dimension infinie, on peut trouver des endomorphismes qui admettent un polynôme minimal. Par exemple, les projections ; qui vérifient $u^2 = u$ et donc $\pi_u(X) \mid X^2 - X$.
+\end{customenv}
+
+\begin{correction}
+    D'après l'exercice précédent, on sait que $u$ est inversible si et seulement si $\pi_u(0) \ne 0$. Or, $u$ est inversible si et seulement si $u$ est bijective. L'équivalence (iii) et (iv) est donc démontrée.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item Supposons que $u$ est injective. Montrons que $\pi_u(0) \ne 0$. Si $\pi_u(0) = 0$, alors $\pi_u(X) = XQ(X)$ pour un certain polynôme $Q \in \Kset[X]$.
+        
+        En évaluant en $u$, on obtient $\pi_u(u) = uQ(u) = 0$. Comme $u$ est injective, on a $Q(u) = 0$ car $\Imf(Q(u)) \subset \ker(u)$ et $\ker(u) = \{0\}$ avec $Q \ne 0$.
+        
+        Cela veut dire $Q$ annule $u$ et $\deg Q < \deg \pi_u$, donc $\pi_u$ n'est pas de degré minimal, ce qui est absurde. Donc $\pi_u(0) \ne 0$.
+
+        \item Supposons que $u$ est surjective. Montrons que $\pi_u(0) \ne 0$. Si $\pi_u(0) = 0$, alors $\pi_u(X) = XQ(X)$ pour un certain polynôme $Q \in \Kset[X]$.
+        
+        En évaluant en $u$, on obtient $\pi_u(u) = uQ(u) = 0$. On a alors $uQ(u) = 0 \implies Q(u)u = 0$. On a donc $\Imf(u) \subset \ker(Q(u))$. Comme $u$ est surjective, on a $\Imf(u) = E$, donc $\ker(Q(u)) = E$ et $Q(u) = 0$. Comme $\deg Q < \deg \pi_u$, cela contredit le fait que $\pi_u$ est de degré minimal. Donc $\pi_u(0) \ne 0$.
+    \end{enumerate}
+    Il faut aussi démontrer que (iii) $\implies$ (i) et (ii), ce qui est évident ; si $u$ est bijective, alors $u$ est injective et surjective par définition.
+
+    Le reste des implications découle immédiatement de l'équivalence (iii) et (iv). On a donc montré que les quatre propriétés sont équivalentes.
+\end{correction}
+
+\begin{remark}
+    Si $\pi_a$ n'existe pas, alors $\Kset[a]$ n'est pas un corps car $\Kset[a] \simeq \Kset[X]$ et que :
+    $$\begin{cases}
+    X \text{ n'est pas inversible dans } \Kset[X] \\
+    a \text{ n'est pas inversible dans } \Kset[a] \\
+    a \ne 0 \text{ (parce que } \pi_a \text{ n'existe pas)}
+    \end{cases}$$
+\end{remark}
+
+\begin{remark}
+    Si $\pi_a$ existe, les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $\Kset[a]$ est un corps.
+        \item $\pi_a$ est irréductible.
+        \item $\Kset[a]$ est intègre.
+    \end{enumerate}
+\end{remark}
+
+\begin{proof}
+    On démontre 1 $\implies$ 3 simplement parce que tout corps est intègre. Montrons 3 $\implies$ 2. On a $\pi_a \ne 1$. Soit $D$ un diviseur unitaire de $\pi_a$, montrons que $D = 1$ ou $D = \pi_a$. On va supposer l'existence d'un $D'$ unitaire tel que $\pi_a = DD'$
+    \todo
+
+    
+    Pour finaliser la preuve, on montre que 2 $\implies$ 1. Soit $y \in \Kset[a] \setminus \{0\}$. Montrer que $y$ est inversible. Il existe $P \in \Kset[X]$ tel que $y = P(a)$. Comme $\pi_a$ est irréductible, on a $P \wedge \pi_a = 1$ ou $P \wedge \pi_a = \pi_a$. Si $P \wedge \pi_a = \pi_a$, alors $\pi_a \mid P$ et donc $P(a) = 0$, ce qui est absurde. Donc $P \wedge \pi_a = 1$, et par la propriété précédente, on en déduit que $y = P(a)$ est inversible.
+\end{proof}
+
+\begin{remark}
+    Si l'algèbre $E$ est intègre et $\pi_a$ existe, alors :
+    
+    $\Kset[a]$ est un corps et $\pi_a$ est irréductible. 
+\end{remark}
+
+\begin{proof}
+    $\Kset[1] \subset E$ et $E$ est intègre. Donc $\Kset[a]$ est aussi intègre et d'après la remarque précédente, $\Kset[a]$ est un corps et $\pi_a$ est irréductible.
+\end{proof}
+
+\begin{exercise}
+    $\R$ est considéré comme une $\Q$-algèbre et il est intègre, donc $\forall a \in \R$, si $\pi_a$ existe, alors $\Q[a]$ est un corps et $\pi_a$ est irréductible.
+
+    En particulier pour $a = \sqrt 2 + \sqrt 3$, on a vu que $\pi_a = X^4 - 10X^2 + 1$ est irréductible dans $\Q[X]$ et que $\Q[a]$ est un corps.
+
+    Calculer les coordonnées de $(a-1)^{-1}$ dans la base $(1, a, a^2, a^3)$ de $\Q[a]$.
+
+    \textit{Indication : Utiliser les coefficients de Bézout.}
+\end{exercise}
 
 \end{document}

@@ -611,7 +611,7 @@ export async function convertLatexToHtml(inputTexPath) {
     const footerHtml = `
 <footer class="swiss-footer" role="contentinfo">
     <div>&copy; ${courseAuthor} &bull; EMINES &bull; Class2030</div>
-    <div>Généré via <code>coursmodern</code> workflow &bull; <a href="index.html">Index</a></div>
+    <div><a href="index.html">Index</a></div>
 </footer>`;
 
     // Load styles & template
