@@ -33,7 +33,7 @@
     Si l'anneau $(E,+,\times)$ est commutatif (resp. intègre), alors l'algèbre $(E,+,\cdot,\times)$ est dite commutative (resp. intègre).
 \end{definition}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     On dit que $(A,+,\times)$ est un anneau si :
     \begin{enumerate}
         \item $(A,+)$ est un groupe abélien/commutatif.
@@ -45,7 +45,7 @@
         \end{cases}$$
         Si la loi $\times$ est commutative, l'anneau est dit \textbf{commutatif}.
     \end{enumerate}
-\end{customenv}
+\end{rappel}
 
 \begin{attention}
     Un anneau est par définition unitaire.
@@ -79,7 +79,7 @@
     $S$ est dite \textbf{sous-algèbre} de $E$ si $S$ est un sous-espace vectoriel de $E$ et un sous-anneau de $E$.
 \end{definition}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     Un sous-anneau $S$ d'un anneau $(A,+,\times)$ est un sous-ensemble $S \subset A$ tel que :
     \begin{enumerate}
         \item $S$ est non vide (il doit contenir au moins l'élément $1_A$).
@@ -88,7 +88,7 @@
             \forall x,y \in S, \quad x+y \in S \et x\times y \in S
         $$
     \end{enumerate}
-\end{customenv}
+\end{rappel}
 
 \begin{property}
     $S$ est une sous-algèbre de $E$ si et seulement si :
@@ -139,7 +139,7 @@
     \end{enumerate}
 \end{remark}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     Un idéal $I$ d'un anneau $(A,+,\times)$ est un sous-ensemble $I \subset A$ tel que :
     \begin{enumerate}
         \item $I$ est un sous-groupe de $(A,+)$.
@@ -149,7 +149,7 @@
         $$
         Qu'on peut aussi écrire $AI \subset I$ et $IA \subset I$.
     \end{enumerate}
-\end{customenv}
+\end{rappel}
 
 \begin{example}
     Soit $E$ une $\Kset$-algèbre, $a \in E$, et $f : \Kset[X] \to E$ l'application définie par $f(P) = P(a)$ avec $P(a) = \sum_{k=1}^n \lambda_k a^k + \lambda_0 \cdot 1_E$. Alors $f$ est un morphisme d'algèbres. En effet, pour tout $P,Q \in \Kset[X]$ et $\lambda \in \Kset$, on a :
@@ -239,9 +239,9 @@
     On trouve $\alpha_n = \frac{3^n + (-1)^n}{2}$ et $\beta_n = \frac{3^n - (-1)^n}{2}$. Ces expressions peuvent être différentes selon la base $(A,B)$ choisie, mais on retrouve la même expression pour $A^n$.
 \end{remark}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     Un idéal $I$ de $\Kset[X]$ est soit nul soit engendré par un polynôme unitaire $P$ de $\Kset[X]$. En effet, si $I \neq \{0\}$, on peut choisir un polynôme $P \in I$ de degré minimal (via double-inclusion dont un sens est démontré par division euclidienne) pour montrer que $I = P_0 \Kset[X]$.
-\end{customenv}
+\end{rappel}
 
 \chapter{Dimension de l'algèbre engendrée par un élément}
 
@@ -385,11 +385,11 @@
     Si $\Kset$ est un sous-corps de $\mathbb L$, alors on peut considérer que $\mathbb L$ est une $\Kset$-algèbre. En particulier, $\mathbb C$ est une $\R$-algèbre et $\R$ est une $\Q$-algèbre.
 \end{remark}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     On dit que $(\mathbb{L}, +, \times)$ est un corps si $(\mathbb L, +, \times)$ est un anneau et que $\forall x \in L\setminus \{0_\mathbb{L}\}$, $x$ est inversible pour la multiplication.
 
     Un sous-corps est un sous-ensemble $\mathbb{K} \subset \mathbb{L}$ qui est un sous-anneau de $\mathbb{L}$ et qui est stable par l'inverse (pour un élément non nul).
-\end{customenv}
+\end{rappel}
 
 \begin{exercise}
     \label{exo:polynome-minimal-racines-carrees}
@@ -545,18 +545,18 @@
     On peut aussi déterminer les conditions d'inversibilité en calculant le déterminant de $M$, puis déterminer la matrice inverse en résolvant le système $MX = I_n$.
 \end{example}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     Deux polynômes $P,Q \in \R(X]$ sont premiers entre eux si et seulement s'ils n'ont aucune racines communes dans $\C$ (pas seulement dans $\R$).
-\end{customenv}
+\end{rappel}
 
 \begin{exercise}
     \label{exo:inverse-triangulaire}
     Montrer que l'inverse d'une matrice triangulaire supérieure $A \in \mathcal M_n(\Kset)$ est triangulaire supérieure.
 \end{exercise}
 
-\begin{customenv}{\faIcon{bell}}{Rappel}
+\begin{rappel}
     Les matrices triangulaires supérieures forment une sous-algèbre de $\mathcal M_n(\Kset)$.
-\end{customenv}
+\end{rappel}
 
 \begin{correction}[Exercice \ref{exo:inverse-triangulaire}]
     Comme $T_n^s(\Kset)$ forme une sous-algèbre de $\mathcal M_n(\Kset)$, on a $\Kset[A] \subset T_n^s(\Kset)$. Si $A$ est inversible, alors $A^{-1} \in \Kset[A] \subset T_n^s(\Kset)$, donc $A^{-1}$ est triangulaire supérieure.
