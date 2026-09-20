@@ -230,6 +230,75 @@
             font-size: .85rem;
         }
 
+        /* ================================================================
+           SCANS DU TABLEAU INTERACTIF (MINIMALISTE)
+        ================================================================ */
+        #scans-section {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #111;
+        }
+
+        #scans-section h2 {
+            font-size: 1.25rem;
+            margin-bottom: .25rem;
+        }
+
+        #scans-section > p {
+            font-size: .9rem;
+            color: #444;
+            margin-bottom: .4rem;
+        }
+
+        .scans-nomenclature {
+            font-size: .85rem;
+            color: #555;
+            margin-bottom: .85rem;
+        }
+
+        .scans-nomenclature code {
+            font-size: .8rem;
+            background: #f0f0f0;
+            padding: 0 .25rem;
+            border-radius: 2px;
+        }
+
+        .scan-chapter {
+            margin-bottom: .5rem;
+            border: 1px solid #ddd;
+            padding: .4rem .6rem;
+        }
+
+        .scan-chapter summary {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: .95rem;
+        }
+
+        .scan-chapter summary:focus {
+            outline: 2px solid #005ea6;
+            outline-offset: 2px;
+        }
+
+        .scan-list {
+            margin: .4rem 0 .2rem 1.4rem;
+            padding: 0;
+            font-size: .9rem;
+        }
+
+        .scan-list li {
+            margin-bottom: .2rem;
+        }
+
+        .scan-date {
+            color: #555;
+            font-size: .85rem;
+        }
+
+        .scan-chapter .na {
+            margin: .3rem 0 0 .5rem;
+        }
+
         footer {
             margin-top: 2rem;
             padding-top: .75rem;
@@ -372,13 +441,14 @@
                     <th scope="col" class="col-link" abbr="PDF">PDF</th>
                     <th scope="col" class="col-link" abbr="Web">Web</th>
                     <th scope="col" class="col-link" abbr="Résumé">Résumé</th>
+                    <th scope="col" class="col-link" abbr="Scans">Scans</th>
                     <th scope="col" class="col-link" abbr=".tex">Source (.tex)</th>
                 </tr>
             </thead>
             <tbody id="table-body">
                 <tr id="ch00" data-title="révision de l'algèbre" data-num="0">
                     <td class="col-num" data-label="N°">
-                        0<a class="anchor-link" href="#ch00" aria-label="Lien direct vers le chapitre 1">#</a>
+                        0<a class="anchor-link" href="#ch00" aria-label="Lien direct vers le chapitre 0">#</a>
                     </td>
                     <td data-label="Titre">Révision de l'algèbre</td>
                     <td class="col-link" data-label="Grade">B</td>
@@ -390,12 +460,12 @@
                     <td class="col-link" data-label="Résumé">
                         <a href="260907 CH00-R.html" aria-label="Résumé CH00 : Révision de l'algèbre">Résumé</a>
                     </td>
+                    <td class="col-link na" data-label="Scans">N/A</td>
                     <td class="col-link" data-label="Source (.tex)">
                         <a href="260907 CH00.tex" aria-label="Code source LaTeX CH00">LaTeX</a>
                     </td>
                 </tr>
                 <!-- chapitre 1 : algèbre engendrée -->
-                <!-- web non disponible -->
                 <!-- résumé non disponible -->
                 <tr id="ch01" data-title="algèbre engendrée" data-num="1">
                     <td class="col-num" data-label="N°">
@@ -407,14 +477,47 @@
                         <a href="260909 CH01.pdf" aria-label="PDF CH01 : Algèbre engendrée"
                             type="application/pdf">PDF</a>
                     </td>
-                    <td class="col-link na" data-label="Web">N/A</td>
+                    <td class="col-link" data-label="Web"><a href="260909 CH01.html">Web</a></td>
                     <td class="col-link na" data-label="Résumé">N/A</td>
+                    <td class="col-link" data-label="Scans">
+                        <a href="#scans-ch01" aria-label="Voir les 2 scans du CH01">2 scans</a>
+                    </td>
                     <td class="col-link" data-label="Source (.tex)">
                         <a href="260909 CH01.tex" aria-label="Code source LaTeX CH01">LaTeX</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- ============================================================
+             SECTION SCANS DU TABLEAU INTERACTIF
+        ============================================================ -->
+        <section id="scans-section" aria-labelledby="scans-heading">
+            <h2 id="scans-heading">Scans du tableau interactif</h2>
+            <p>Notes manuscrites brutes exportées séance par séance.</p>
+            <p class="scans-nomenclature">Nomenclature : <code>&lt;date début chapitre&gt; CH&lt;num&gt; Scan &lt;séance&gt;.pdf</code></p>
+
+            <!-- CH01 : Algèbre engendrée -->
+            <details class="scan-chapter" id="scans-ch01" data-num="1" data-title="algèbre engendrée" open>
+                <summary>CH01 — Algèbre engendrée (2 séances)</summary>
+                <ul class="scan-list">
+                    <li>
+                        <a href="260909 CH01 Scan 1.pdf" type="application/pdf">Séance 1 (PDF)</a>
+                        <span class="scan-date">— écrit le <time datetime="2026-09-09">09/09/2026</time></span>
+                    </li>
+                    <li>
+                        <a href="260909 CH01 Scan 2.pdf" type="application/pdf">Séance 2 (PDF)</a>
+                        <span class="scan-date">— écrit le <time datetime="2026-09-11">11/09/2026</time></span>
+                    </li>
+                </ul>
+            </details>
+
+            <!-- CH00 : Révision de l'algèbre -->
+            <details class="scan-chapter" id="scans-ch00" data-num="0" data-title="révision de l'algèbre">
+                <summary>CH00 — Révision de l'algèbre (0 séance)</summary>
+                <p class="na">Aucun scan manuscrit disponible pour ce chapitre.</p>
+            </details>
+        </section>
     </main>
 
     <footer role="contentinfo">
@@ -448,6 +551,19 @@
                 if (show) visible++;
             });
             noResults.style.display = visible === 0 ? 'block' : 'none';
+
+            // Filtrer également les sections de scans du tableau interactif
+            const scanCards = document.querySelectorAll('.scan-chapter');
+            scanCards.forEach(card => {
+                const title = (card.dataset.title || '').toLowerCase();
+                const num = (card.dataset.num || '').toLowerCase();
+                const text = card.textContent.toLowerCase();
+                const show = !q || title.includes(q) || num.includes(q) || text.includes(q);
+                card.hidden = !show;
+                if (show && q) {
+                    card.open = true;
+                }
+            });
         }
 
         searchInput.addEventListener('input', applyFilter);
@@ -476,7 +592,41 @@
                     return sortDir === 'asc' ? na - nb : nb - na;
                 })
                 .forEach(r => tbody.appendChild(r));
+
+            // Trier également les sections de scans dans le même ordre
+            const scansSection = document.getElementById('scans-section');
+            if (scansSection) {
+                Array.from(scansSection.querySelectorAll('.scan-chapter'))
+                    .sort((a, b) => {
+                        const na = parseInt(a.dataset.num || '0', 10);
+                        const nb = parseInt(b.dataset.num || '0', 10);
+                        return sortDir === 'asc' ? na - nb : nb - na;
+                    })
+                    .forEach(card => scansSection.appendChild(card));
+            }
         });
+
+        /* ================================================================
+           ACCÈS DIRECT AUX SCANS
+        ================================================================ */
+        function openScan(targetId) {
+            const card = document.querySelector(targetId);
+            if (card && card.tagName === 'DETAILS') {
+                card.open = true;
+                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        document.querySelectorAll('a[href^="#scans-"]').forEach(link => {
+            link.addEventListener('click', () => {
+                const href = link.getAttribute('href');
+                if (href) openScan(href);
+            });
+        });
+
+        if (window.location.hash && window.location.hash.startsWith('#scans-')) {
+            openScan(window.location.hash);
+        }
 
         /* ================================================================
            GITHUB LAST COMMIT (fetched client-side at page load)

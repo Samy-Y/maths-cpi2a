@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CH01 — Algèbre engendrée — TXT.MA</title>
+    <meta name="description" content="Algèbre engendrée — EMINES — CPI2A (Class2030)">
+    <meta name="author" content="Samy Youssoufine">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- FontAwesome 5 for semantic environment & banner icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-1ycn6IcaQQ40/MKBW37fFSH1J9HVTqFqxDV5EFGLFiMGfyIXHBBMJq+6r8T6rHhxpgdS4i15HEpv6y6NTfJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- MathJax 3 Configuration with coursmodern.sty macros -->
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            packages: {'[+]': ['ams', 'color', 'newcommand']},
+            macros: {
+                R: "\\mathbb{R}",
+                C: "\\mathbb{C}",
+                Z: "\\mathbb{Z}",
+                N: "\\mathbb{N}",
+                Q: "\\mathbb{Q}",
+                Kset: "\\mathbb{K}",
+                Uset: "\\mathbb{U}",
+                Pset: "\\mathcal{P}",
+                ch: "\\operatorname{ch}",
+                sh: "\\operatorname{sh}",
+                thh: "\\operatorname{th}",
+                tg: "\\operatorname{tg}",
+                arctg: "\\operatorname{arctg}",
+                eps: "\\varepsilon",
+                argch: "\\operatorname{argch}",
+                argsh: "\\operatorname{argsh}",
+                argth: "\\operatorname{argth}",
+                legbinom: ["\\mathrm{C}_{#1}^{#2}", 2],
+                cclas: ["\\mathcal{C}^{#1}", 1],
+                abs: ["\\left|#1\\right|", 1],
+                norm: ["\\left\\|#1\\right\\|", 1],
+                set: ["\\left\\{#1\\right\\}", 1],
+                parens: ["\\left(#1\\right)", 1],
+                bracks: ["\\left[#1\\right]", 1],
+                angles: ["\\left\\langle#1\\right\\rangle", 1],
+                floor: ["\\left\\lfloor#1\\right\\rfloor", 1],
+                ceil: ["\\left\\lceil#1\\right\\rceil", 1],
+                inside: ["\\overset{\\circ}{#1}", 1],
+                negli: ["\\underset{#1\\to#2}{o}\\left(#3\\right)", 3],
+                nimplies: "\\;\\not\\!\\!\\!\\implies",
+                card: ["\\operatorname{card}\\left(#1\\right)", 1],
+                cl: ["\\mathcal{C}\\ell\\left(#1\\right)", 1],
+                pgcd: "\\operatorname{pgcd}",
+                ppcm: "\\operatorname{ppcm}",
+                Isom: "\\operatorname{Isom}",
+                Aut: "\\operatorname{Aut}",
+                Ker: "\\operatorname{Ker}",
+                Imf: "\\operatorname{Im}",
+                Id: "\\operatorname{id}",
+                Intr: "\\operatorname{Int}",
+                Carac: "\\operatorname{Car}",
+                ovl: ["\\overline{#1}", 1],
+                cfd: "\\operatorname{CD}",
+                Vect: "\\operatorname{Vect}",
+                rang: "\\operatorname{rg}",
+                GL: "\\operatorname{GL}",
+                Sp: "\\operatorname{Sp}",
+                diag: "\\operatorname{diag}",
+                Mat: "\\operatorname{Mat}",
+                Tr: "\\operatorname{Tr}",
+                Com: "\\operatorname{Com}",
+                ord: "\\operatorname{o}",
+                ona: "\\text{ On a }",
+                avec: "\\text{ avec }",
+                donc: "\\text{ donc }",
+                tq: "\\text{ tel que }",
+                tqf: "\\text{ telle que }",
+                tqp: "\\text{ tels que }",
+                tqpf: "\\text{ telles que }",
+                si: "\\text{ si }",
+                ssi: "\\text{ si et seulement si }",
+                et: "\\text{ et }",
+                ou: "\\text{ ou }",
+                pour: "\\text{ pour }",
+                admet: "\\text{ admet }",
+                car: "\\text{ car }",
+                scq: "\\text{ sachant que }",
+                llbracket: "[\\![",
+                rrbracket: "]\\!]"
+            }
+        },
+        options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        },
+        chtml: {
+            scale: 0.98,
+            displayAlign: 'center'
+        }
+    };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+/* ==========================================================================
+   coursmodern.sty -> HTML Stylesheet
+   Harmonized with index.html (bare-bones, accessible, responsive)
+   Swiss Modern Math Notes Aesthetic
+   ========================================================================== */
+
+/* ── Reset & Base ────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    
+    /* Swiss Modern Palette */
+    --swiss-black: #0F172A;
+    --swiss-dark: #334155;
+    --swiss-gray: #64748B;
+    --swiss-light: #F8FAFC;
+    --swiss-line: #E2E8F0;
+    
+    /* Semantic Environment Colors */
+    --c-def: #0284C7;
+    --c-thm: #4F46E5;
+    --c-prop: #0D9488;
+    --c-cons: #0284C7;
+    --c-cor: #2563EB;
+    --c-app: #059669;
+    --c-rem: #475569;
+    --c-ex: #D97706;
+    --c-att: #DC2626;
+    --c-exo: #7C3AED;
+    --c-corr: #15803D;
+    --c-meth: #C026D3;
+    --c-star: #FACC15;
+    --c-todo: #D97706;
+}
+
+html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    color: var(--swiss-black);
+    background-color: #ffffff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem 4rem;
+}
+
+/* ── Links ───────────────────────────────────────────────────────────────── */
+a {
+    color: #005ea6;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+a:hover {
+    color: #003d6b;
+}
+
+a:focus-visible {
+    outline: 2px solid #005ea6;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ── Accessibility Skip Link ─────────────────────────────────────────────── */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0.4rem 0.8rem;
+    background: #000;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* ── Navigation ──────────────────────────────────────────────────────────── */
+nav.top-nav {
+    font-size: 0.88rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav.top-nav a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav.top-nav a:hover {
+    text-decoration: underline;
+}
+
+/* ── Swiss Header ────────────────────────────────────────────────────────── */
+header.swiss-header {
+    border-top: 5px solid var(--c-def);
+    padding-top: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.swiss-subtitle {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--swiss-gray);
+    margin-bottom: 0.25rem;
+}
+
+.swiss-chapter-number {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--c-def);
+    margin-bottom: 0.2rem;
+}
+
+.swiss-title {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--swiss-black);
+    margin-bottom: 0.75rem;
+}
+
+.swiss-divider {
+    height: 1.5px;
+    background-color: var(--swiss-line);
+    margin: 0.75rem 0 1.25rem;
+    border: none;
+}
+
+.swiss-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--swiss-dark);
+    margin-top: 0.75rem;
+}
+
+.meta-group h3 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--swiss-gray);
+    margin-bottom: 0.2rem;
+}
+
+.meta-group p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--swiss-black);
+    margin-bottom: 0.6rem;
+}
+
+.meta-group code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    background-color: var(--swiss-light);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    border: 1px solid var(--swiss-line);
+}
+
+/* ── Work In Progress Banner ─────────────────────────────────────────────── */
+.wip-banner {
+    position: relative;
+    background-color: #18181b;
+    color: #facc15;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 1.25rem 0 1.75rem;
+    padding: 1.2rem 1.2rem 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.wip-stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #facc15,
+        #facc15 12px,
+        #18181b 12px,
+        #18181b 24px
+    );
+}
+
+.wip-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+}
+
+.wip-icon {
+    font-size: 1.25rem;
+    color: #facc15;
+    margin-top: 0.15rem;
+}
+
+.wip-text strong {
+    display: block;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: #facc15;
+    margin-bottom: 0.2rem;
+}
+
+.wip-text p {
+    font-size: 0.85rem;
+    color: #e4e4e7;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ── Table of Contents ───────────────────────────────────────────────────── */
+nav.toc-box {
+    background-color: var(--swiss-light);
+    border: 1px solid var(--swiss-line);
+    border-radius: 6px;
+    padding: 1.1rem 1.4rem;
+    margin: 1.75rem 0 2.25rem;
+}
+
+nav.toc-box h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--swiss-black);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--swiss-line);
+}
+
+nav.toc-box ol,
+nav.toc-box ul {
+    padding-left: 1.4rem;
+    margin: 0;
+}
+
+nav.toc-box li {
+    font-size: 0.9rem;
+    margin: 0.35rem 0;
+}
+
+nav.toc-box li a {
+    color: var(--swiss-dark);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav.toc-box li a:hover {
+    color: var(--c-def);
+    text-decoration: underline;
+}
+
+/* ── Headings ────────────────────────────────────────────────────────────── */
+h1.chapter-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--swiss-black);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--swiss-black);
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+h2.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--swiss-black);
+    margin: 2.2rem 0 0.75rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--swiss-line);
+}
+
+h3.subsection-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--swiss-dark);
+    margin: 1.6rem 0 0.5rem;
+}
+
+/* ── Body Typography & Blocks ────────────────────────────────────────────── */
+p {
+    margin: 0.75rem 0;
+}
+
+ol, ul {
+    padding-left: 1.75rem;
+    margin: 0.75rem 0;
+}
+
+li {
+    margin: 0.3rem 0;
+}
+
+strong {
+    font-weight: 700;
+}
+
+em {
+    font-style: italic;
+}
+
+blockquote {
+    border-left: 3px solid var(--swiss-line);
+    padding-left: 1rem;
+    color: var(--swiss-dark);
+    margin: 1rem 0;
+}
+
+/* ── Swiss Modern Environments ───────────────────────────────────────────── */
+.env-card {
+    margin: 1.6rem 0;
+    border-left: 4px solid var(--env-color, var(--swiss-dark));
+    background-color: #ffffff;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+/* Badge Header: Pill Accents + Angled Trapezoid Badge + Title */
+.env-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.2rem 0 0.4rem;
+}
+
+.env-accent-pills {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    padding-left: 0.4rem;
+}
+
+.env-pill {
+    width: 3.5px;
+    height: 18px;
+    border-radius: 2px;
+    background-color: var(--env-color, var(--swiss-dark));
+}
+
+.env-badge {
+    background-color: var(--env-color, var(--swiss-dark));
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.22rem 0.85rem 0.22rem 0.65rem;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 100%, 0 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.env-badge i {
+    font-size: 0.82rem;
+}
+
+.env-stars {
+    color: var(--c-star);
+    font-size: 0.75rem;
+    margin-left: 0.3rem;
+    letter-spacing: 0.08em;
+}
+
+.env-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--swiss-dark);
+    margin-left: 0.2rem;
+}
+
+.env-body {
+    padding: 0.75rem 1.1rem 0.85rem;
+    background-color: var(--swiss-light);
+    border-radius: 0 0 3px 0;
+    border-top: 1px solid var(--swiss-line);
+}
+
+.env-body > *:first-child {
+    margin-top: 0;
+}
+
+.env-body > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Proof Block */
+.proof-box {
+    margin: 1.2rem 0 1.6rem;
+    padding: 0.7rem 1.1rem;
+    border-left: 3px solid var(--swiss-gray);
+    background-color: #fafafa;
+    border-radius: 0 3px 3px 0;
+    position: relative;
+}
+
+.proof-header {
+    font-weight: 700;
+    font-style: italic;
+    color: var(--swiss-dark);
+    font-size: 0.92rem;
+    margin-bottom: 0.3rem;
+}
+
+.proof-qed {
+    text-align: right;
+    font-size: 1.05rem;
+    color: var(--swiss-dark);
+    margin-top: 0.2rem;
+    line-height: 1;
+}
+
+/* Margin / Inline Todo Badge */
+.todo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: var(--c-todo);
+    color: #ffffff;
+    padding: 0.15rem 0.55rem;
+    border-radius: 3px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    margin: 0.4rem 0;
+    text-transform: uppercase;
+}
+
+.todo-badge i {
+    font-size: 0.75rem;
+}
+
+.todo-box {
+    background-color: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 4px solid var(--c-todo);
+    padding: 0.6rem 0.9rem;
+    border-radius: 0 4px 4px 0;
+    margin: 1rem 0;
+    color: #92400e;
+    font-size: 0.88rem;
+}
+
+/* ── Figures & Vector TikZ ───────────────────────────────────────────────── */
+figure.tex-figure {
+    margin: 2rem auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+figure.tex-figure .fig-wrapper {
+    display: inline-block;
+    max-width: 100%;
+    padding: 0.75rem;
+    background: #ffffff;
+    border: 1px solid var(--swiss-line);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+figure.tex-figure svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+figure.tex-figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+figure.tex-figure figcaption {
+    font-size: 0.85rem;
+    color: var(--swiss-gray);
+    margin-top: 0.65rem;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* ── Math & Formulas ─────────────────────────────────────────────────────── */
+.math-display,
+.mjx-chtml.MJX-TEX {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+mjx-container[jax="CHTML"][display="true"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.4rem 0;
+}
+
+/* ── Tables & Code ───────────────────────────────────────────────────────── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+th, td {
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--swiss-line);
+    text-align: left;
+}
+
+th {
+    background-color: var(--swiss-light);
+    font-weight: 700;
+}
+
+code {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    background-color: #f1f5f9;
+    padding: 0.12rem 0.35rem;
+    border-radius: 3px;
+    color: #0f172a;
+}
+
+pre {
+    background-color: #0f172a;
+    color: #f8fafc;
+    font-family: var(--font-mono);
+    padding: 0.9rem 1.1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+footer.swiss-footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--swiss-line);
+    font-size: 0.82rem;
+    color: var(--swiss-gray);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* ── Print Styles ────────────────────────────────────────────────────────── */
+@media print {
+    body {
+        max-width: 100%;
+        padding: 0;
+        font-size: 10.5pt;
+    }
+
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+
+    .skip-link,
+    nav.top-nav,
+    .wip-banner {
+        display: none !important;
+    }
+
+    .env-card,
+    figure.tex-figure {
+        break-inside: avoid;
+    }
+}
+
+/* ── Mobile Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    body {
+        padding: 0.75rem 1rem 3rem;
+    }
+
+    .swiss-title {
+        font-size: 1.6rem;
+    }
+
+    .swiss-chapter-number {
+        font-size: 2.2rem;
+    }
+
+    .swiss-meta {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .env-badge {
+        font-size: 0.78rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+    <nav class="top-nav" aria-label="Navigation principale">
+        <a href="index.html">← Retour à l'index</a>
+        <span style="font-size:0.8rem; color:var(--swiss-gray);">TXT.MA</span>
+    </nav>
+
+    
+<header class="swiss-header" role="banner">
+    <div class="swiss-subtitle">EMINES — CPI2A (Class2030)</div>
+    <div class="swiss-chapter-number">01</div>
+    <h1 class="swiss-title">Algèbre engendrée</h1>
+    <hr class="swiss-divider">
+    <div class="swiss-meta">
+        <div class="meta-group">
+            <h3>Auteur</h3>
+            <p>Samy Youssoufine</p>
+            <h3>Dernière mise à jour</h3>
+            <p>20 septembre 2026</p>
+        </div>
+        <div class="meta-group">
+            <h3>Dépôt principal</h3>
+            <p><a href="https://maths2.txt.ma"><code>maths2.txt.ma</code></a></p>
+            <h3>Lien miroir</h3>
+            <p><a href="https://samy-y.github.io/maths-cpi2a"><code>samy-y.github.io/maths-cpi2a</code></a></p>
+        </div>
+    </div>
+</header>
+
+    
+<div class="wip-banner" role="note" aria-label="Document en cours de rédaction">
+    <div class="wip-stripes"></div>
+    <div class="wip-content">
+        <i class="fas fa-hard-hat wip-icon" aria-hidden="true"></i>
+        <div class="wip-text">
+            <strong>WORK IN PROGRESS</strong>
+            <p>Ce document est incomplet ou en révision. Certaines sections peuvent faire l'objet de modifications ultérieures.</p>
+        </div>
+    </div>
+</div>
+
+    
+<nav class="toc-box" aria-label="Table des matières">
+    <h2>Table des matières</h2>
+    <ol><li><a href="#notions-de-base"><strong>Notions de base</strong></a></li><li><a href="#morphismes-dalgèbres-et-algèbres-engendrées"><strong>Morphismes
+d’algèbres et algèbres engendrées</strong></a></li><li><a href="#dimension-de-lalgèbre-engendrée-par-un-élément"><strong>Dimension de
+l’algèbre engendrée par un élément</strong></a></li><li><a href="#éléments-inversibles-de-kseta"><strong>Éléments inversibles de \(\Kset[a]\)</strong></a></li>
+    </ol>
+</nav>
+
+    <main id="main-content" role="main">
+<h1 id="notions-de-base">Notions de base</h1>
+
+<div class="env-card env-definition" id="definition-1" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 1</span>
+            
+        </div>
+        <span class="env-title">(Algèbre)</span>
+    </div>
+    <div class="env-body">
+<p><span class="math inline">\((E,+,\cdot,\times)\)</span> est dite une
+<span class="math inline">\(\Kset\)</span>-algèbre si :</p>
+<ol>
+<li><p><span class="math inline">\((E,+,\cdot)\)</span> est un <span
+class="math inline">\(\Kset\)</span>-espace vectoriel.</p></li>
+<li><p><span class="math inline">\((E,+,\times)\)</span> est un
+anneau.</p></li>
+<li><p>L’application “produit” <span class="math inline">\(f : E \times
+E \to E\)</span> définie par <span class="math inline">\((x,y) \mapsto
+xy\)</span> est bilinéaire. Après calculs, on obtient que pour tout
+<span class="math inline">\(x,y \in E\)</span> et <span
+class="math inline">\(\lambda \in \Kset\)</span> :</p>
+<ol>
+<li><p><span class="math inline">\((\lambda x)y =
+\lambda(xy)\)</span></p></li>
+<li><p><span class="math inline">\(x(\lambda y) =
+\lambda(xy)\)</span></p></li>
+</ol></li>
+</ol>
+<p>Si l’anneau <span class="math inline">\((E,+,\times)\)</span> est
+commutatif (resp. intègre), alors l’algèbre <span
+class="math inline">\((E,+,\cdot,\times)\)</span> est dite commutative
+(resp. intègre).</p>
+    </div>
+</div>
+<div class="rappel">
+<p>On dit que <span class="math inline">\((A,+,\times)\)</span> est un
+anneau si :</p>
+<ol>
+<li><p><span class="math inline">\((A,+)\)</span> est un groupe
+abélien/commutatif.</p></li>
+<li><p><span class="math inline">\(\times\)</span> est associative dans
+<span class="math inline">\(A\)</span> et admet un élément neutre <span
+class="math inline">\(1_A\)</span>.</p></li>
+<li><p><span class="math inline">\(\times\)</span> est distributive (à
+gauche et à droite) par rapport à <span
+class="math inline">\(+\)</span>, i.e. : <span
+class="math display">\[\begin{cases}
+            \forall x,y,z \in A, \quad x(y+z) = xy + xz \\
+            \forall x,y,z \in A, \quad (x+y)z = xz + yz
+        \end{cases}\]</span> Si la loi <span
+class="math inline">\(\times\)</span> est commutative, l’anneau est dit
+<strong>commutatif</strong>.</p></li>
+</ol>
+</div>
+
+<div class="env-card env-attention" id="attention-24" style="--env-color:#DC2626;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+            <span>Attention !</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Un anneau est par définition unitaire.</p>
+    </div>
+</div>
+
+<div class="env-card env-methodbox" id="methodbox-35" style="--env-color:#C026D3;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-magic" aria-hidden="true"></i>
+            <span>Méthode</span>
+            
+        </div>
+        <span class="env-title">(Justification de la simplification)</span>
+    </div>
+    <div class="env-body">
+<p>Par définition, le produit est bilinéaire si et seulement si pour
+tous <span class="math inline">\(x, y \in E\)</span>, les applications
+partielles <span class="math inline">\(L_x : z \mapsto xz\)</span> et
+<span class="math inline">\(R_y : z \mapsto zy\)</span> sont
+linéaires.</p>
+<p>Or, l’additivité de ces applications partielles est déjà garantie par
+la structure d’anneau de <span
+class="math inline">\((E,+,\times)\)</span> via la distributivité :
+<span class="math display">\[(x_1 + x_2)y = x_1 y + x_2 y \quad
+\text{et} \quad x(y_1 + y_2) = xy_1 + xy_2\]</span> Une application
+additive (<span class="math inline">\(\forall x,y \in E, \varphi(x+y) =
+\varphi(x) + \varphi(y)\)</span>) entre espaces vectoriels étant
+linéaire si et seulement si elle est homogène (<span
+class="math inline">\(\forall \lambda \in \Kset, \, \varphi(\lambda z) =
+\lambda \varphi(z)\)</span>), la bilinéarité se ramène strictement aux
+deux conditions d’homogénéité : <span class="math display">\[\forall
+(x,y) \in E^2, \quad \forall \lambda \in \Kset, \quad (\lambda x)y =
+\lambda(xy) = x(\lambda y)\]</span></p>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-1" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<ol>
+<li><p><strong>Algèbre des matrices</strong> : <span
+class="math inline">\((\mathcal M_n(\Kset),+,\cdot,\times)\)</span> est
+une <span class="math inline">\(\Kset\)</span>-algèbre non commutative
+et non intègre si <span class="math inline">\(n \geq 2\)</span>. En
+effet, <span class="math inline">\(E_{1,1} \times E_{1,2} =
+E_{1,2}\)</span> mais <span class="math inline">\(E_{1,2} \times E_{1,1}
+= 0\)</span>.</p></li>
+<li><p><strong>Algèbre des endomorphismes</strong> : <span
+class="math inline">\((\mathcal L(E),+,\cdot,\circ)\)</span> est une
+<span class="math inline">\(\Kset\)</span>-algèbre non commutative et
+non intègre si <span class="math inline">\(\dim E \geq 2\)</span>. En
+effet, <span class="math inline">\(\mathcal L(E)\)</span> est isomorphe
+à <span class="math inline">\(\mathcal M_n(\Kset)\)</span> avec <span
+class="math inline">\(n = \dim E\)</span>. Son élément unité est
+l’application identité <span
+class="math inline">\(\Id_E\)</span>.</p></li>
+<li><p><strong>Algèbre des polynômes</strong> : <span
+class="math inline">\((\Kset[X],+,\cdot,\times)\)</span> est une <span
+class="math inline">\(\Kset\)</span>-algèbre commutative et intègre. Son
+élément unité est le polynôme constant <span class="math inline">\(1 \in
+\Kset[X]\)</span>. Utiliser la loi rond <span
+class="math inline">\(\circ\)</span> au lieu de <span
+class="math inline">\(\times\)</span> n’est pas possible parce que la
+distributivité n’est pas conservée ; les polynômes ne sont pas des
+applications linéaires, ce qui fait que <span
+class="math inline">\((\Kset[X],+,\circ)\)</span> n’est pas un anneau,
+et donc <span class="math inline">\((\Kset[X],+,\cdot,\circ)\)</span>
+n’est pas une algèbre.</p></li>
+<li><p><strong>Algèbre des applications de <span
+class="math inline">\(I\)</span> vers <span
+class="math inline">\(\R\)</span></strong> : <span
+class="math inline">\((\R^I, +,\cdot,\times)\)</span> est une <span
+class="math inline">\(\Kset\)</span>-algèbre avec <span
+class="math inline">\(x+y : t \mapsto x(t) + y(t)\)</span> et <span
+class="math inline">\(xy : t \mapsto x(t)y(t)\)</span>. Son élément
+unité est l’application <span class="math inline">\(1_{\R^I} : t \mapsto
+1\)</span> de <span class="math inline">\(I \to \R\)</span>. Il s’agit
+d’une algèbre commutative mais non intègre (même en se restreignant à
+des applications continues !). En effet, en posant <span
+class="math inline">\(x(t) = t + |t|\)</span> et <span
+class="math inline">\(y(t) = t - |t|\)</span> (non nulles), on trouve
+que <span class="math inline">\(xy = t^2 - |t|^2 = 0\)</span>.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-definition" id="definition-2" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 2</span>
+            
+        </div>
+        <span class="env-title">(Sous-algèbre)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(E\)</span> une <span
+class="math inline">\(\Kset\)</span>-algèbre.</p>
+<p><span class="math inline">\(S\)</span> est dite
+<strong>sous-algèbre</strong> de <span class="math inline">\(E\)</span>
+si <span class="math inline">\(S\)</span> est un sous-espace vectoriel
+de <span class="math inline">\(E\)</span> et un sous-anneau de <span
+class="math inline">\(E\)</span>.</p>
+    </div>
+</div>
+<div class="rappel">
+<p>Un sous-anneau <span class="math inline">\(S\)</span> d’un anneau
+<span class="math inline">\((A,+,\times)\)</span> est un sous-ensemble
+<span class="math inline">\(S \subset A\)</span> tel que :</p>
+<ol>
+<li><p><span class="math inline">\(S\)</span> est non vide (il doit
+contenir au moins l’élément <span
+class="math inline">\(1_A\)</span>).</p></li>
+<li><p><span class="math inline">\(S\)</span> est stable par addition et
+multiplication, c’est-à-dire : <span class="math display">\[\forall x,y
+\in S, \quad x+y \in S \et x\times y \in S\]</span></p></li>
+</ol>
+</div>
+
+<div class="env-card env-property" id="property-1" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span class="math inline">\(S\)</span> est une sous-algèbre de <span
+class="math inline">\(E\)</span> si et seulement si :</p>
+<ol>
+<li><p><span class="math inline">\(1_E \in S\)</span></p></li>
+<li><p><span class="math inline">\(\forall x,y \in S, \forall \lambda
+\in \Kset, \begin{cases} \lambda x + y \in S \\ xy \in
+S\end{cases}\)</span></p></li>
+</ol>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>Le sens direct découle immédiatement de la définition d’une
+sous-algèbre unitaire. Réciproquement, supposons ces conditions
+vérifiées :</p>
+<ul>
+<li><p>Comme <span class="math inline">\(1_E \in S\)</span>, la partie
+<span class="math inline">\(S\)</span> est non vide. La stabilité par
+combinaisons linéaires (<span class="math inline">\(\lambda x + y \in
+S\)</span>) en fait donc un sous-espace vectoriel de <span
+class="math inline">\((E,+,\cdot)\)</span>.</p></li>
+<li><p>Cette structure vectorielle garantit déjà la stabilité par
+soustraction (pour <span class="math inline">\(\lambda = -1\)</span>),
+ce qui assure que <span class="math inline">\((S,+)\)</span> est un
+sous-groupe additif. En y ajoutant la stabilité par produit (<span
+class="math inline">\(xy \in S\)</span>) et la présence de l’unité
+(<span class="math inline">\(1_E \in S\)</span>), <span
+class="math inline">\(S\)</span> est également un sous-anneau de <span
+class="math inline">\((E,+,\times)\)</span>.</p></li>
+</ul>
+<p><span class="math inline">\(S\)</span> hérite de la structure
+d’algèbre unitaire.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-example" id="example-2" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span class="math inline">\(T_n^s(\Kset)\)</span> (l’ensemble des
+matrices triangulaires supérieures) est une sous-algèbre de <span
+class="math inline">\(\mathcal M_n(\Kset)\)</span>. En effet : <span
+class="math inline">\(x \in T_n^s(\Kset) \iff \forall i &gt; j, x_{i,j}
+= 0\)</span>. On peut alors retrouver les conditions de caractérisation
+d’une sous-algèbre :</p>
+<ol>
+<li><p><span class="math inline">\(I_n\)</span> est diagonale donc
+triangulaire supérieure.</p></li>
+<li><ul>
+<li><p>Si <span class="math inline">\(i &gt; j\)</span>, on a <span
+class="math inline">\((xy)_{ij} = \sum_{k=1}^n x_{ik}y_{kj}\)</span>.
+Dans le cas où <span class="math inline">\(i \le k\)</span> et <span
+class="math inline">\(k \le j\)</span>, on aura <span
+class="math inline">\(i \le j\)</span> ce qui est absurde. Donc <span
+class="math inline">\(\forall k \in \llbracket 1,n\rrbracket\)</span>,
+on a <span class="math inline">\(i &gt; k\)</span> ou <span
+class="math inline">\(k &gt; j\)</span>, c’est-à-dire <span
+class="math inline">\(x_{ik} = 0\)</span> ou <span
+class="math inline">\(y_{kj} = 0\)</span>. Par suite, <span
+class="math inline">\(x_{ik}y_{kj} = 0\)</span> pour tout <span
+class="math inline">\(k \in \llbracket 1,n\rrbracket\)</span> et donc
+<span class="math inline">\((xy)_{ij} = 0\)</span> pour tout <span
+class="math inline">\(i &gt; j\)</span>.</p></li>
+<li><p>Clairement, <span class="math inline">\(\forall \lambda \in
+\Kset, \forall i &gt; j, (\lambda x + y)_{ij} = \lambda x_{ij} + y_{ij}
+= 0\)</span>.</p></li>
+<li><p>La stabilité est vérifiée et donc <span class="math inline">\(xy
+\in T_n^s(\Kset)\)</span>.</p></li>
+</ul></li>
+</ol>
+    </div>
+</div>
+<h1 id="morphismes-dalgèbres-et-algèbres-engendrées">Morphismes
+d’algèbres et algèbres engendrées</h1>
+
+<div class="env-card env-definition" id="definition-3" style="--env-color:#0284C7;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-book" aria-hidden="true"></i>
+            <span>Définition 3</span>
+            
+        </div>
+        <span class="env-title">(Morphisme d'algèbres)</span>
+    </div>
+    <div class="env-body">
+<p>Soient <span class="math inline">\(E\)</span> et <span
+class="math inline">\(F\)</span> deux <span
+class="math inline">\(\Kset\)</span>-algèbres. Une application <span
+class="math inline">\(f : E \to F\)</span> est dite un morphisme
+d’algèbres si :</p>
+<ol>
+<li><p><span class="math inline">\(\forall (x,y) \in E^2,\forall \lambda
+\in \Kset, f(\lambda x + y) = \lambda f(x) + f(y) \et f(x\times y) =
+f(x)\times f(y)\)</span></p></li>
+<li><p><span class="math inline">\(f(1_E) = 1_F\)</span></p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-9" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Si <span class="math inline">\(S\)</span> est une sous-algèbre de
+<span class="math inline">\(E\)</span>, alors <span
+class="math inline">\(u(S)\)</span> est une sous-algèbre de <span
+class="math inline">\(F\)</span>, en particulier pour <span
+class="math inline">\(S = E\)</span>. Alors <span
+class="math inline">\(\Imf(u) = u(E)\)</span> est une sous-algèbre de
+<span class="math inline">\(F\)</span>. En revanche, ce n’est pas vrai
+pour le noyau <span class="math inline">\(\Ker(u)\)</span>, qui est un
+sous-espace vectoriel de <span class="math inline">\(E\)</span> mais
+jamais un sous-anneau parce qu’il ne contient pas l’élément unité <span
+class="math inline">\(1_E\)</span> (car <span
+class="math inline">\(f(1_E) = 1_F \neq 0\)</span>). Néanmoins, le noyau
+a une structure d’idéal de <span class="math inline">\(E\)</span> ; il
+est absorbant car <span class="math inline">\(\forall x \in E, \forall y
+\in \Ker(u), xy \in \Ker(u)\)</span>.</p>
+<p>En résumé :</p>
+<ol>
+<li><p><span class="math inline">\(\Imf(u)\)</span> est une sous-algèbre
+de <span class="math inline">\(F\)</span>.</p></li>
+<li><p><span class="math inline">\(\Ker(u)\)</span> est un idéal de
+<span class="math inline">\(E\)</span>. Il est bien bilatère,
+c’est-à-dire que <span class="math inline">\(E~\ker(u) \subset
+\ker(u)\)</span>, <span class="math inline">\(\ker(u)~E \subset
+\ker(u)\)</span> et <span class="math inline">\((\ker(u),+)\)</span> est
+un sous-groupe de <span class="math inline">\((E,+)\)</span>.</p></li>
+</ol>
+    </div>
+</div>
+<div class="rappel">
+<p>Un idéal <span class="math inline">\(I\)</span> d’un anneau <span
+class="math inline">\((A,+,\times)\)</span> est un sous-ensemble <span
+class="math inline">\(I \subset A\)</span> tel que :</p>
+<ol>
+<li><p><span class="math inline">\(I\)</span> est un sous-groupe de
+<span class="math inline">\((A,+)\)</span>.</p></li>
+<li><p><span class="math inline">\(I\)</span> est absorbant par rapport
+à la multiplication, c’est-à-dire : <span class="math display">\[\forall
+x \in A, \forall y \in I, \quad xy \in I \et yx \in I\]</span> Qu’on
+peut aussi écrire <span class="math inline">\(AI \subset I\)</span> et
+<span class="math inline">\(IA \subset I\)</span>.</p></li>
+</ol>
+</div>
+
+<div class="env-card env-example" id="example-3" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 3</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(E\)</span> une <span
+class="math inline">\(\Kset\)</span>-algèbre, <span
+class="math inline">\(a \in E\)</span>, et <span class="math inline">\(f
+: \Kset[X] \to E\)</span> l’application définie par <span
+class="math inline">\(f(P) = P(a)\)</span> avec <span
+class="math inline">\(P(a) = \sum_{k=1}^n \lambda_k a^k + \lambda_0
+\cdot 1_E\)</span>. Alors <span class="math inline">\(f\)</span> est un
+morphisme d’algèbres. En effet, pour tout <span
+class="math inline">\(P,Q \in \Kset[X]\)</span> et <span
+class="math inline">\(\lambda \in \Kset\)</span>, on a :</p>
+<ol>
+<li><p><span class="math inline">\(f(\lambda P + Q) = (\lambda P + Q)(a)
+= \lambda P(a) + Q(a) = \lambda f(P) + f(Q)\)</span></p></li>
+<li><p><span class="math inline">\(f(PQ) = (PQ)(a) = P(a)Q(a) =
+f(P)f(Q)\)</span></p></li>
+<li><p><span class="math inline">\(f(1_{\Kset[X]}) = 1_{\Kset[X]}(a) =
+1_E\)</span></p></li>
+</ol>
+<p>En conséquence, <span class="math inline">\(\Imf(f) = \{P(a) \mid P
+\in \Kset[X]\}\)</span> est une sous-algèbre de <span
+class="math inline">\(E\)</span> engendrée par l’élément <span
+class="math inline">\(a\)</span>. On la note <span
+class="math inline">\(\Kset[a]\)</span>. Il s’agit aussi de la plus
+petite sous-algèbre de <span class="math inline">\(E\)</span> contenant
+<span class="math inline">\(a\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-property" id="property-2" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span class="math inline">\(\Kset[a] = \{P(a) \mid P \in
+\Kset[X]\}\)</span> est la plus petite sous-algèbre de <span
+class="math inline">\(E\)</span> contenant <span
+class="math inline">\(a\)</span>.</p>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>L’ensemble <span class="math inline">\(\Kset[a]\)</span> est une
+sous-algèbre de <span class="math inline">\(E\)</span> (image de <span
+class="math inline">\(\Kset[X]\)</span> par le morphisme d’évaluation)
+et contient <span class="math inline">\(a = X(a)\)</span>.</p>
+<p>Soit <span class="math inline">\(S\)</span> une sous-algèbre de <span
+class="math inline">\(E\)</span> contenant <span
+class="math inline">\(a\)</span>. Comme <span
+class="math inline">\(S\)</span> est un sous-anneau unitaire, <span
+class="math inline">\(a^0 = 1_E \in S\)</span>, puis par stabilité sous
+le produit, <span class="math inline">\(a^k \in S\)</span> pour tout
+<span class="math inline">\(k \in \mathbb{N}\)</span>. <span
+class="math inline">\(S\)</span> étant également un sous-espace
+vectoriel, il est stable par combinaisons linéaires : pour tout <span
+class="math inline">\(P = \sum_{k=0}^n \lambda_k X^k \in
+\Kset[X]\)</span>, on a <span class="math inline">\(P(a) = \sum_{k=0}^n
+\lambda_k a^k \in S\)</span>.</p>
+<p>On en déduit l’inclusion <span class="math inline">\(\Kset[a] \subset
+S\)</span>, ce qui établit que <span
+class="math inline">\(\Kset[a]\)</span> est la plus petite sous-algèbre
+de <span class="math inline">\(E\)</span> contenant <span
+class="math inline">\(a\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-example" id="example-4" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 4</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soient <span class="math inline">\(E =
+\mathcal{M}_2(\mathbb{R})\)</span> et <span class="math inline">\(A =
+\begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 1 \end{pmatrix}\)</span>. On pose :
+<span class="math display">\[S = \left\{ \begin{pmatrix} \alpha &amp;
+\beta \\ \beta &amp; \alpha \end{pmatrix} \;\middle|\; (\alpha, \beta)
+\in \mathbb{R}^2 \right\} = \operatorname{Vect}\left(I_2, \,
+\begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}\right)\]</span>
+Montrons que <span class="math inline">\(\mathbb{R}[A] = S\)</span>.</p>
+<p><strong>1. Inclusion <span class="math inline">\(\mathbb{R}[A]
+\subset S\)</span> :</strong> Le polynôme caractéristique de <span
+class="math inline">\(A\)</span> donne la relation annulatrice : <span
+class="math display">\[A^2 - \operatorname{tr}(A)A + \det(A)I_2 = A^2 -
+2A - 3I_2 = 0\]</span> Pour tout <span class="math inline">\(n \in
+\mathbb{N}\)</span>, la division euclidienne de <span
+class="math inline">\(X^n\)</span> par <span class="math inline">\(P(X)
+= X^2 - 2X - 3 = (X+1)(X-3)\)</span> s’écrit : <span
+class="math display">\[X^n = Q(X)P(X) + a_n X + b_n\]</span> En évaluant
+en <span class="math inline">\(X = -1\)</span> et <span
+class="math inline">\(X = 3\)</span>, on obtient : <span
+class="math display">\[\begin{cases}
+            (-1)^n = -a_n + b_n \\
+            3^n = 3a_n + b_n
+        \end{cases}
+        \iff
+        \begin{cases}
+            a_n = \frac{1}{4}\left(3^n - (-1)^n\right) \\
+            b_n = \frac{1}{4}\left(3^n + 3(-1)^n\right)
+        \end{cases}\]</span> Comme <span class="math inline">\(P(A) =
+0\)</span>, il vient : <span class="math display">\[A^n = a_n A + b_n
+I_2 = \begin{pmatrix} a_n + b_n &amp; 2a_n \\ 2a_n &amp; a_n + b_n
+\end{pmatrix} \in S\]</span> <span class="math inline">\(S\)</span>
+étant un sous-espace vectoriel stable par combinaison linéaire, pour
+tout <span class="math inline">\(Q \in \mathbb{R}[X]\)</span>, <span
+class="math inline">\(Q(A) = \sum \lambda_k A^k \in S\)</span>. Donc
+<span class="math inline">\(\mathbb{R}[A] \subset S\)</span>.</p>
+<p><strong>2. Inclusion <span class="math inline">\(S \subset
+\mathbb{R}[A]\)</span> :</strong> Soit <span class="math inline">\(M =
+\begin{pmatrix} \alpha &amp; \beta \\ \beta &amp; \alpha \end{pmatrix}
+\in S\)</span>. On cherche <span class="math inline">\((x,y) \in
+\mathbb{R}^2\)</span> tel que <span class="math inline">\(M = x I_2 + y
+A\)</span> : <span class="math display">\[\begin{pmatrix} \alpha &amp;
+\beta \\ \beta &amp; \alpha \end{pmatrix} = \begin{pmatrix} x + y &amp;
+2y \\ 2y &amp; x + y \end{pmatrix}
+        \iff
+        \begin{cases}
+            y = \frac{\beta}{2} \\
+            x = \alpha - \frac{\beta}{2}
+        \end{cases}\]</span> Le système admet toujours une solution,
+d’où <span class="math inline">\(M \in \operatorname{Vect}(I_2, A)
+\subset \mathbb{R}[A]\)</span>, ce qui donne <span
+class="math inline">\(S \subset \mathbb{R}[A]\)</span>.</p>
+<p>On conclut que <span class="math inline">\(\mathbb{R}[A] =
+S\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-10" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        <span class="env-title">(Méthode alternative pour $A^n$ via le binôme de Newton)</span>
+    </div>
+    <div class="env-body">
+<p>En posant <span class="math inline">\(B = \begin{pmatrix} 0 &amp; 1
+\\ 1 &amp; 0 \end{pmatrix}\)</span>, on remarque que <span
+class="math inline">\(B^2 = I_2\)</span> et <span
+class="math inline">\(A = I_2 + 2B\)</span>. Comme <span
+class="math inline">\(I_2\)</span> et <span
+class="math inline">\(B\)</span> commutent, la formule du binôme assure
+l’existence de scalaires <span class="math inline">\((\alpha_n,
+\beta_n)\)</span> tels que : <span class="math display">\[A^n = (I_2 +
+2B)^n = \alpha_n I_2 + \beta_n B = \begin{pmatrix} \alpha_n &amp;
+\beta_n \\ \beta_n &amp; \alpha_n \end{pmatrix} \in S\]</span></p>
+<p>Dans l’exemple précédent, on peut simplifier les expressions de <span
+class="math inline">\(\alpha_n\)</span> et <span
+class="math inline">\(\beta_n\)</span> trouvées. En effet, nous avons
+seulement utilisé le fait que la matrice <span class="math inline">\(B^2
+= I_2\)</span>. On peut aussi prendre <span class="math inline">\(B =
+I_2\)</span> pour que les calculs précédents donnent <span
+class="math inline">\(A = I_2 + 2I_2 = 3I_2\)</span> et au final obtenir
+<span class="math inline">\(3^n I_2 = \alpha_n I_2 + \beta_n I_2 =
+(\alpha_n + \beta_n)I_2\)</span>. Par conséquent, on obtient <span
+class="math inline">\(\alpha_n + \beta_n = 3^n\)</span>.</p>
+<p>On pourrait aussi prendre la matrice <span class="math inline">\(B =
+-I_2\)</span> pour retrouver <span class="math inline">\(B^2 =
+I_2\)</span> et obtenir <span class="math inline">\((-1)^n I_2 =
+\alpha_n I_2 - \beta_n I_2 = (\alpha_n - \beta_n)I_2\)</span>. Par
+conséquent, on obtient <span class="math inline">\(\alpha_n - \beta_n =
+(-1)^n\)</span>. En résolvant le système d’équations obtenu : <span
+class="math display">\[\begin{cases} \alpha_n + \beta_n = 3^n \\
+\alpha_n - \beta_n = (-1)^n\end{cases}\]</span></p>
+<p>On trouve <span class="math inline">\(\alpha_n = \frac{3^n +
+(-1)^n}{2}\)</span> et <span class="math inline">\(\beta_n = \frac{3^n -
+(-1)^n}{2}\)</span>. Ces expressions peuvent être différentes selon la
+base <span class="math inline">\((A,B)\)</span> choisie, mais on
+retrouve la même expression pour <span
+class="math inline">\(A^n\)</span>.</p>
+    </div>
+</div>
+<div class="rappel">
+<p>Un idéal <span class="math inline">\(I\)</span> de <span
+class="math inline">\(\Kset[X]\)</span> est soit nul soit engendré par
+un polynôme unitaire <span class="math inline">\(P\)</span> de <span
+class="math inline">\(\Kset[X]\)</span>. En effet, si <span
+class="math inline">\(I \neq \{0\}\)</span>, on peut choisir un polynôme
+<span class="math inline">\(P \in I\)</span> de degré minimal (via
+double-inclusion dont un sens est démontré par division euclidienne)
+pour montrer que <span class="math inline">\(I = P_0
+\Kset[X]\)</span>.</p>
+</div>
+<h1 id="dimension-de-lalgèbre-engendrée-par-un-élément">Dimension de
+l’algèbre engendrée par un élément</h1>
+
+<div class="env-card env-property" id="property-3" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 3</span>
+            
+        </div>
+        <span class="env-title">(Étude de dimension)</span>
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(a \in E\)</span>. L’ensemble <span
+class="math inline">\(I_a = \{P \in \Kset[X] \mid P(a) = 0\}\)</span>
+est un idéal de <span class="math inline">\(\Kset[X]\)</span>, appelé
+l’idéal annulateur de <span class="math inline">\(a\)</span>. Deux cas
+disjoints se présentent :</p>
+<ol>
+<li><p>Si <span class="math inline">\(I_a = \{0\}\)</span>, le morphisme
+d’évaluation induit un isomorphisme <span class="math inline">\(\Kset[X]
+\simeq \Kset[a]\)</span>. La famille <span
+class="math inline">\((a^k)_{k \in \mathbb{N}}\)</span> est une base de
+<span class="math inline">\(\Kset[a]\)</span> et <span
+class="math inline">\(\dim(\Kset[a]) = \infty\)</span>.</p></li>
+<li><p>Si <span class="math inline">\(I_a \neq \{0\}\)</span>, il existe
+un unique polynôme unitaire <span class="math inline">\(\pi_a \in
+\Kset[X]\)</span>, appelé polynôme minimal de <span
+class="math inline">\(a\)</span>, tel que : <span
+class="math display">\[I_a = \pi_a \Kset[X], \quad
+\text{c&#39;est-à-dire} \quad P(a) = 0 \iff \pi_a \mid P\]</span> En
+posant <span class="math inline">\(d = \deg(\pi_a)\)</span>, la famille
+<span class="math inline">\((1_E, a, a^2, \dots, a^{d-1})\)</span> est
+une base de <span class="math inline">\(\Kset[a]\)</span>, et <span
+class="math inline">\(\dim(\Kset[a]) = d\)</span>.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>Considérons le morphisme d’algèbres <span class="math inline">\(f :
+\Kset[X] \to \Kset[a]\)</span> défini par <span class="math inline">\(P
+\mapsto P(a)\)</span>, surjectif par définition, de noyau <span
+class="math inline">\(\ker(f) = I_a\)</span>.</p>
+<p><strong>1. Cas <span class="math inline">\(I_a = \{0\}\)</span>
+:</strong> L’application <span class="math inline">\(f\)</span> est
+injective, donc est un isomorphisme d’espaces vectoriels. L’image de la
+base canonique <span class="math inline">\((X^k)_{k \in
+\mathbb{N}}\)</span> de <span class="math inline">\(\Kset[X]\)</span>
+par cet isomorphisme est <span class="math inline">\((f(X^k))_{k \in
+\mathbb{N}} = (a^k)_{k \in \mathbb{N}}\)</span>, qui constitue ainsi une
+base de <span class="math inline">\(\Kset[a]\)</span>. En particulier,
+<span class="math inline">\(\dim(\Kset[a]) = \infty\)</span>.</p>
+<p><strong>2. Cas <span class="math inline">\(I_a \neq \{0\}\)</span>
+:</strong> L’anneau <span class="math inline">\(\Kset[X]\)</span> étant
+principal, l’idéal non nul <span class="math inline">\(I_a\)</span>
+admet un unique générateur unitaire noté <span
+class="math inline">\(\pi_a\)</span>, de degré minimal <span
+class="math inline">\(d = \deg(\pi_a) \ge 1\)</span>. Montrons que <span
+class="math inline">\(\mathcal{B} = (1_E, a, \dots, a^{d-1})\)</span>
+est une base de <span class="math inline">\(\Kset[a]\)</span> :</p>
+<ul>
+<li><p><strong>Liberté :</strong> Soit <span
+class="math inline">\((\lambda_0, \dots, \lambda_{d-1}) \in
+\Kset^d\)</span> tel que <span class="math inline">\(\sum_{k=0}^{d-1}
+\lambda_k a^k = 0\)</span>. Le polynôme <span class="math inline">\(Q =
+\sum_{k=0}^{d-1} \lambda_k X^k\)</span> vérifie <span
+class="math inline">\(Q(a) = 0\)</span>, donc <span
+class="math inline">\(Q \in I_a\)</span>, d’où <span
+class="math inline">\(\pi_a \mid Q\)</span>. Or, <span
+class="math inline">\(\deg(Q) \le d-1 &lt; \deg(\pi_a)\)</span>, ce qui
+impose <span class="math inline">\(Q = 0\)</span>, et par identification
+<span class="math inline">\(\lambda_0 = \dots = \lambda_{d-1} =
+0\)</span>. La famille est libre.</p></li>
+<li><p><strong>Génération :</strong> Pour tout <span
+class="math inline">\(x \in \Kset[a]\)</span>, il existe <span
+class="math inline">\(P \in \Kset[X]\)</span> tel que <span
+class="math inline">\(x = P(a)\)</span>. La division euclidienne de
+<span class="math inline">\(P\)</span> par <span
+class="math inline">\(\pi_a\)</span> donne <span class="math inline">\(P
+= Q\pi_a + R\)</span> avec <span class="math inline">\(\deg(R) &lt;
+d\)</span>. Comme <span class="math inline">\(\pi_a(a) = 0\)</span>, on
+en déduit : <span class="math display">\[x = P(a) = Q(a)\pi_a(a) + R(a)
+= R(a) \in \operatorname{Vect}(1_E, a, \dots, a^{d-1})\]</span></p></li>
+</ul>
+<p>La famille <span class="math inline">\((1_E, a, \dots,
+a^{d-1})\)</span> est libre et génératrice, c’est donc une base de <span
+class="math inline">\(\Kset[a]\)</span>, d’où <span
+class="math inline">\(\dim(\Kset[a]) = d\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-example" id="example-5" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 5</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Soit <span class="math inline">\(A = \begin{pmatrix} 1 &amp; \dots
+&amp; 1 \\ \vdots &amp; \ddots &amp; \vdots \\ 1 &amp; \dots &amp; 1
+\end{pmatrix} \in \mathcal{M}_n(\mathbb{R})\)</span> avec <span
+class="math inline">\(n \ge 2\)</span>.</p>
+<p>Un calcul direct donne <span class="math inline">\(A^2 = nA\)</span>,
+c’est-à-dire <span class="math inline">\(A^2 - nA = 0\)</span>. Le
+polynôme <span class="math inline">\(P(X) = X(X - n)\)</span> est donc
+annulateur de <span class="math inline">\(A\)</span>, d’où : <span
+class="math display">\[\pi_A \mid X(X - n) \implies \pi_A \in \{1, \, X,
+\, X - n, \, X(X - n)\}\]</span> On élimine les diviseurs stricts :</p>
+<ul>
+<li><p><span class="math inline">\(\pi_A \neq 1\)</span> car <span
+class="math inline">\(1(A) = I_n \neq 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\pi_A \neq X\)</span> car <span
+class="math inline">\(A \neq 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\pi_A \neq X - n\)</span> car <span
+class="math inline">\(A \neq n I_n\)</span> (pour <span
+class="math inline">\(n \ge 2\)</span>).</p></li>
+</ul>
+<p>On en déduit que <span class="math inline">\(\pi_A = X^2 -
+nX\)</span>. Par conséquent, <span class="math inline">\(\deg(\pi_A) =
+2\)</span>, la famille <span class="math inline">\((I_n, A)\)</span>
+forme une base de <span class="math inline">\(\mathbb{R}[A]\)</span> et
+<span class="math inline">\(\dim(\mathbb{R}[A]) = 2\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-exercise" id="exo:polynome-minimal-rang-1" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 1</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span id="exo:polynome-minimal-rang-1"
+data-label="exo:polynome-minimal-rang-1"></span> Soit <span
+class="math inline">\(u \in \mathcal L(E)\)</span> avec <span
+class="math inline">\(2 \le \dim(E) &lt; \infty\)</span> tel que <span
+class="math inline">\(\rang(u) = 1\)</span>. Montrer que <span
+class="math inline">\(\Pi_u = X^2 - \Tr(u)X\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-correction" id="correction-30" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        <span class="env-title">(Exercice <a href="#exo:polynome-minimal-rang-1" class="xref">Exercice 1</a>)</span>
+    </div>
+    <div class="env-body">
+<p>Comme <span class="math inline">\(\rang(u) = 1\)</span>, <span
+class="math inline">\(\dim(\ker(u)) = \dim(E) - 1\)</span> par théorème
+du rang. Pour simplifier, on notera <span class="math inline">\(\dim(E)
+= n\)</span>. On a donc <span class="math inline">\(\dim(\ker(u)) = n -
+1\)</span>. On construit alors la base de <span
+class="math inline">\(\ker(u)\)</span> suivante : <span
+class="math inline">\(\mathcal B_{\ker(u)} = (e_1, \dots,
+e_{n-1})\)</span>. On complète cette base en une base de <span
+class="math inline">\(E\)</span> en ajoutant un vecteur <span
+class="math inline">\(e_n \notin \ker(u)\)</span>, ce qui donne <span
+class="math inline">\(\mathcal B_E = (e_1, \dots, e_{n-1}, e_n)\)</span>
+(par théorème de la base incomplète). On a alors <span
+class="math inline">\(u(e_n) \neq 0\)</span> et <span
+class="math inline">\(u(e_i) = 0\)</span> pour tout <span
+class="math inline">\(i \in \llbracket 1, n-1\rrbracket\)</span>. On
+peut donc écrire la matrice <span class="math inline">\([u]_{\mathcal
+B_E}\)</span> de <span class="math inline">\(u\)</span> dans la base
+<span class="math inline">\(\mathcal B_E\)</span> : <span
+class="math display">\[[u]_{\mathcal B_E} = \begin{pmatrix}
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_1 \\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_2 \\
+            \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots
+\\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_{n-1} \\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_n
+        \end{pmatrix}\]</span> avec <span class="math inline">\(\alpha_n
+\neq 0\)</span> car <span class="math inline">\(u(e_n) \neq 0\)</span>.
+On calcule alors la trace de <span class="math inline">\(u\)</span> :
+<span class="math display">\[\Tr(u) = \sum_{i=1}^n [u]_{\mathcal
+B_E}(i,i) = 0 + 0 + \dots + 0 + \alpha_n = \alpha_n\]</span> On calcule
+ensuite <span class="math inline">\(u^2\)</span> : <span
+class="math display">\[[u^2]_{\mathcal B_E} = [u]_{\mathcal B_E}^2 =
+\begin{pmatrix}
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_1 \\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_2 \\
+            \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots
+\\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_{n-1} \\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_n
+        \end{pmatrix}^2 =
+        \begin{pmatrix}
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_1 \alpha_n \\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_2 \alpha_n \\
+            \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots
+\\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_{n-1} \alpha_n \\
+            0 &amp; 0 &amp; \dots &amp; 0 &amp; \alpha_n^2
+        \end{pmatrix}\]</span> On remarque que <span
+class="math inline">\([u^2]_{\mathcal B_E} = \alpha_n [u]_{\mathcal
+B_E}\)</span>, ce qui implique que <span class="math inline">\(u^2 =
+\alpha_n u\)</span>. Comme <span class="math inline">\(\alpha_n =
+\Tr(u)\)</span>, on obtient l’équation : <span
+class="math display">\[u^2 - \Tr(u) u = 0\]</span> Ainsi, le polynôme
+<span class="math inline">\(X^2 - \Tr(u) X\)</span> est un polynôme
+annulateur de <span class="math inline">\(u\)</span>. Cela veut donc
+dire que <span class="math inline">\(\Pi_u\)</span>, le polynôme minimal
+de <span class="math inline">\(u\)</span>, divise <span
+class="math inline">\(X^2 - \Tr(u) X\)</span>. On a donc <span
+class="math inline">\(\Pi_u \in \{1, X, X - \Tr(u), X(X -
+\Tr(u))\}\)</span>. On élimine les choix suivants :</p>
+<ul>
+<li><p><span class="math inline">\(\Pi_u \neq 1\)</span> car <span
+class="math inline">\(1(u) = \Id_E \neq 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\Pi_u \neq X\)</span> car <span
+class="math inline">\(u \neq 0\)</span>.</p></li>
+<li><p><span class="math inline">\(\Pi_u \neq X - \Tr(u)\)</span> car
+<span class="math inline">\(u \neq \Tr(u) \Id_E\)</span> (cela implique
+que <span class="math inline">\(\Tr(u) = 0\)</span> et même que <span
+class="math inline">\(u = 0\)</span>).</p></li>
+</ul>
+<p>On en déduit que <span class="math inline">\(\Pi_u = X^2 - \Tr(u)
+X\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-11" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Le degré d’un polynôme minimal <span
+class="math inline">\(\pi_a\)</span> vaut <span
+class="math inline">\(1\)</span> si et seulement si la famille <span
+class="math inline">\((1_E,a)\)</span> est liée, c’est-à-dire si et
+seulement si <span class="math inline">\(a\)</span> est un multiple
+scalaire de l’élément unité <span class="math inline">\(1_E\)</span>
+(homothétie).</p>
+<p>Dans ce cas, le polynôme minimal est <span
+class="math inline">\(\pi_a = X - \lambda\)</span> avec <span
+class="math inline">\(\lambda \in \Kset\)</span> tel que <span
+class="math inline">\(a = \lambda 1_E\)</span>.</p>
+<p>Dans le cas contraire où <span class="math inline">\(a \ne \lambda
+1_E\)</span> pour tout <span class="math inline">\(\lambda \in
+\Kset\)</span>, le polynôme minimal <span
+class="math inline">\(\pi_a\)</span> est de degré <span
+class="math inline">\(d \ge 2\)</span> et la famille <span
+class="math inline">\((1_E, a)\)</span> est libre. On résout alors <span
+class="math inline">\(a^2 = \lambda_0 1_E + \lambda_1 a\)</span> pour
+voir si elle admet des solutions pour <span
+class="math inline">\(\lambda_0, \lambda_1 \in \Kset\)</span>. Si c’est
+le cas, on obtient <span class="math inline">\(\pi_a = X^2 - \lambda_1 X
+- \lambda_0\)</span> et <span class="math inline">\(\dim(\Kset[a]) =
+2\)</span>. Sinon, on continue avec <span
+class="math inline">\(a^3\)</span> et ainsi de suite <strong>jusqu’à
+trouver un polynôme annulateur minimal</strong>.</p>
+<p>En effet, il faut trouver le plus petit <span class="math inline">\(d
+\ge 1\)</span> tel que <span class="math inline">\(a^d \in \Vect(1_E, a,
+\dots, a^{d-1})\)</span>. Le polynôme minimal <span
+class="math inline">\(\pi_a\)</span> est alors de degré <span
+class="math inline">\(d\)</span> et la famille <span
+class="math inline">\((1_E, a, \dots, a^{d-1})\)</span> est une base de
+<span class="math inline">\(\Kset[a]\)</span>, car <span
+class="math inline">\(a^d = \sum_{i=0}^{d-1} \lambda_i a^i\)</span>
+implique <span class="math inline">\(\pi_a = X^d - \sum_{i=0}^{d-1}
+\lambda_i X^i\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-example" id="example-6" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 6</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Prenons <span class="math inline">\(E = \mathcal
+M_3(\R)\)</span>.</p>
+<p>Soit <span class="math inline">\(a = \left(\begin{matrix} 2 &amp; -1
+&amp; 2 \\ -1 &amp; 2 &amp; -2 \\ 1 &amp; -1 &amp; 3
+\end{matrix}\right)\)</span>. Calculons <span
+class="math inline">\(\pi_a\)</span>.</p>
+<p>On a <span class="math inline">\(a \ne \lambda I_3\)</span> pour tout
+<span class="math inline">\(\lambda \in \R\)</span>, donc <span
+class="math inline">\(\deg(\pi_a) \ge 2\)</span>. On calcule : <span
+class="math display">\[a^2 = \begin{pmatrix} 7 &amp; -6 &amp; 12 \\ -6
+&amp; 7 &amp; -12 \\ 6 &amp; -6 &amp; 13 \end{pmatrix}, \quad\]</span>
+On cherche <span class="math inline">\(\lambda_0, \lambda_1 \in
+\R\)</span> tels que <span class="math inline">\(a^2 = \lambda_1 a +
+\lambda_0 I_3\)</span>. <span class="math display">\[\lambda_1 a +
+\lambda_0 I_3 = \begin{pmatrix} 2\lambda_1 + \lambda_0 &amp; -\lambda_1
+&amp; 2\lambda_1 \\ -\lambda_1 &amp; 2\lambda_1 + \lambda_0 &amp;
+-2\lambda_1 \\ \lambda_1 &amp; -\lambda_1 &amp; 3\lambda_1 + \lambda_0
+\end{pmatrix}\]</span> En comparant les coefficients, on obtient le
+système : <span class="math display">\[\begin{cases}
+            7 = 2\lambda_1 + \lambda_0 \\
+            -6 = -\lambda_1 \\
+            12 = 2\lambda_1 \\
+            -6 = -\lambda_1 \\
+            7 = 2\lambda_1 + \lambda_0 \\
+            -12 = -2\lambda_1 \\
+            6 = \lambda_1 \\
+            -6 = -\lambda_1 \\
+            13 = 3\lambda_1 + \lambda_0
+        \end{cases}\]</span> Donc <span class="math inline">\(\lambda_1
+= 6\)</span> et <span class="math inline">\(\lambda_0 = -5\)</span>.
+Ainsi, <span class="math inline">\(a^2 = 6a - 5I_3\)</span>, et le
+polynôme minimal est <span class="math inline">\(\pi_a(X) = X^2 - 6X +
+5\)</span>. La dimension de <span class="math inline">\(\R[a]\)</span>
+est donc <span class="math inline">\(2\)</span>, et une base est donnée
+par <span class="math inline">\((I_3, a)\)</span>.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-12" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Si <span class="math inline">\(\Kset\)</span> est un sous-corps de
+<span class="math inline">\(\mathbb L\)</span>, alors on peut considérer
+que <span class="math inline">\(\mathbb L\)</span> est une <span
+class="math inline">\(\Kset\)</span>-algèbre. En particulier, <span
+class="math inline">\(\mathbb C\)</span> est une <span
+class="math inline">\(\R\)</span>-algèbre et <span
+class="math inline">\(\R\)</span> est une <span
+class="math inline">\(\Q\)</span>-algèbre.</p>
+    </div>
+</div>
+<div class="rappel">
+<p>On dit que <span class="math inline">\((\mathbb{L}, +,
+\times)\)</span> est un corps si <span class="math inline">\((\mathbb L,
++, \times)\)</span> est un anneau et que <span
+class="math inline">\(\forall x \in L\setminus
+\{0_\mathbb{L}\}\)</span>, <span class="math inline">\(x\)</span> est
+inversible pour la multiplication.</p>
+<p>Un sous-corps est un sous-ensemble <span
+class="math inline">\(\mathbb{K} \subset \mathbb{L}\)</span> qui est un
+sous-anneau de <span class="math inline">\(\mathbb{L}\)</span> et qui
+est stable par l’inverse (pour un élément non nul).</p>
+</div>
+
+<div class="env-card env-exercise" id="exo:polynome-minimal-racines-carrees" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 2</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span id="exo:polynome-minimal-racines-carrees"
+data-label="exo:polynome-minimal-racines-carrees"></span> Prenons <span
+class="math inline">\(E = \R\)</span> une <span
+class="math inline">\(\Q\)</span>-algèbre (ce qui est possible car <span
+class="math inline">\(\Q\)</span> est un sous-anneau et un sous-espace
+vectoriel de <span class="math inline">\(\R\)</span>)</p>
+<p>Soit <span class="math inline">\(a = \sqrt 2 + \sqrt 3\)</span>.</p>
+<p>Montrer que le polynôme minimal <span
+class="math inline">\(\pi_a\)</span> existe et donner son
+expression.</p>
+    </div>
+</div>
+
+<div class="env-card env-correction" id="correction-31" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        <span class="env-title">(Exercice <a href="#exo:polynome-minimal-racines-carrees" class="xref">Exercice 2</a>)</span>
+    </div>
+    <div class="env-body">
+<p>On doit construire un polynôme dont les racines sont <span
+class="math inline">\(\sqrt 2 + \sqrt 3\)</span> mais à coefficients
+rationnels. On a : <span class="math display">\[\begin{align*}
+        a = \sqrt2+\sqrt3 &amp;\implies (a-\sqrt2)^2 = 3 \\
+        &amp;\implies a^2 - 2a\sqrt2 + 2 = 3 \\
+        &amp;\implies a^2 - 1 = 2a\sqrt2 \\
+        &amp;\implies (a^2 - 1)^2 = 8a^2 \\
+\end{align*}\]</span> On en déduit que le polynôme <span
+class="math inline">\(P(X) = (X^2 - 1)^2 - 8X^2 = X^4 - 10X^2 +
+1\)</span> est annulateur de <span class="math inline">\(a\)</span>.</p>
+<p>On a <span class="math inline">\(P \in \Q[X] \setminus \{0\}\)</span>
+(et il est annulateur), donc <span class="math inline">\(\pi_a\)</span>
+existe et <span class="math inline">\(\pi_a \mid P\)</span>.</p>
+<p>Vérifions pour le cas <span class="math inline">\(\deg \pi_a =
+1\)</span>. On vérifie si <span class="math inline">\(P\)</span> admet
+des racines dans <span class="math inline">\(\Q\)</span>. Si <span
+class="math inline">\(\frac pq\)</span> est une racine de <span
+class="math inline">\(P\)</span> avec <span
+class="math inline">\(p\wedge q = 1\)</span>, alors <span
+class="math inline">\(p\mid a_0 = 1\)</span> et <span
+class="math inline">\(q \mid a_4\)</span> (résultat démontré en TD),
+donc <span class="math inline">\(p \mid 1\)</span> et <span
+class="math inline">\(q \mid 1\)</span>, ce qui implique que <span
+class="math inline">\(\frac pq = \pm 1\)</span>. Or, <span
+class="math inline">\(P(\pm 1) = 1 - 10 + 1 = -8 \ne 0\)</span>, donc
+<span class="math inline">\(P\)</span> n’admet pas de racines
+rationnelles. Par conséquent, <span class="math inline">\(\deg \pi_a \ge
+2\)</span>.</p>
+<p>Si <span class="math inline">\(\pi_a = D_1D_2\)</span> et <span
+class="math inline">\(\deg D_1 = 3\)</span>, alors <span
+class="math inline">\(D_1\)</span> admet une racine rationnelle <span
+class="math inline">\(\frac pq\)</span> avec <span
+class="math inline">\(p\wedge q = 1\)</span>. Par le même raisonnement
+que précédemment, on obtient que <span class="math inline">\(\frac pq =
+\pm 1\)</span>, ce qui est impossible car <span
+class="math inline">\(P(\pm 1) \ne 0\)</span>. Donc <span
+class="math inline">\(\deg D_1 \ne 3\)</span> et <span
+class="math inline">\(\deg \pi_a \ne 3\)</span>.</p>
+<p>On en déduit que <span class="math inline">\(\deg \pi_a \in
+\{2,4\}\)</span>.</p>
+<p>Supposons par absurde que <span class="math inline">\(\deg \pi_a =
+2\)</span>. Cela implique que : <span class="math display">\[\pi_a(X) =
+(X-a)(X-b)\]</span> avec <span class="math inline">\(a = \sqrt 2 + \sqrt
+3 \in \R\)</span> et <span class="math inline">\(b \in \R\)</span>.</p>
+<p>On a aussi <span class="math inline">\(P(-X) = P(X)\)</span>, donc
+<span class="math inline">\(-a\)</span> est racine de <span
+class="math inline">\(P\)</span>. DOnc les racines de <span
+class="math inline">\(P\)</span> sont <span class="math inline">\(\sqrt
+2 \pm \sqrt 3\)</span> et <span class="math inline">\(-\sqrt 2 \pm \sqrt
+3\)</span>.</p>
+<p><strong>Dans le cas où <span class="math inline">\(b=-a\)</span>
+:</strong> On a <span class="math inline">\(\pi_a(X) = (X-a)(X+a) = X^2
+- a^2\)</span>. Or, <span class="math inline">\(a^2 = 5 + 2\sqrt 6
+\notin \Q\)</span>, donc <span class="math inline">\(\pi_a \notin
+\Q[X]\)</span> ce qui est absurde. Donc <span class="math inline">\(b
+\ne -a\)</span>. Donc <span class="math inline">\(\pi_a \ne X^2 -
+a^2\)</span></p>
+<p><strong>Dans le cas où <span class="math inline">\(b = \sqrt 3 -
+\sqrt 2\)</span> :</strong> On a <span class="math inline">\(\pi_a(X) =
+(X-a)(X-b) = X^2 - (a+b)X + ab\)</span>. Or, <span
+class="math inline">\(a+b = 2\sqrt 3 \notin \Q\)</span>, donc <span
+class="math inline">\(\pi_a \notin \Q[X]\)</span> ce qui est absurde.
+Donc <span class="math inline">\(b \ne \sqrt 3 - \sqrt 2\)</span>.</p>
+<p><strong>Dans le cas où <span class="math inline">\(b = \sqrt 2 -
+\sqrt 3\)</span> :</strong> On a <span class="math inline">\(\pi_a(X) =
+(X-a)(X-b) = X^2 - (a+b)X + ab\)</span>. Or, <span
+class="math inline">\(a+b = 2\sqrt 2 \notin \Q\)</span>, donc <span
+class="math inline">\(\pi_a \notin \Q[X]\)</span> ce qui est absurde.
+Donc <span class="math inline">\(b \ne \sqrt 2 - \sqrt 3\)</span>.</p>
+<p>Donc <span class="math inline">\(\pi_a \ne X^2 - (a+b)X + ab\)</span>
+pour <span class="math inline">\(b \in \{-a, \sqrt 3 - \sqrt 2, \sqrt 2
+- \sqrt 3\}\)</span>.</p>
+<p>On en déduit que <span class="math inline">\(\deg \pi_a \ne
+2\)</span>.</p>
+<p>Donc <span class="math inline">\(\pi_a = P = X^4 - 10X^2 +
+1\)</span>.</p>
+<p>Une base de <span class="math inline">\(\Q[a]\)</span> est donc
+donnée par <span class="math inline">\((1, a, a^2, a^3)\)</span> et
+<span class="math inline">\(\dim(\Q[a]) = 4\)</span>.</p>
+<p>On peut aboutir aux mêmes résultats en généralisant pour un certain
+couple <span class="math inline">\((r_1,r_2)\)</span> tels que <span
+class="math inline">\(r_1^2 = 2\)</span> et <span
+class="math inline">\(r_2^2 = 3\)</span> et en considérant <span
+class="math inline">\(a = r_1 + r_2\)</span>. On obtient le même
+polynôme minimal <span class="math inline">\(\pi_a = X^4 - 10X^2 +
+1\)</span>.</p>
+    </div>
+</div>
+<div class="customenv">
+<p><span>Note</span> La division euclidienne est conservée dans <span
+class="math inline">\(\Q[X]\)</span> et même dans n’importe quel corps
+<span class="math inline">\(\Kset\)</span> (pour justifier la division
+<span class="math inline">\(\pi_a = D_1D_2\)</span>).</p>
+</div>
+<h1 id="éléments-inversibles-de-kseta">Éléments inversibles de <span
+class="math inline">\(\Kset[a]\)</span></h1>
+
+<div class="env-card env-property" id="property-4" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 4</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Lorsque l’idéal <span class="math inline">\(I_a\)</span> est réduit à
+<span class="math inline">\(\{0\}\)</span>, les seuls éléments
+inversibles de <span class="math inline">\(\Kset[a]\)</span> sont les
+multiples scalaires de <span class="math inline">\(1_E\)</span>. <span
+class="math display">\[\Uset(\Kset[a]) = \{\lambda 1_E \mid \lambda \in
+\Kset^*\}\]</span></p>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>En posant <span class="math inline">\(u : \Kset[X] \to
+\Kset[a]\)</span> avec <span class="math inline">\(P \mapsto
+P(a)\)</span> un isomorphisme. Comme <span
+class="math inline">\(u\)</span> est un isomorphisme de <span
+class="math inline">\(\Kset[X] \to \Kset[a]\)</span>, <span
+class="math inline">\(u(P) = P(a)\)</span> est inversible si et
+seulement si le polynôme antécédent <span
+class="math inline">\(P\)</span> est inversible dans <span
+class="math inline">\(\Kset[X]\)</span>. Or, les seuls polynômes
+inversibles de <span class="math inline">\(\Kset[X]\)</span> sont les
+polynômes constants non nuls. Donc <span
+class="math inline">\(P(a)\)</span> est inversible si et seulement si
+<span class="math inline">\(P = \lambda \cdot 1_E \avec \lambda \in
+\Kset^*\)</span>, ce qui donne le résultat.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-property" id="property-5" style="--env-color:#0D9488;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-sliders-h" aria-hidden="true"></i>
+            <span>Propriété 5</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Dans le cas où <span class="math inline">\(I_a = \pi_a
+\Kset[X]\)</span> avec <span class="math inline">\(\deg(\pi_a) = d \ge
+1\)</span>, les propriétés suivantes sont équivalentes :</p>
+<ol>
+<li><p><span class="math inline">\(P(a)\)</span> est inversible dans
+<span class="math inline">\(E\)</span>.</p></li>
+<li><p><span class="math inline">\(P(a)\)</span> est inversible dans
+<span class="math inline">\(\Kset[a]\)</span>.</p></li>
+<li><p><span class="math inline">\(P \wedge \pi_a = 1\)</span>.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>On décompose la démonstration en trois implications : de 3 à 2, de 2
+à 1 et de 1 à 3.</p>
+<ul>
+<li><p><strong>3 <span class="math inline">\(\implies\)</span> 2
+:</strong> Si <span class="math inline">\(P \wedge \pi_a = 1\)</span>,
+il existe <span class="math inline">\(U,V \in \Kset[X]\)</span> tels que
+<span class="math inline">\(UP + V\pi_a = 1\)</span>. En évaluant en
+<span class="math inline">\(a\)</span>, on obtient <span
+class="math inline">\(U(a)P(a) + V(a)\pi_a(a) = U(a)P(a) = 1_E\)</span>,
+donc <span class="math inline">\(P(a)\)</span> est inversible dans <span
+class="math inline">\(\Kset[a]\)</span>.</p></li>
+<li><p><strong>2 <span class="math inline">\(\implies\)</span> 1
+:</strong> Si <span class="math inline">\(P(a)\)</span> est inversible
+dans <span class="math inline">\(\Kset[a]\)</span>, il existe <span
+class="math inline">\(Q(a) \in \Kset[a]\)</span> tel que <span
+class="math inline">\(P(a)Q(a) = 1_E\)</span>. Comme <span
+class="math inline">\(\Kset[a] \subset E\)</span>, <span
+class="math inline">\(P(a)\)</span> est inversible dans <span
+class="math inline">\(E\)</span>.</p></li>
+<li><p><strong>1 <span class="math inline">\(\implies\)</span> 3
+:</strong> Supposons <span class="math inline">\(P(a)\)</span>
+inversible dans <span class="math inline">\(E\)</span>. Posons <span
+class="math inline">\(D = P \wedge \pi_a\)</span>, unitaire. Il existe
+<span class="math inline">\(P_1, P_2 \in \Kset[X]\)</span> unitaires
+tels que : <span class="math display">\[P = D P_1 \quad \text{et} \quad
+\pi_a = D P_2\]</span> En évaluant en <span
+class="math inline">\(a\)</span>, comme <span
+class="math inline">\(\Kset[a]\)</span> est commutatif : <span
+class="math display">\[0 = \pi_a(a) = D(a) P_2(a) = P_2(a) D(a)\]</span>
+On multiplie à droite par <span class="math inline">\(P_1(a)\)</span> :
+<span class="math display">\[P_2(a) \underbrace{D(a) P_1(a)}_{= P(a)} =
+0 \implies P_2(a) P(a) = 0\]</span> <span
+class="math inline">\(P(a)\)</span> étant inversible dans <span
+class="math inline">\(E\)</span>, on multiplie à droite par son inverse
+<span class="math inline">\(P(a)^{-1}\)</span> (comme on peut poser
+<span class="math inline">\(\exists y \in E\)</span> tel que <span
+class="math inline">\(P(a) y = 1_E\)</span>) : <span
+class="math display">\[P_2(a) = 0\]</span> Par minimalité de <span
+class="math inline">\(\pi_a\)</span>, il vient <span
+class="math inline">\(\pi_a \mid P_2\)</span>, c’est-à-dire <span
+class="math inline">\(D P_2 \mid P_2\)</span>. Comme <span
+class="math inline">\(P_2 \neq 0\)</span>, cela impose : <span
+class="math display">\[\deg(D) + \deg(P_2) \le \deg(P_2) \implies
+\deg(D) = 0\]</span> <span class="math inline">\(D\)</span> étant
+unitaire, <span class="math inline">\(D = 1\)</span>, d’où <span
+class="math inline">\(P \wedge \pi_a = 1\)</span>.</p></li>
+</ul>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-example" id="example-7" style="--env-color:#D97706;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+            <span>Exemple 7</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Prenons <span class="math inline">\(E= \mathcal M_n(\R)\)</span>.</p>
+<p>Soit <span class="math inline">\(M = \left(\begin{matrix} \alpha
+&amp; \cdots &amp; \cdots &amp; \cdots &amp; \cdots \\ \vdots &amp;
+\ddots &amp; (1) &amp; \cdots &amp; \vdots \\ \vdots &amp; (1) &amp;
+\ddots &amp; (1) &amp; \vdots \\ \vdots &amp; \cdots &amp; (1) &amp;
+\ddots &amp; \vdots \\ \cdots &amp; \cdots &amp; \cdots &amp; \cdots
+&amp; \alpha\end{matrix}\right)\)</span> avec <span
+class="math inline">\(\alpha \in \R\)</span>.</p>
+<p>Déterminons quelles valeurs <span
+class="math inline">\(\alpha\)</span> de <span
+class="math inline">\(\R\)</span> permettent à <span
+class="math inline">\(M\)</span> d’être inversible, et donnons son
+inverse.</p>
+<p>On réécrit <span class="math inline">\(M\)</span> comme un polynôme
+d’une matrice <span class="math inline">\(A\)</span> : <span
+class="math display">\[M = (\alpha - 1)I_n + A \avec A =
+\left(\begin{matrix} 1 &amp; \cdots &amp; \cdots &amp; \cdots &amp;
+\cdots \\ \vdots &amp; \ddots &amp; (1) &amp; \cdots &amp; \vdots \\
+\vdots &amp; (1) &amp; \ddots &amp; (1) &amp; \vdots \\ \vdots &amp;
+\cdots &amp; (1) &amp; \ddots &amp; \vdots \\ \cdots &amp; \cdots &amp;
+\cdots &amp; \cdots &amp; 1\end{matrix}\right)\]</span></p>
+<p>On a donc <span class="math inline">\(M = P(A)\)</span> avec <span
+class="math inline">\(P(X) = (\alpha - 1) + X\)</span>. On a vu dans
+l’exemple précédent que <span class="math inline">\(\pi_A(X) = X^2 -
+nX\)</span>. <span class="math inline">\(\pi_A \wedge P = 1\)</span> si
+et seulement si <span class="math inline">\(P\)</span> n’a pas de
+racines en commun avec <span class="math inline">\(\pi_A\)</span>,
+c’est-à-dire si et seulement si <span class="math inline">\(P(0) \ne
+0\)</span> et <span class="math inline">\(P(n) \ne 0\)</span>. On a donc
+: <span class="math display">\[P(0) = \alpha - 1 \ne 0 \iff \alpha \ne
+1, \quad P(n) = (\alpha - 1) + n \ne 0 \iff \alpha \ne 1 -
+n\]</span></p>
+<p>Les conditions sur <span class="math inline">\(\alpha\)</span> pour
+que <span class="math inline">\(M\)</span> soit inversible sont donc :
+<span class="math display">\[\alpha \ne 1 \quad \text{et} \quad \alpha
+\ne 1 - n\]</span></p>
+<p>Pour déterminer la matrice inverse <span
+class="math inline">\(M^{-1}\)</span>, on utilise le théorème de Bézout
+puis on évalue en <span class="math inline">\(A\)</span> : <span
+class="math display">\[\pi_A \wedge P = 1 \implies \exists U, V \in
+\R[X] : U\pi_A + VP = 1\]</span></p>
+<p>On effectue une division euclidienne de <span
+class="math inline">\(\pi_A\)</span> par <span
+class="math inline">\(P\)</span> pour déterminer les coefficients <span
+class="math inline">\(U\)</span> et <span
+class="math inline">\(V\)</span>. On trouve : <span
+class="math display">\[\pi_A(X) = P(X)(X - (n+\alpha -1)) + (n+\alpha
+-1)(\alpha - 1)\]</span></p>
+<p>On peut donc réécrire : <span class="math display">\[U(X)\pi_A(X) +
+V(X)P(X) = 1 \quad \text{avec} \quad U(X) = \frac{1}{(n+\alpha
+-1)(\alpha - 1)}, \quad V(X) = -\frac{X - (n+\alpha -1)}{(n+\alpha
+-1)(\alpha - 1)}\]</span></p>
+<p>En évaluant en <span class="math inline">\(A\)</span>, on obtient :
+<span class="math display">\[\cancel{U(A)\pi_A(A)} + V(A)P(A) = 1_E
+\implies V(A)\underbrace{P(A)}_{=M} = 1_E \implies M^{-1} =
+V(A)\]</span></p>
+<p>D’où <span class="math inline">\(M^{-1} = -\frac{A - (n+\alpha
+-1)I_n}{(n+\alpha -1)(\alpha - 1)}\)</span>.</p>
+<p>On peut aussi déterminer les conditions d’inversibilité en calculant
+le déterminant de <span class="math inline">\(M\)</span>, puis
+déterminer la matrice inverse en résolvant le système <span
+class="math inline">\(MX = I_n\)</span>.</p>
+    </div>
+</div>
+<div class="rappel">
+<p>Deux polynômes <span class="math inline">\(P,Q \in \R(X]\)</span>
+sont premiers entre eux si et seulement s’ils n’ont aucune racines
+communes dans <span class="math inline">\(\C\)</span> (pas seulement
+dans <span class="math inline">\(\R\)</span>).</p>
+</div>
+
+<div class="env-card env-exercise" id="exo:inverse-triangulaire" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 3</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span id="exo:inverse-triangulaire"
+data-label="exo:inverse-triangulaire"></span> Montrer que l’inverse
+d’une matrice triangulaire supérieure <span class="math inline">\(A \in
+\mathcal M_n(\Kset)\)</span> est triangulaire supérieure.</p>
+    </div>
+</div>
+<div class="rappel">
+<p>Les matrices triangulaires supérieures forment une sous-algèbre de
+<span class="math inline">\(\mathcal M_n(\Kset)\)</span>.</p>
+</div>
+
+<div class="env-card env-correction" id="correction-32" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        <span class="env-title">(Exercice <a href="#exo:inverse-triangulaire" class="xref">Exercice 3</a>)</span>
+    </div>
+    <div class="env-body">
+<p>Comme <span class="math inline">\(T_n^s(\Kset)\)</span> forme une
+sous-algèbre de <span class="math inline">\(\mathcal
+M_n(\Kset)\)</span>, on a <span class="math inline">\(\Kset[A] \subset
+T_n^s(\Kset)\)</span>. Si <span class="math inline">\(A\)</span> est
+inversible, alors <span class="math inline">\(A^{-1} \in \Kset[A]
+\subset T_n^s(\Kset)\)</span>, donc <span
+class="math inline">\(A^{-1}\)</span> est triangulaire supérieure.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-13" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Si <span class="math inline">\(\pi_a\)</span> existe alors : <span
+class="math display">\[a \text{ inversible } \iff \pi_a(0) \ne
+0\]</span></p>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p>On écrit <span class="math inline">\(a = P(a)\)</span> tel que <span
+class="math inline">\(P(X) = X\)</span>. Alors <span
+class="math inline">\(a\)</span> est inversible <span
+class="math inline">\(\iff P \wedge \pi_a = 1\)</span> si et seulement
+si <span class="math inline">\(\pi_a(0) \ne 0\)</span>.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-exercise" id="exo:equivalence-injectif-surjectif" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 4</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span id="exo:equivalence-injectif-surjectif"
+data-label="exo:equivalence-injectif-surjectif"></span> Prenons <span
+class="math inline">\(E\)</span> un <span
+class="math inline">\(\Kset\)</span>-espace vectoriel et <span
+class="math inline">\(u \in \mathcal L(E)\)</span> tel que <span
+class="math inline">\(\pi_u\)</span> existe (ce qui est toujours le cas
+si <span class="math inline">\(\dim(E) &lt; \infty\)</span>). Montrer
+que les propriétés suivantes sont équivalentes :</p>
+<ol>
+<li><p><span class="math inline">\(u\)</span> est injective.</p></li>
+<li><p><span class="math inline">\(u\)</span> est surjective.</p></li>
+<li><p><span class="math inline">\(u\)</span> est bijective.</p></li>
+<li><p><span class="math inline">\(\pi_u(0) \ne 0\)</span>.</p></li>
+</ol>
+<p>Avec <span class="math inline">\(\pi_u\)</span> le polynôme minimal
+de <span class="math inline">\(u\)</span> dans l’algèbre <span
+class="math inline">\((\mathcal L(E), +, \cdot, \circ)\)</span>.</p>
+    </div>
+</div>
+<div class="customenv">
+<p><span>Note</span> Même dans un espace vectoriel de dimension
+<strong>infinie</strong>, on peut trouver des endomorphismes qui
+admettent un polynôme minimal. Par exemple, les projections ; qui
+vérifient <span class="math inline">\(u^2 = u\)</span> et donc <span
+class="math inline">\(\pi_u(X) \mid X^2 - X\)</span>.</p>
+</div>
+
+<div class="env-card env-correction" id="correction-33" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        <span class="env-title">(Exercice <a href="#exo:equivalence-injectif-surjectif" class="xref">Exercice 4</a>)</span>
+    </div>
+    <div class="env-body">
+<p>D’après l’exercice précédent, on sait que <span
+class="math inline">\(u\)</span> est inversible si et seulement si <span
+class="math inline">\(\pi_u(0) \ne 0\)</span>. Or, <span
+class="math inline">\(u\)</span> est inversible si et seulement si <span
+class="math inline">\(u\)</span> est bijective. L’équivalence (iii) et
+(iv) est donc démontrée.</p>
+<ol>
+<li><p>Supposons que <span class="math inline">\(u\)</span> est
+injective. Montrons que <span class="math inline">\(\pi_u(0) \ne
+0\)</span>. Si <span class="math inline">\(\pi_u(0) = 0\)</span>, alors
+<span class="math inline">\(0\)</span> est une racine de <span
+class="math inline">\(\pi_u(X)\)</span>, donc <span
+class="math inline">\(\pi_u(X) = XQ(X)\)</span> pour un certain polynôme
+<span class="math inline">\(Q \in \Kset[X]\)</span>.</p>
+<p>En évaluant en <span class="math inline">\(u\)</span>, on obtient
+<span class="math inline">\(\pi_u(u) = uQ(u) = 0\)</span>. Comme <span
+class="math inline">\(u\)</span> est injective, on a <span
+class="math inline">\(Q(u) = 0\)</span> car <span
+class="math inline">\(\Imf(Q(u)) \subset \ker(u)\)</span> et <span
+class="math inline">\(\ker(u) = \{0\}\)</span> avec <span
+class="math inline">\(Q \ne 0\)</span>.</p>
+<p>Cela veut dire <span class="math inline">\(Q\)</span> annule <span
+class="math inline">\(u\)</span> et <span class="math inline">\(\deg Q
+&lt; \deg \pi_u\)</span>, donc <span
+class="math inline">\(\pi_u\)</span> n’est pas de degré minimal, ce qui
+est absurde. Donc <span class="math inline">\(\pi_u(0) \ne
+0\)</span>.</p></li>
+<li><p>Supposons que <span class="math inline">\(u\)</span> est
+surjective. Montrons que <span class="math inline">\(\pi_u(0) \ne
+0\)</span>. Si <span class="math inline">\(\pi_u(0) = 0\)</span>, alors
+<span class="math inline">\(\pi_u(X) = XQ(X)\)</span> pour un certain
+polynôme <span class="math inline">\(Q \in \Kset[X]\)</span>.</p>
+<p>En évaluant en <span class="math inline">\(u\)</span>, on obtient
+<span class="math inline">\(\pi_u(u) = uQ(u) = 0\)</span>. On a alors
+<span class="math inline">\(uQ(u) = 0 \implies Q(u)u = 0\)</span>. On a
+donc <span class="math inline">\(\Imf(u) \subset \ker(Q(u))\)</span>.
+Comme <span class="math inline">\(u\)</span> est surjective, on a <span
+class="math inline">\(\Imf(u) = E\)</span>, donc <span
+class="math inline">\(\ker(Q(u)) = E\)</span> et <span
+class="math inline">\(Q(u) = 0\)</span>. Comme <span
+class="math inline">\(\deg Q &lt; \deg \pi_u\)</span>, cela contredit le
+fait que <span class="math inline">\(\pi_u\)</span> est de degré
+minimal. Donc <span class="math inline">\(\pi_u(0) \ne
+0\)</span>.</p></li>
+</ol>
+<p>Il faut aussi démontrer que (iii) <span
+class="math inline">\(\implies\)</span> (i) et (ii), ce qui est évident
+; si <span class="math inline">\(u\)</span> est bijective, alors <span
+class="math inline">\(u\)</span> est injective et surjective par
+définition.</p>
+<p>Le reste des implications découle immédiatement de l’équivalence
+(iii) et (iv). On a donc montré que les quatre propriétés sont
+équivalentes.</p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-14" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Si <span class="math inline">\(\pi_a\)</span> n’existe pas, alors
+<span class="math inline">\(\Kset[a]\)</span> n’est pas un corps car
+<span class="math inline">\(\Kset[a] \simeq \Kset[X]\)</span> et que :
+<span class="math display">\[\begin{cases}
+    X \text{ n&#39;est pas inversible dans } \Kset[X] \\
+    a \text{ n&#39;est pas inversible dans } \Kset[a] \\
+    a \ne 0 \text{ (parce que } \pi_a \text{ n&#39;existe pas)}
+    \end{cases}\]</span></p>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-15" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Si <span class="math inline">\(\pi_a\)</span> existe, les propriétés
+suivantes sont équivalentes :</p>
+<ol>
+<li><p><span class="math inline">\(\Kset[a]\)</span> est un
+corps.</p></li>
+<li><p><span class="math inline">\(\pi_a\)</span> est
+irréductible.</p></li>
+<li><p><span class="math inline">\(\Kset[a]\)</span> est
+intègre.</p></li>
+</ol>
+    </div>
+</div>
+
+<div class="env-card env-remark" id="remark-16" style="--env-color:#475569;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Remarque</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Si l’algèbre <span class="math inline">\(E\)</span> est intègre et
+<span class="math inline">\(\pi_a\)</span> existe, alors :</p>
+<p><span class="math inline">\(\Kset[a]\)</span> est un corps et <span
+class="math inline">\(\pi_a\)</span> est irréductible.</p>
+    </div>
+</div>
+
+<div class="proof-box">
+    <div class="proof-header">Démonstration</div>
+<p><span class="math inline">\(\Kset[1] \subset E\)</span> et <span
+class="math inline">\(E\)</span> est intègre. Donc <span
+class="math inline">\(\Kset[a]\)</span> est aussi intègre et d’après la
+remarque précédente, <span class="math inline">\(\Kset[a]\)</span> est
+un corps et <span class="math inline">\(\pi_a\)</span> est
+irréductible.</p>
+    <div class="proof-qed">&#9632;</div>
+</div>
+
+<div class="env-card env-exercise" id="exercise-5" style="--env-color:#7C3AED;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-drafting-compass" aria-hidden="true"></i>
+            <span>Exercice 5</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p><span class="math inline">\(\R\)</span> est considéré comme une <span
+class="math inline">\(\Q\)</span>-algèbre et il est intègre, donc <span
+class="math inline">\(\forall a \in \R\)</span>, si <span
+class="math inline">\(\pi_a\)</span> existe, alors <span
+class="math inline">\(\Q[a]\)</span> est un corps et <span
+class="math inline">\(\pi_a\)</span> est irréductible.</p>
+<p>En particulier pour <span class="math inline">\(a = \sqrt 2 + \sqrt
+3\)</span>, on a déjà vu dans l’exercice <a
+href="#exo:polynome-minimal-racines-carrees" data-reference-type="ref"
+data-reference="exo:polynome-minimal-racines-carrees">[exo:polynome-minimal-racines-carrees]</a>
+que <span class="math inline">\(\pi_a = X^4 - 10X^2 + 1\)</span> est
+irréductible dans <span class="math inline">\(\Q[X]\)</span> et que
+<span class="math inline">\(\Q[a]\)</span> est un corps.</p>
+<p>Calculer les coordonnées de <span
+class="math inline">\((a-1)^{-1}\)</span> dans la base <span
+class="math inline">\((1, a, a^2, a^3)\)</span> de <span
+class="math inline">\(\Q[a]\)</span>.</p>
+<p><em>Indication : Utiliser les coefficients de Bézout.</em></p>
+    </div>
+</div>
+
+<div class="env-card env-correction" id="correction-34" style="--env-color:#15803D;">
+    <div class="env-header">
+        <div class="env-accent-pills">
+            <span class="env-pill"></span>
+            <span class="env-pill"></span>
+        </div>
+        <div class="env-badge">
+            <i class="fas fa-check-double" aria-hidden="true"></i>
+            <span>Correction</span>
+            
+        </div>
+        
+    </div>
+    <div class="env-body">
+<p>Utilisons les propriétés énoncées précédemment en posant <span
+class="math inline">\(P(X) = X - 1\)</span>. On a <span
+class="math inline">\(P(a) = a - 1\)</span>. Comme <span
+class="math inline">\(\pi_a\)</span> est irréductible, on a <span
+class="math inline">\(P \wedge \pi_a = 1\)</span>. Il existe donc <span
+class="math inline">\(U, V \in \Q[X]\)</span> tels que : <span
+class="math display">\[U(X)P(X) + V(X)\pi_a(X) = 1\]</span> On effectue
+une division euclidienne pour obtenir les coefficients de Bézout. On
+trouve : <span class="math display">\[U(X) = \frac18(X^3 + X^2 - 9X - 9)
+\et V(X) = -\frac18\]</span> En évaluant en <span
+class="math inline">\(a\)</span>, on obtient : <span
+class="math display">\[U(a)(a-1) + V(a)\pi_a(a) = U(a)(a-1) = 1 \implies
+(a-1)^{-1} = U(a) = \frac18(a^3 + a^2 - 9a - 9)\]</span> D’où les
+coordonnées de <span class="math inline">\((a-1)^{-1}\)</span> dans la
+base <span class="math inline">\((1, a, a^2, a^3)\)</span> de <span
+class="math inline">\(\Q[a]\)</span> sont : <span
+class="math display">\[\left(\frac{-9}{8}, \frac{-9}{8}, \frac{1}{8},
+\frac{1}{8}\right)\]</span></p>
+    </div>
+</div>
+
+    </main>
+
+    
+<footer class="swiss-footer" role="contentinfo">
+    <div>&copy; Samy Youssoufine &bull; EMINES &bull; Class2030</div>
+    <div><a href="index.html">Index</a></div>
+</footer>
+</body>
+</html>

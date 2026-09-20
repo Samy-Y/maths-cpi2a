@@ -15,8 +15,9 @@ Note importante: il faut compiler les documents $\LaTeX$ source **deux fois** vi
 À peu près comme pour la CPI-1A, sauf qu'ici c'est documenté.
 
 | Élément | Description | Exemple |
-|---------|-------------|---------|
+| --------- | ------------- | --------- |
 | Fichier source/PDF | Nom `<date de création YYMMDD> CH<numéro du chapitre>.<pdf/tex>` | `260907 CH01.pdf` |
+| Scans du tableau interactif | Nom `<date de début du chapitre YYMMDD> CH<numéro du chapitre> Scan <numéro de séance>.pdf` Toujours datés par la date de **début** du chapitre et non la date réelle d'écriture au tableau (pour raisons de tri alphabétique). | `260909 CH01 Scan 1.pdf` |
 | Contenu du fichier PDF | Dernière date de mise à jour ; Lien principal vers le site ; Lien miroir si le lien principal ne marche pas | Voir contenu |
 
 ## Contenu planifié
