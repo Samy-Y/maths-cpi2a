@@ -85,6 +85,7 @@
 \definecolor{cExo}{HTML}{7C3AED}
 \definecolor{cCorr}{HTML}{15803D}
 \definecolor{cMeth}{HTML}{C026D3}
+\definecolor{cRap}{HTML}{0284C7}
 \definecolor{starColor}{HTML}{FACC15} 
 
 \definecolor{wipYellow}{HTML}{FACC15}
@@ -294,7 +295,8 @@
     colback=white,
     colframe=white,
     boxrule=0pt,
-    left=0pt,
+    boxsep=0pt,
+    left=5.5mm,            % Espace intérieur suffisant pour ne pas coller à la barre
     right=0pt,
     top=1.5mm,
     bottom=2mm,
@@ -304,9 +306,26 @@
     titlerule=0pt,
     fonttitle=\normalfont,
     attach boxed title to top left={yshift=0pt, xshift=0pt},
-    boxed title style={boxrule=0pt, colback=white, left=0pt, right=0pt, top=0pt, bottom=0pt},
-    before upper={\setlength{\parskip}{1em}}
-  }
+    boxed title style={
+      boxrule=0pt,
+      colback=white,
+      left=0pt,
+      right=0pt,
+      top=0pt,
+      bottom=0pt,
+      boxsep=0pt           % Élimine le décalage horizontal de 1 mm du badge
+    },
+    before upper={\setlength{\parskip}{1em}},
+    % Prolongement strict de la première barre du badge jusqu'au bas du bloc :
+    underlay unbroken and first={%
+      \fill[#1] ([yshift=1.5pt]title.south west) rectangle ([xshift=1.4mm]frame.south west);
+    },
+    % En cas de saut de page, maintien de la barre sur les pages suivantes :
+    underlay middle and last={%
+      \fill[#1] (frame.north west) rectangle ([xshift=1.4mm]frame.south west);
+    }
+  },
+  swissenvbase/.default=swissdark
 }
 
 % ----------------------------------------------------------------------
@@ -315,66 +334,64 @@
 
 % 1. Définition
 \newtcolorbox[auto counter]{definition}[1][]{
-  swissenvbase,
+  swissenvbase=cDef,
   title={\drawenvbadge{cDef}{\faIcon{book}}{Définition \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 2. Théorème
 \newtcolorbox[auto counter]{theorem}[1][]{
-  swissenvbase,
+  swissenvbase=cThm,
   title={\drawenvbadge{cThm}{\faIcon{star}}{Théorème \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 3. Propriété
 \newtcolorbox[auto counter]{property}[1][]{
-  swissenvbase,
+  swissenvbase=cProp,
   title={\drawenvbadge{cProp}{\faIcon{sliders-h}}{Propriété \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 4. Conséquence
 \newtcolorbox[auto counter]{consequence}[1][]{
-  swissenvbase,
+  swissenvbase=cCons,
   title={\drawenvbadge{cCons}{\faIcon{level-down-alt}}{Conséquence \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 5. Corollaire
 \newtcolorbox[auto counter]{corollary}[1][]{
-  swissenvbase,
+  swissenvbase=cCor,
   title={\drawenvbadge{cCor}{\faIcon{angle-double-right}}{Corollaire \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 6. Application
 \newtcolorbox[auto counter]{application}[1][]{
-  swissenvbase,
+  swissenvbase=cApp,
   title={\drawenvbadge{cApp}{\faIcon{rocket}}{Application \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 7. Remarque
 \newtcolorbox[auto counter]{remark}[1][]{
-  swissenvbase,
+  swissenvbase=cRem,
   title={\drawenvbadge{cRem}{\faIcon{comment-dots}}{Remarque}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 8. Exemple
 \newtcolorbox[auto counter]{example}[1][]{
-  swissenvbase,
+  swissenvbase=cEx,
   title={\drawenvbadge{cEx}{\faIcon{lightbulb}}{Exemple \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 9. Attention
 \newtcolorbox{attention}[1][]{
-  swissenvbase,
+  swissenvbase=cAtt,
   title={\drawenvbadge{cAtt}{\faIcon{exclamation-triangle}}{Attention !}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 10. Exercice
-% Compteur global (croissant sur tout le document) avec \refstepcounter
-% pour rendre \label/\ref opérationnels depuis le corps de l'environnement.
 \newcounter{exercisecounter}
 \NewDocumentEnvironment{exercise}{O{} O{}}{%
   \refstepcounter{exercisecounter}%
   \begin{tcolorbox}[
-    swissenvbase,
+    swissenvbase=cExo,
     title={\drawenvbadge{cExo}{\faIcon{drafting-compass}}{Exercice~\theexercisecounter}{\ifstrempty{#1}{}{\exercisestars{#1}}}{\ifstrempty{#2}{}{(#2)}}}
   ]
 }{%
@@ -383,25 +400,43 @@
 
 % 11. Correction
 \newtcolorbox{correction}[1][]{
-  swissenvbase,
+  swissenvbase=cCorr,
   title={\drawenvbadge{cCorr}{\faIcon{check-double}}{Correction}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 12. Méthode
 \newtcolorbox[auto counter]{methodbox}[1][]{
-  swissenvbase,
+  swissenvbase=cMeth,
   title={\drawenvbadge{cMeth}{\faIcon{magic}}{Méthode}{}{\ifstrempty{#1}{}{(#1)}}}
 }
 
 % 13. Environnement personnalisé
 \NewDocumentEnvironment{customenv}{m m O{swissdark} O{}}{%
   \begin{tcolorbox}[
-    swissenvbase,
+    swissenvbase=#3,
     title={\drawenvbadge{#3}{#1}{#2}{}{\ifstrempty{#4}{}{(#4)}}}
   ]
 }{%
   \end{tcolorbox}
 }
+
+% 14. Proposition (calqué sur Propriété : même teinte teal cProp et icône similaire)
+\newtcolorbox[auto counter]{proposition}[1][]{
+  swissenvbase=cProp,
+  title={\drawenvbadge{cProp}{\faIcon{sliders-h}}{Proposition \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+% Alias avec majuscule
+\let\Proposition\proposition
+\let\endProposition\endproposition
+
+% 15. Rappel
+\newtcolorbox[auto counter]{rappel}[1][]{
+  swissenvbase=cRap,
+  title={\drawenvbadge{cRap}{\faIcon{history}}{Rappel \thetcbcounter}{}{\ifstrempty{#1}{}{(#1)}}}
+}
+% Alias avec majuscule
+\let\Rappel\rappel
+\let\endRappel\endrappel
 
 % ----------------------------------------------------------------------
 % 13. MACROS

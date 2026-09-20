@@ -645,11 +645,30 @@
 \begin{exercise}
     $\R$ est considéré comme une $\Q$-algèbre et il est intègre, donc $\forall a \in \R$, si $\pi_a$ existe, alors $\Q[a]$ est un corps et $\pi_a$ est irréductible.
 
-    En particulier pour $a = \sqrt 2 + \sqrt 3$, on a vu que $\pi_a = X^4 - 10X^2 + 1$ est irréductible dans $\Q[X]$ et que $\Q[a]$ est un corps.
+    En particulier pour $a = \sqrt 2 + \sqrt 3$, on a déjà vu dans l'exercice \ref{exo:polynome-minimal-racines-carrees} que $\pi_a = X^4 - 10X^2 + 1$ est irréductible dans $\Q[X]$ et que $\Q[a]$ est un corps.
 
     Calculer les coordonnées de $(a-1)^{-1}$ dans la base $(1, a, a^2, a^3)$ de $\Q[a]$.
 
     \textit{Indication : Utiliser les coefficients de Bézout.}
 \end{exercise}
+
+\begin{correction}
+    Utilisons les propriétés énoncées précédemment en posant $P(X) = X - 1$. On a $P(a) = a - 1$. Comme $\pi_a$ est irréductible, on a $P \wedge \pi_a = 1$. Il existe donc $U, V \in \Q[X]$ tels que :
+    \[
+        U(X)P(X) + V(X)\pi_a(X) = 1
+    \]
+    On effectue une division euclidienne pour obtenir les coefficients de Bézout. On trouve :
+    \[
+        U(X) = \frac18(X^3 + X^2 - 9X - 9) \et V(X) = -\frac18
+    \]
+    En évaluant en $a$, on obtient :
+    \[
+        U(a)(a-1) + V(a)\pi_a(a) = U(a)(a-1) = 1 \implies (a-1)^{-1} = U(a) = \frac18(a^3 + a^2 - 9a - 9)
+    \]
+    D'où les coordonnées de $(a-1)^{-1}$ dans la base $(1, a, a^2, a^3)$ de $\Q[a]$ sont :
+    \[
+        \left(\frac{-9}{8}, \frac{-9}{8}, \frac{1}{8}, \frac{1}{8}\right)
+    \]
+\end{correction}
 
 \end{document}
