@@ -33,6 +33,20 @@
     Si l'anneau $(E,+,\times)$ est commutatif (resp. intègre), alors l'algèbre $(E,+,\cdot,\times)$ est dite commutative (resp. intègre).
 \end{definition}
 
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    On dit que $(A,+,\times)$ est un anneau si :
+    \begin{enumerate}
+        \item $(A,+)$ est un groupe abélien/commutatif.
+        \item $\times$ est associative dans $A$ et admet un élément neutre $1_A$.
+        \item $\times$ est distributive (à gauche et à droite) par rapport à $+$, i.e. :
+        $$\begin{cases}
+            \forall x,y,z \in A, \quad x(y+z) = xy + xz \\
+            \forall x,y,z \in A, \quad (x+y)z = xz + yz
+        \end{cases}$$
+        Si la loi $\times$ est commutative, l'anneau est dit \textbf{commutatif}.
+    \end{enumerate}
+\end{customenv}
+
 \begin{attention}
     Un anneau est par définition unitaire.
 \end{attention}
@@ -54,7 +68,7 @@
     \begin{enumerate}
         \item \textbf{Algèbre des matrices} : $(\mathcal M_n(\Kset),+,\cdot,\times)$ est une $\Kset$-algèbre non commutative et non intègre si $n \geq 2$. En effet, $E_{1,1} \times E_{1,2} = E_{1,2}$ mais $E_{1,2} \times E_{1,1} = 0$.
         \item \textbf{Algèbre des endomorphismes} : $(\mathcal L(E),+,\cdot,\circ)$ est une $\Kset$-algèbre non commutative et non intègre si $\dim E \geq 2$. En effet, $\mathcal L(E)$ est isomorphe à $\mathcal M_n(\Kset)$ avec $n = \dim E$. Son élément unité est l'application identité $\Id_E$.
-        \item \textbf{Algèbre des polynômes} : $(\Kset[X],+,\cdot,\times)$ est une $\Kset$-algèbre commutative et intègre. Son élément unité est le polynôme constant $1 \in \Kset[X]$. Utiliser la loi rond $\circ$ au lieu de $\times$ n'est pas possible parce que la distributivité n'est pas conservée ; les polynômes ne sont pas des applications linéaires.
+        \item \textbf{Algèbre des polynômes} : $(\Kset[X],+,\cdot,\times)$ est une $\Kset$-algèbre commutative et intègre. Son élément unité est le polynôme constant $1 \in \Kset[X]$. Utiliser la loi rond $\circ$ au lieu de $\times$ n'est pas possible parce que la distributivité n'est pas conservée ; les polynômes ne sont pas des applications linéaires, ce qui fait que $(\Kset[X],+,\circ)$ n'est pas un anneau, et donc $(\Kset[X],+,\cdot,\circ)$ n'est pas une algèbre.
         \item \textbf{Algèbre des applications de $I$ vers $\R$} : $(\R^I, +,\cdot,\times)$ est une $\Kset$-algèbre avec $x+y : t \mapsto x(t) + y(t)$ et $xy : t \mapsto x(t)y(t)$. Son élément unité est l'application $1_{\R^I} : t \mapsto 1$ de $I \to \R$. Il s'agit d'une algèbre commutative mais non intègre (même en se restreignant à des applications continues !). En effet, en posant $x(t) = t + |t|$ et $y(t) = t - |t|$ (non nulles), on trouve que $xy = t^2 - |t|^2 = 0$.
     \end{enumerate}
 \end{example}
@@ -64,6 +78,17 @@
 
     $S$ est dite \textbf{sous-algèbre} de $E$ si $S$ est un sous-espace vectoriel de $E$ et un sous-anneau de $E$.
 \end{definition}
+
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    Un sous-anneau $S$ d'un anneau $(A,+,\times)$ est un sous-ensemble $S \subset A$ tel que :
+    \begin{enumerate}
+        \item $S$ est non vide (il doit contenir au moins l'élément $1_A$).
+        \item $S$ est stable par addition et multiplication, c'est-à-dire :
+        $$
+            \forall x,y \in S, \quad x+y \in S \et x\times y \in S
+        $$
+    \end{enumerate}
+\end{customenv}
 
 \begin{property}
     $S$ est une sous-algèbre de $E$ si et seulement si :
@@ -79,7 +104,7 @@
         \item Comme $1_E \in S$, la partie $S$ est non vide. La stabilité par combinaisons linéaires ($\lambda x + y \in S$) en fait donc un sous-espace vectoriel de $(E,+,\cdot)$.
         \item Cette structure vectorielle garantit déjà la stabilité par soustraction (pour $\lambda = -1$), ce qui assure que $(S,+)$ est un sous-groupe additif. En y ajoutant la stabilité par produit ($xy \in S$) et la présence de l'unité ($1_E \in S$), $S$ est également un sous-anneau de $(E,+,\times)$.
     \end{itemize}
-    Les propriétés d'associativité et de bilinéarité étant automatiquement conservées par restriction, $S$ hérite de la structure d'algèbre unitaire.
+    $S$ hérite de la structure d'algèbre unitaire.
 \end{proof}
 
 \begin{example}
@@ -88,6 +113,7 @@
         \item $I_n$ est diagonale donc triangulaire supérieure.
         \item \begin{itemize}
             \item Si $i > j$, on a $(xy)_{ij} = \sum_{k=1}^n x_{ik}y_{kj}$. Dans le cas où $i \le k$ et $k \le j$, on aura $i \le j$ ce qui est absurde. Donc $\forall k \in [\![1,n]\!]$, on a $i > k$ ou $k > j$, c'est-à-dire $x_{ik} = 0$ ou $y_{kj} = 0$. Par suite, $x_{ik}y_{kj} = 0$ pour tout $k \in [\![1,n]\!]$ et donc $(xy)_{ij} = 0$ pour tout $i > j$.
+            \item Clairement, $\forall \lambda \in \Kset, \forall i > j, (\lambda x + y)_{ij} = \lambda x_{ij} + y_{ij} = 0$.
             \item La stabilité est vérifiée et donc $xy \in T_n^s(\Kset)$.
         \end{itemize}
     \end{enumerate}
@@ -98,7 +124,7 @@
 \begin{definition}[Morphisme d'algèbres]
     Soient $E$ et $F$ deux $\Kset$-algèbres. Une application $f : E \to F$ est dite un morphisme d'algèbres si :
     \begin{enumerate}
-        \item $\forall (x,y) \in E^2,\forall \lambda \in \Kset, f(\lambda x + y) = \lambda f(x) + f(y) \et f(xy) = f(x)f(y)$
+        \item $\forall (x,y) \in E^2,\forall \lambda \in \Kset, f(\lambda x + y) = \lambda f(x) + f(y) \et f(x\times y) = f(x)\times f(y)$
         \item $f(1_E) = 1_F$
     \end{enumerate}
 \end{definition}
@@ -109,9 +135,21 @@
     En résumé :
     \begin{enumerate}
         \item $\Imf(u)$ est une sous-algèbre de $F$.
-        \item $\Ker(u)$ est un idéal de $E$. C'est aussi un idéal bilatère de $E$, c'est-à-dire que $E\times \ker(u) \subset \ker(u)$, $\ker(u) \times E \subset \ker(u)$ et $(\ker(u),+)$ est un sous-groupe de $(E,+)$.
+        \item $\Ker(u)$ est un idéal de $E$. Il est bien bilatère, c'est-à-dire que $E~\ker(u) \subset \ker(u)$, $\ker(u)~E \subset \ker(u)$ et $(\ker(u),+)$ est un sous-groupe de $(E,+)$.
     \end{enumerate}
 \end{remark}
+
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    Un idéal $I$ d'un anneau $(A,+,\times)$ est un sous-ensemble $I \subset A$ tel que :
+    \begin{enumerate}
+        \item $I$ est un sous-groupe de $(A,+)$.
+        \item $I$ est absorbant par rapport à la multiplication, c'est-à-dire :
+        $$
+            \forall x \in A, \forall y \in I, \quad xy \in I \et yx \in I
+        $$
+        Qu'on peut aussi écrire $AI \subset I$ et $IA \subset I$.
+    \end{enumerate}
+\end{customenv}
 
 \begin{example}
     Soit $E$ une $\Kset$-algèbre, $a \in E$, et $f : \Kset[X] \to E$ l'application définie par $f(P) = P(a)$ avec $P(a) = \sum_{k=1}^n \lambda_k a^k + \lambda_0 \cdot 1_E$. Alors $f$ est un morphisme d'algèbres. En effet, pour tout $P,Q \in \Kset[X]$ et $\lambda \in \Kset$, on a :
@@ -236,7 +274,6 @@
     \end{itemize}
     La famille $(1_E, a, \dots, a^{d-1})$ est libre et génératrice, c'est donc une base de $\Kset[a]$, d'où $\dim(\Kset[a]) = d$.
 \end{proof}
-\todo
 
 \begin{example}
     Soit $A = \begin{pmatrix} 1 & \dots & 1 \\ \vdots & \ddots & \vdots \\ 1 & \dots & 1 \end{pmatrix} \in \mathcal{M}_n(\mathbb{R})$ avec $n \ge 2$.
@@ -255,13 +292,54 @@
 \end{example}
 
 \begin{exercise}
-    $u \in \mathcal L(E)$ avec $2 \le \dim(E) < \infty$ tel que $\rang(u) = 1$. Montrer que $\Pi_u = X^2 - \Tr(u)X$.
+    \label{exo:polynome-minimal-rang-1}
+    Soit $u \in \mathcal L(E)$ avec $2 \le \dim(E) < \infty$ tel que $\rang(u) = 1$. Montrer que $\Pi_u = X^2 - \Tr(u)X$.
 \end{exercise}
 
-\begin{correction}
-
+\begin{correction}[Exercice \ref{exo:polynome-minimal-rang-1}]
+    Comme $\rang(u) = 1$, $\dim(\ker(u)) = \dim(E) - 1$ par théorème du rang. Pour simplifier, on notera $\dim(E) = n$. On a donc $\dim(\ker(u)) = n - 1$. On construit alors la base de $\ker(u)$ suivante : $\mathcal B_{\ker(u)} = (e_1, \dots, e_{n-1})$. On complète cette base en une base de $E$ en ajoutant un vecteur $e_n \notin \ker(u)$, ce qui donne $\mathcal B_E = (e_1, \dots, e_{n-1}, e_n)$ (par théorème de la base incomplète). On a alors $u(e_n) \neq 0$ et $u(e_i) = 0$ pour tout $i \in [\![1, n-1]\!]$. On peut donc écrire la matrice $[u]_{\mathcal B_E}$ de $u$ dans la base $\mathcal B_E$ :
+    \[
+        [u]_{\mathcal B_E} = \begin{pmatrix}
+            0 & 0 & \dots & 0 & \alpha_1 \\
+            0 & 0 & \dots & 0 & \alpha_2 \\
+            \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & \dots & 0 & \alpha_{n-1} \\
+            0 & 0 & \dots & 0 & \alpha_n
+        \end{pmatrix}
+    \]
+    avec $\alpha_n \neq 0$ car $u(e_n) \neq 0$. On calcule alors la trace de $u$ :
+    \[
+        \Tr(u) = \sum_{i=1}^n [u]_{\mathcal B_E}(i,i) = 0 + 0 + \dots + 0 + \alpha_n = \alpha_n
+    \]
+    On calcule ensuite $u^2$ :
+    \[
+        [u^2]_{\mathcal B_E} = [u]_{\mathcal B_E}^2 = \begin{pmatrix}
+            0 & 0 & \dots & 0 & \alpha_1 \\
+            0 & 0 & \dots & 0 & \alpha_2 \\
+            \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & \dots & 0 & \alpha_{n-1} \\
+            0 & 0 & \dots & 0 & \alpha_n
+        \end{pmatrix}^2 = 
+        \begin{pmatrix}
+            0 & 0 & \dots & 0 & \alpha_1 \alpha_n \\
+            0 & 0 & \dots & 0 & \alpha_2 \alpha_n \\
+            \vdots & \vdots & \ddots & \vdots & \vdots \\
+            0 & 0 & \dots & 0 & \alpha_{n-1} \alpha_n \\
+            0 & 0 & \dots & 0 & \alpha_n^2 
+        \end{pmatrix}
+    \]
+    On remarque que $[u^2]_{\mathcal B_E} = \alpha_n [u]_{\mathcal B_E}$, ce qui implique que $u^2 = \alpha_n u$. Comme $\alpha_n = \Tr(u)$, on obtient l'équation :
+    \[
+        u^2 - \Tr(u) u = 0
+    \]
+    Ainsi, le polynôme $X^2 - \Tr(u) X$ est un polynôme annulateur de $u$. Cela veut donc dire que $\Pi_u$, le polynôme minimal de $u$, divise $X^2 - \Tr(u) X$. On a donc $\Pi_u \in \{1, X, X - \Tr(u), X(X - \Tr(u))\}$. On élimine les choix suivants :
+    \begin{itemize}
+        \item $\Pi_u \neq 1$ car $1(u) = \Id_E \neq 0$.
+        \item $\Pi_u \neq X$ car $u \neq 0$.
+        \item $\Pi_u \neq X - \Tr(u)$ car $u \neq \Tr(u) \Id_E$ (cela implique que $\Tr(u) = 0$ et même que $u = 0$).
+    \end{itemize}
+    On en déduit que $\Pi_u = X^2 - \Tr(u) X$.
 \end{correction}
-\todo
 
 \begin{remark}
     Le degré d'un polynôme minimal $\pi_a$ vaut $1$ si et seulement si la famille $(1_E,a)$ est liée, c'est-à-dire si et seulement si $a$ est un multiple scalaire de l'élément unité $1_E$ (homothétie).
@@ -282,7 +360,11 @@
     \[
         a^2 = \begin{pmatrix} 7 & -6 & 12 \\ -6 & 7 & -12 \\ 6 & -6 & 13 \end{pmatrix}, \quad
     \]
-    On cherche $\lambda_0, \lambda_1 \in \R$ tels que $a^2 = \lambda_1 a + \lambda_0 I_3$. En comparant les coefficients, on obtient le système :
+    On cherche $\lambda_0, \lambda_1 \in \R$ tels que $a^2 = \lambda_1 a + \lambda_0 I_3$.
+    $$
+        \lambda_1 a + \lambda_0 I_3 = \begin{pmatrix} 2\lambda_1 + \lambda_0 & -\lambda_1 & 2\lambda_1 \\ -\lambda_1 & 2\lambda_1 + \lambda_0 & -2\lambda_1 \\ \lambda_1 & -\lambda_1 & 3\lambda_1 + \lambda_0 \end{pmatrix}
+    $$
+    En comparant les coefficients, on obtient le système :
     \[
         \begin{cases}
             7 = 2\lambda_1 + \lambda_0 \\
@@ -303,7 +385,14 @@
     Si $\Kset$ est un sous-corps de $\mathbb L$, alors on peut considérer que $\mathbb L$ est une $\Kset$-algèbre. En particulier, $\mathbb C$ est une $\R$-algèbre et $\R$ est une $\Q$-algèbre.
 \end{remark}
 
+\begin{customenv}{\faIcon{bell}}{Rappel}
+    On dit que $(\mathbb{L}, +, \times)$ est un corps si $(\mathbb L, +, \times)$ est un anneau et que $\forall x \in L\setminus \{0_\mathbb{L}\}$, $x$ est inversible pour la multiplication.
+
+    Un sous-corps est un sous-ensemble $\mathbb{K} \subset \mathbb{L}$ qui est un sous-anneau de $\mathbb{L}$ et qui est stable par l'inverse (pour un élément non nul).
+\end{customenv}
+
 \begin{exercise}
+    \label{exo:polynome-minimal-racines-carrees}
     Prenons $E = \R$ une $\Q$-algèbre (ce qui est possible car $\Q$ est un sous-anneau et un sous-espace vectoriel de $\R$)
 
     Soit $a = \sqrt 2 + \sqrt 3$.
@@ -311,7 +400,7 @@
     Montrer que le polynôme minimal $\pi_a$ existe et donner son expression.
 \end{exercise}
 
-\begin{correction}
+\begin{correction}[Exercice \ref{exo:polynome-minimal-racines-carrees}]
     On doit construire un polynôme dont les racines sont $\sqrt 2 + \sqrt 3$ mais à coefficients rationnels. On a :
     \begin{align*}
         a = \sqrt2+\sqrt3 &\implies (a-\sqrt2)^2 = 3 \\
@@ -368,7 +457,7 @@
 \end{property}
 
 \begin{proof}
-    En posant $u : \Kset[X] \to \Kset[a]$ avec $P \mapsto P(a)$ un isomorphisme, on a $u(P) = P(u)$ dans $\Kset[a]$ si et seulement si $P$ est inversible dans $\Kset[X]$. Or, les seuls polynômes inversibles dans $\Kset[X]$ sont les polynômes constants non nuls $\lambda \in \Kset^*$. Donc $P(a) = \lambda 1_E$ avec $\lambda \in \Kset^*$, ce qui prouve la propriété.
+    En posant $u : \Kset[X] \to \Kset[a]$ avec $P \mapsto P(a)$ un isomorphisme. Comme $u$ est un isomorphisme de $\Kset[X] \to \Kset[a]$, $u(P) = P(a)$ est inversible si et seulement si le polynôme antécédent $P$ est inversible dans $\Kset[X]$. Or, les seuls polynômes inversibles de $\Kset[X]$ sont les polynômes constants non nuls. Donc $P(a)$ est inversible si et seulement si $P = \lambda \cdot 1_E \avec \lambda \in \Kset^*$, ce qui donne le résultat.
 \end{proof}
 
 \begin{property}
@@ -385,40 +474,83 @@
     \begin{itemize}
         \item \textbf{3 $\implies$ 2 :} Si $P \wedge \pi_a = 1$, il existe $U,V \in \Kset[X]$ tels que $UP + V\pi_a = 1$. En évaluant en $a$, on obtient $U(a)P(a) + V(a)\pi_a(a) = U(a)P(a) = 1_E$, donc $P(a)$ est inversible dans $\Kset[a]$.
         \item \textbf{2 $\implies$ 1 :} Si $P(a)$ est inversible dans $\Kset[a]$, il existe $Q(a) \in \Kset[a]$ tel que $P(a)Q(a) = 1_E$. Comme $\Kset[a] \subset E$, $P(a)$ est inversible dans $E$.
-        \item \textbf{1 $\implies$ 3 :} Supposons que $P(a)$ est inversible dans $E$.
-        
-        On pose $D = P \wedge \pi_a$. Alors $D \mid P$ et $D \mid \pi_a$, donc il existe $P_1, P_2 \in \Kset[X]$ tels que $P = DP_1$ et $\pi_a = DP_2$ avec $P_1 \wedge P_2 = 1$.
-        
-        En évaluant en $a$, on obtient $P(a) = D(a)P_1(a)$ et comme $P(a)$ est inversible dans $E$ alors $\exists y \in E$ tel que $P(a)y = 1_E$, donc $D(a)P_1(a)y = 1_E$ donc $P_2(a)D(a)P_1(a)y = P_2(a)$.
-        
-        Or $\pi_a = P_2D$ donc $\pi_a(a) = 0$ et donc $P_2(a)D(a)P_1(a)y = 0$. On obtient donc $P_2(a) = 0$, donc $\pi_a \mid P_2$ et donc $DP_2 \mid P_2$ et donc $D = 1$ sachant que $D$ est unitaire. Donc $P \wedge \pi_a = 1$.
+        \item \textbf{1 $\implies$ 3 :} Supposons $P(a)$ inversible dans $E$.
+        Posons $D = P \wedge \pi_a$, unitaire. Il existe $P_1, P_2 \in \Kset[X]$ unitaires tels que :
+        \[
+            P = D P_1 \quad \text{et} \quad \pi_a = D P_2
+        \]
+        En évaluant en $a$, comme $\Kset[a]$ est commutatif :
+        \[
+            0 = \pi_a(a) = D(a) P_2(a) = P_2(a) D(a)
+        \]
+        On multiplie à droite par $P_1(a)$ :
+        \[
+            P_2(a) \underbrace{D(a) P_1(a)}_{= P(a)} = 0 \implies P_2(a) P(a) = 0
+        \]
+        $P(a)$ étant inversible dans $E$, on multiplie à droite par son inverse $P(a)^{-1}$ (comme on peut poser $\exists y \in E$ tel que $P(a) y = 1_E$) :
+        \[
+            P_2(a) = 0
+        \]
+        Par minimalité de $\pi_a$, il vient $\pi_a \mid P_2$, c'est-à-dire $D P_2 \mid P_2$. 
+        Comme $P_2 \neq 0$, cela impose :
+        \[
+            \deg(D) + \deg(P_2) \le \deg(P_2) \implies \deg(D) = 0
+        \]
+        $D$ étant unitaire, $D = 1$, d'où $P \wedge \pi_a = 1$.
     \end{itemize}
 \end{proof}
-\todo
-% A REVOIR !!
 
 \begin{example}
     Prenons $E= \mathcal M_n(\R)$.
 
-    Soit $A = \left(\begin{matrix} \alpha & \cdots & \cdots & \cdots & \cdots \\ \vdots & \ddots & (1) & \cdots & \vdots \\ \vdots & (1) & \ddots & (1) & \vdots \\ \vdots & \cdots & (1) & \ddots & \vdots \\ \cdots & \cdots & \cdots & \cdots & \alpha\end{matrix}\right)$ avec $\alpha \in \R$.
+    Soit $M = \left(\begin{matrix} \alpha & \cdots & \cdots & \cdots & \cdots \\ \vdots & \ddots & (1) & \cdots & \vdots \\ \vdots & (1) & \ddots & (1) & \vdots \\ \vdots & \cdots & (1) & \ddots & \vdots \\ \cdots & \cdots & \cdots & \cdots & \alpha\end{matrix}\right)$ avec $\alpha \in \R$.
 
     Déterminons quelles valeurs $\alpha$ de $\R$ permettent à $M$ d'être inversible, et donnons son inverse.
 
-    % On peut écrire :
-    % $$M = \left(\begin{matrix} 1 & \cdots & \cdots \\ \vdots & \ddots & (1) \\ \vdots & (1) & \ddots \\ \vdots & \cdots & (1) \\ \cdots & \cdots & 1\end{matrix}\right) + (\alpha - 1)I_n = A + (\alpha - 1)I_n$$
+    On réécrit $M$ comme un polynôme d'une matrice $A$ :
+    $$M = (\alpha - 1)I_n + A \avec A = \left(\begin{matrix} 1 & \cdots & \cdots & \cdots & \cdots \\ \vdots & \ddots & (1) & \cdots & \vdots \\ \vdots & (1) & \ddots & (1) & \vdots \\ \vdots & \cdots & (1) & \ddots & \vdots \\ \cdots & \cdots & \cdots & \cdots & 1\end{matrix}\right)$$
 
-    % Et on sait déjà que $\pi_A = X^2 - nX$ est le polynôme minimal de $A$. Donc $\pi_M(X) = \pi_{A + (\alpha - 1)I_n}(X) = \pi_A(X - (\alpha - 1)) = (X - (\alpha - 1))^2 - n(X - (\alpha - 1))$.
+    On a donc $M = P(A)$ avec $P(X) = (\alpha - 1) + X$. On a vu dans l'exemple précédent que $\pi_A(X) = X^2 - nX$. $\pi_A \wedge P = 1$ si et seulement si $P$ n'a pas de racines en commun avec $\pi_A$, c'est-à-dire si et seulement si $P(0) \ne 0$ et $P(n) \ne 0$. On a donc :
+    \[
+        P(0) = \alpha - 1 \ne 0 \iff \alpha \ne 1, \quad P(n) = (\alpha - 1) + n \ne 0 \iff \alpha \ne 1 - n
+    \]
+
+    Les conditions sur $\alpha$ pour que $M$ soit inversible sont donc :
+    \[
+        \alpha \ne 1 \quad \text{et} \quad \alpha \ne 1 - n
+    \]
+
+    Pour déterminer la matrice inverse $M^{-1}$, on utilise le théorème de Bézout puis on évalue en $A$ :
+    \[
+        \pi_A \wedge P = 1 \implies \exists U, V \in \R[X] : U\pi_A + VP = 1
+    \]
+
+    On effectue une division euclidienne de $\pi_A$ par $P$ pour déterminer les coefficients $U$ et $V$. On trouve :
+    \[
+        \pi_A(X) = P(X)(X - (n+\alpha -1)) + (n+\alpha -1)(\alpha - 1)
+    \]
+
+    On peut donc réécrire :
+    $$
+        U(X)\pi_A(X) + V(X)P(X) = 1 \quad \text{avec} \quad U(X) = \frac{1}{(n+\alpha -1)(\alpha - 1)}, \quad V(X) = -\frac{X - (n+\alpha -1)}{(n+\alpha -1)(\alpha - 1)}
+    $$
+
+    En évaluant en $A$, on obtient :
+    \[
+        \cancel{U(A)\pi_A(A)} + V(A)P(A) = 1_E \implies V(A)\underbrace{P(A)}_{=M} = 1_E \implies M^{-1} = V(A)
+    \]
+
+    D'où $M^{-1} = -\frac{A - (n+\alpha -1)I_n}{(n+\alpha -1)(\alpha - 1)}$.
 
     On peut aussi déterminer les conditions d'inversibilité en calculant le déterminant de $M$, puis déterminer la matrice inverse en résolvant le système $MX = I_n$.
 \end{example}
-\todo
-% à revoir /!\
 
 \begin{customenv}{\faIcon{bell}}{Rappel}
     Deux polynômes $P,Q \in \R(X]$ sont premiers entre eux si et seulement s'ils n'ont aucune racines communes dans $\C$ (pas seulement dans $\R$).
 \end{customenv}
 
 \begin{exercise}
+    \label{exo:inverse-triangulaire}
     Montrer que l'inverse d'une matrice triangulaire supérieure $A \in \mathcal M_n(\Kset)$ est triangulaire supérieure.
 \end{exercise}
 
@@ -426,8 +558,8 @@
     Les matrices triangulaires supérieures forment une sous-algèbre de $\mathcal M_n(\Kset)$.
 \end{customenv}
 
-\begin{correction}
-    Comme $T_n^s(\Kset)$ forme une sous-algèbre de $\mathcal M_n(\Kset)$, $\Kset[A] \subset T_n^s(\Kset)$. Comme $A$ est inversible, alors $A^{-1} \in \Kset[A] \subset T_n^s(\Kset)$, donc $A^{-1}$ est triangulaire supérieure.
+\begin{correction}[Exercice \ref{exo:inverse-triangulaire}]
+    Comme $T_n^s(\Kset)$ forme une sous-algèbre de $\mathcal M_n(\Kset)$, on a $\Kset[A] \subset T_n^s(\Kset)$. Si $A$ est inversible, alors $A^{-1} \in \Kset[A] \subset T_n^s(\Kset)$, donc $A^{-1}$ est triangulaire supérieure.
 \end{correction}
 
 \begin{remark}
@@ -440,6 +572,7 @@
 \end{proof}
 
 \begin{exercise}
+    \label{exo:equivalence-injectif-surjectif}
     Prenons $E$ un $\Kset$-espace vectoriel et $u \in \mathcal L(E)$ tel que $\pi_u$ existe (ce qui est toujours le cas si $\dim(E) < \infty$). Montrer que les propriétés suivantes sont équivalentes :
     \begin{enumerate}[label=(\roman*)]
         \item $u$ est injective.
@@ -451,14 +584,14 @@
 \end{exercise}
 
 \begin{customenv}{\faIcon{sticky-note}}{Note}
-    Même dans un espace vectoriel de dimension infinie, on peut trouver des endomorphismes qui admettent un polynôme minimal. Par exemple, les projections ; qui vérifient $u^2 = u$ et donc $\pi_u(X) \mid X^2 - X$.
+    Même dans un espace vectoriel de dimension \textbf{infinie}, on peut trouver des endomorphismes qui admettent un polynôme minimal. Par exemple, les projections ; qui vérifient $u^2 = u$ et donc $\pi_u(X) \mid X^2 - X$.
 \end{customenv}
 
-\begin{correction}
+\begin{correction}[Exercice \ref{exo:equivalence-injectif-surjectif}]
     D'après l'exercice précédent, on sait que $u$ est inversible si et seulement si $\pi_u(0) \ne 0$. Or, $u$ est inversible si et seulement si $u$ est bijective. L'équivalence (iii) et (iv) est donc démontrée.
 
     \begin{enumerate}[label=(\roman*)]
-        \item Supposons que $u$ est injective. Montrons que $\pi_u(0) \ne 0$. Si $\pi_u(0) = 0$, alors $\pi_u(X) = XQ(X)$ pour un certain polynôme $Q \in \Kset[X]$.
+        \item Supposons que $u$ est injective. Montrons que $\pi_u(0) \ne 0$. Si $\pi_u(0) = 0$, alors $0$ est une racine de $\pi_u(X)$, donc $\pi_u(X) = XQ(X)$ pour un certain polynôme $Q \in \Kset[X]$.
         
         En évaluant en $u$, on obtient $\pi_u(u) = uQ(u) = 0$. Comme $u$ est injective, on a $Q(u) = 0$ car $\Imf(Q(u)) \subset \ker(u)$ et $\ker(u) = \{0\}$ avec $Q \ne 0$.
         
