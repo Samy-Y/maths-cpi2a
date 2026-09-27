@@ -78,15 +78,107 @@
     Ainsi, $\R[X] = P\R[X] \oplus \R_{d-1}[X]$ et donc $\codim_{\R[X]}(P\R[X]) = d$.
 \end{example}
 
+\begin{example}
+    Dans l'espace des matrices carrées de taille $n \in \N^*$ $E = \mathcal M_n(\R)$, on pose $H = \{X \in E \mid \Tr(X) = 0\}$. C'est bien un sous-espace vectoriel de $E$ de dimension finie, vérifions que sa codimension est de $1$.
+
+    Pour cela, il suffit simplement de calculer la dimension de $H$. On peut utiliser les caractéristiques de l'application trace :
+    $$\Tr : \begin{matrix} E & \longrightarrow & \R \\ X & \longmapsto & \Tr(X) \end{matrix}$$
+    qui est une forme linéaire. Le sous-espace $H$ est donc, par définition, le noyau de cette forme linéaire. Comme $\Tr$ est non-nulle, $H$ est un hyperplan de $E$ et donc $\dim H = \dim E - 1 = n^2 - 1$. Ainsi, $\codim_E(H) = 1$.
+
+    Il est aussi possible d'aborder ce calcul de dimension via théorème de rang.
+\end{example}
+
 \begin{remark}
     La codimension de $F$ ne dépend pas du supplémentaire $S$ choisi car n'importe quel supplémentaire est isomorphe à $S$, donc leurs dimensions sont égales.
 \end{remark}
+
+\chapter{Hyperplans}
+
+\begin{definition}[Hyperplan en dimension quelconque]
+    On dit qu'un sous-espace vectoriel $H$ d'un $\Kset$-ev. $E$ est un hyperplan si et seulement si $\codim_E(H) = 1$, c'est-à-dire qu'il admet un supplémentaire de dimension $1$.
+\end{definition}
+% estce que c vrm ssi?
+
+\begin{proposition}[Formule du rang en dimension quelconque]
+    Soit $u \in \mathcal L(E,F)$ une application linéaire. Les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $\rang(u)$ est de dimension finie ($\dim(\Imf(u)) < \infty$).
+        \item $\ker(u)$ est de codimension finie dans $E$ ($\codim_E(\ker(u)) < \infty$).
+    \end{enumerate}
+    Le noyau admet alors un supplémentaire de dimension finie si et seulement si l'image est de dimension finie. De plus, on a la formule du rang :
+    $$\dim(\Imf(u)) = \codim_E(\ker(u))$$
+\end{proposition}
+
+\begin{proof}
+    Montrons que les deux propriétés sont équivalentes. \textbf{Montrons d'abord que (1) $\implies$ (2).}
+
+    On pose $r = \rang(u)$, donc $\exists(e_1,\dots,e_r)\in E$ tel que $(u(e_1),\dots,u(e_r))$ est une base de $\Imf(u)$. Montrons que la codimension du noyau est finie, c'est-à-dire qu'il admet un supplémentaire de dimension finie.
+
+    En dimension finie, le résultat est immédiat : la dimension du supplémentaire est égale à la dimension de l'image (rang $r$). En dimension infinie, on peut construire un supplémentaire de $\ker(u)$ de dimension finie en posant :
+    $$S = \Vect(e_1,\dots,e_r)$$
+    ...qui est clairement de dimension finie.
+
+    Montrons que $\ker(u) \cap S = \{0\}$. Soit $x \in \ker(u) \cap S$. Alors $x = \sum_{i=1}^r \lambda_i e_i$ pour certains $\lambda_i \in \Kset$. Comme $x \in \ker(u)$, on a $u(x) = 0$, donc :
+    $$0 = u(x) = u\left(\sum_{i=1}^r \lambda_i e_i\right) = \sum_{i=1}^r \lambda_i u(e_i)$$
+    Mais $(u(e_1),\dots,u(e_r))$ est une base (donc famille libre) de $\Imf(u)$, donc les scalaires $\lambda_i$ sont tous nuls. Ainsi, $x = 0$ et donc $\ker(u) \cap S = \{0\}$.
+    
+    Montrons que $E = \ker(u) + S$. Écrivons $x \in E$ sous la forme $k + s$ avec $k \in \ker(u)$ et $s \in S$. On procède par analyse-synthèse :
+    \begin{itemize}
+        \item \textbf{Analyse :} Soit $x \in E$. $x = k+s =  k + \sum_{i=1}^r\lambda_i e_i \implies u(x) = \sum_{i=1}^r\lambda_i u(e_i)$. Comme $(u(e_1),\dots,u(e_r))$ est une base de $\Imf(u)$, il existe des scalaires $\lambda_i$ tels que $u(x) = \sum_{i=1}^r\lambda_i u(e_i)$. Ensuite, on prend $k = x - \sum_{i=1}^r\lambda_i e_i$ et on a $u(k) = u(x) - \sum_{i=1}^r\lambda_i u(e_i) = 0$, donc $k \in \ker(u)$.
+        \item \textbf{Synthèse :} Soit $x \in E$, donc $u(x) \in \Imf(u) = \Vect(u(e_1),\dots,u(e_r))$. Donc il existe des scalaires $\lambda_i$ tels que $u(x) = \sum_{i=1}^r\lambda_i u(e_i)$. Par linéarité de $u$, on a $u(x - \sum_{i=1}^r\lambda_i e_i) = u(x) - \sum_{i=1}^r\lambda_i u(e_i) = 0$, donc $x - \sum_{i=1}^r\lambda_i e_i \in \ker(u)$. Posons $k = x - \sum_{i=1}^r\lambda_i e_i \in \ker(u)$ et $s = \sum_{i=1}^r\lambda_i e_i \in S$. Alors $x = k + s$ avec $k \in \ker(u)$ et $s \in S$.
+    \end{itemize}
+
+
+    On conclut alors que $E = \ker(u) \oplus S$, ce qui prouve que $\rang(u) < \infty \implies \codim_E(\ker(u)) < \infty$.
+
+    Montrons maintenant que $\rang(u) < \infty \implies \codim_E(\ker(u)) = \rang(u)$. On sait que $S = \Vect(e_1,\dots,e_r)$ est un supplémentaire de $\ker(u)$. On sait que la famille $(u(e_1),\dots,u(e_r))$ est une base de $\Imf(u)$, donc elle est libre, et on a $\sum_{i=1}^r \lambda u(e_i) = 0 \implies \lambda_i = 0$ pour tout $i$. Donc $\sum_{i=1}^r \lambda e_i \in S \cap \ker(u) = \{0\}$, donc $\lambda_i = 0$ pour tout $i$. Ainsi, $(e_1,\dots,e_r)$ est une famille libre de $S$, donc c'est une base de $S$ et donc $\dim(S) = r = \rang(u)$. Ainsi, $\codim_E(\ker(u)) = \dim(S) = \rang(u)$.
+
+    \textbf{Montrons que (2) $\implies$ (1).} On suppose que $\ker(u)$ est de codimension finie, donc il existe un supplémentaire $S$ de dimension finie tel que $E = \ker(u) \oplus S$. Soit l'application suivante :
+    $$f : \begin{matrix} S & \longrightarrow & \Imf(u) \\ s & \longmapsto & u(s) \end{matrix}$$
+    Montrons que $f$ est un isomorphisme.
+    
+    On sait que $f$ est linéaire car $u$ l'est, et donc $\ker(f) = \ker(u) \cap S = \{0\}$, donc $f$ est injective.
+    
+    Montrons que $f$ est surjective. Soit $y \in \Imf(u)$, donc il existe $x \in E$ tel que $y = u(x)$. Comme $E = \ker(u) \oplus S$, on peut écrire $x = k + s$ avec $k \in \ker(u)$ et $s \in S$. Alors $y = u(x) = u(k + s) = u(k) + u(s) = 0 + u(s) = u(s)$. Ainsi, pour tout $y \in \Imf(u)$, il existe un $s \in S$ tel que $f(s) = y$, donc $f$ est surjective. Ainsi, $f$ est un isomorphisme entre $S$ et $\Imf(u)$, donc $\dim(\Imf(u)) = \dim(S) < \infty$. Ainsi, $\codim_E(\ker(u)) < \infty \implies \rang(u) < \infty$.
+\end{proof}
+
+\begin{remark}
+    Si la dimension de $E$ est finie, alors $\ker(u)$ est de codimension finie, car $\ker(u)$ est un sous-espace vectoriel de $E$ et donc $\codim_E(\ker(u)) = \dim(E) - \dim(\ker(u)) < \infty$. La formule du rang devient alors :
+    $$\dim(\Imf(u)) = \dim(E) - \dim(\ker(u))$$
+    Il s'agit de la formule du rang classique.
+\end{remark}
+
+\begin{methodbox}
+    Pour construire un supplémentaire du noyau, il suffit de prendre les antécédents d'une base $u(e_i)$ de l'image (les $e_i$ sont les antécédents) et construire le sous-espace vectoriel engendré par ces antécédents $\Vect((e_i))$.
+\end{methodbox}
+
+\begin{example}
+    Posons $F = \{P \in \R[X] \tq P(1) = \int_0^1 P(x) \mathrm dx\}$. Montrons que $\codim F < \infty$ et donner un supplémentaire de $F$ dans $\R[X]$.
+
+    Construisons une application dont $F$ sera le noyau.
+    $$u : \begin{matrix} \R[X] & \longrightarrow & \R^2 \\ P & \longmapsto & (P(1),\int_0^1 P(x) \mathrm dx) \end{matrix}$$
+    On a $F = \ker(u)$, donc il suffit de montrer que $\rang(u) < \infty$. On sait que $\R^2$ est de dimension finie, donc $\rang(u) \leq 2 < \infty$. Ainsi, $\codim F = \rang(u) < \infty$.
+
+    Pour construire un supplémentaire de $F$, il suffit de trouver une base de l'image de $u$. On peut prendre les polynômes $1$ et $X$ :
+    $$u(1) = (1,1) \et u(X) = (1,\frac12)$$
+    On peut vérifier que $(u(1),u(X))$ est une famille libre de $\R^2$ car $\lambda_1 u(1) + \lambda_2 u(X) = 0 \implies (\lambda_1 + \lambda_2, \lambda_1 + \frac12 \lambda_2) = (0,0) \implies \lambda_1 = 0 \et \lambda_2 = 0$. Ainsi, $(u(1),u(X))$ est une base de $\Imf(u)$ et donc un supplémentaire de $F$ est donné par :
+    $$S = \Vect(1,X)$$
+\end{example}
+
+\begin{application}[Interpolation polynômiale]
+    Soit $(x_0, x_1, \dots, x_n) \in \Kset^{n+1}$ différents deux à deux. On définit l'application suivante :
+    $$u : \begin{matrix} \Kset_n[X] & \longrightarrow & \Kset^{n+1} \\ P & \longmapsto & (P(x_0), P(x_1), \dots, P(x_n)) \end{matrix}$$
+
+    Montrons qu'elle est bijective.
+\end{application}
+
+PC MORT - à recopier
 
 \begin{proposition}
     Si $F$ et $G$ sont des sous-espaces vectoriels de $E$ tels que $F \subset G$, alors :
     \begin{itemize}
         \item En dimension finie : $\dim F = \dim G \implies F = G$.
-        \item En dimension infinie : si $\codim F$ est dse dimension finie, alors $\codim G$ est de dimension finie et $\codim G \leq \codim F$. Il y a égalité si et seulement si $F = G$.
+        \item En dimension infinie : si $\codim F$ est de dimension finie, alors $\codim G$ est de dimension finie et $\codim G \leq \codim F$. Il y a égalité si et seulement si $F = G$.
     \end{itemize}
 \end{proposition}
 
