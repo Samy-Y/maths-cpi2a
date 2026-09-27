@@ -1,6 +1,6 @@
 # Notes de cours de maths - CPI2A (Class2030)
 
-*UM6P EMINES*
+*Samy Youssoufine @ UM6P-EMINES*
 
 Ce dépôt contient les notes de cours de mathématiques pour la classe CPI2A (Class2030). Une interface pour la visualisation des fichiers PDF rendus est disponible via le site web [maths2.txt.ma](https://maths2.txt.ma) ou alternativement via [ce lien miroir](https://samy-y.github.io/maths-cpi2a).
 

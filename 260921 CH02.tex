@@ -1,0 +1,235 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage{coursmodern}
+
+\CourseTitle{Codimension et dualité}
+\CourseSubtitle{EMINES --- CPI2A (Class2030)}
+\ChapterNumber{02}
+\CourseAuthor{Samy Youssoufine}
+\LastUpdate{\today}
+\PrimarySite{maths2.txt.ma}{https://maths2.txt.ma}
+\MirrorSite{samy-y.github.io/maths-cpi2a}{https://samy-y.github.io/maths-cpi2a}
+
+\wiptrue
+
+\begin{document}
+
+\MakeSwissCover
+
+\tableofcontents
+
+\chapter{Notions de base}
+
+\begin{proposition}
+    Soit $S$ et $S'$ deux supplémentaires d'un sous-espace vectoriel $F$ de $E$.
+    
+    $$E = F \oplus S = F \oplus S'$$
+    Alors $S \simeq S'$ (isomorphisme).
+\end{proposition}
+
+\begin{proof}
+    Construisons un isomorphisme entre $S$ et $S'$. Pour ça, après analyse rapide, on peut définir l'application suivante :
+    \begin{align*}
+        u : S &\longrightarrow S' \\
+        x &\longmapsto p(x)
+    \end{align*}
+    où $p$ est la projection de $S$ parallèlement à $S'$.
+
+    Comme $E = F \oplus S'$, les images de $E$ par $p$ peuvent être écrire de la manière suivante :
+    $$p : \begin{matrix} E = F \oplus S' & \longrightarrow & S' \\ f + s' & \longmapsto & s' \end{matrix}$$
+    Et comme $E = F \oplus S$, les images de $E$ par $p$ peuvent être écrire de la manière suivante :
+    $$p : \begin{matrix} E = F \oplus S & \longrightarrow & S' \\ f + s & \longmapsto & s' \end{matrix}$$
+    Il est facile de vérifier que $u$ est bien linéaire. Il reste à montrer que $u$ est bijective.
+
+    Vérifions que $u$ est injective.
+    \begin{itemize}
+        \item Soit $s \in \ker(u)$.
+        \item On sait que, comme $s \in E = F \oplus S'$, il existe un unique couple $(f,s') \in F \times S'$ tel que $s = f + s'$.
+        \item Mais $s \in \ker(u)$, donc $u(s) = p(s) = s' = 0$. Donc $s = f + 0 = f \in F$.
+        \item Mais $s \in S$ et $F \cap S = \{0\}$ parce que $S$ est un supplémentaire de $F$. Donc $s = 0$.
+        \item Ainsi, $\ker(u) = \{0\}$ et donc $u$ est injective.
+    \end{itemize}
+    Vérifions que $u$ est surjective.
+    \begin{itemize}
+        \item Soit $s' \in S'$.
+        \item Comme $E = F \oplus S$, il existe un unique couple $(f,s) \in F \times S$ tel que $s' = f + s$.
+        \item Donc $p(s') = p(f + s) = s$ (car $p$ est la projection sur $S'$ parallèlement à $S$).
+        \item Ainsi, pour tout $s' \in S'$, il existe un $s \in S$ tel que $u(s) = p(s) = s'$. Donc $u$ est surjective.
+    \end{itemize}
+    On a donc montré que $u$ est bijective et linéaire, donc c'est un isomorphisme entre $S$ et $S'$.
+\end{proof}
+
+\begin{definition}[Codimension]
+    $F$ est dit de \textbf{codimension finie} dans $E$ s'il admet un supplémentaire $S$ de dimension finie. Dans ce cas, on définit la \textbf{codimension} de $F$ dans $E$ par :
+    $$\codim_E(F) = \dim(S)$$
+\end{definition}
+
+\begin{methodbox}
+    Pour construire un supplémentaire, il suffit généralement d'utiliser le théorème de la base incomplète. Dans un espace de dimension infinie, on utilise l'axiome de Zorn (pas étudié) pour construire un supplémentaire.
+\end{methodbox}
+
+\begin{example}
+    Dans l'espace des polynômes $E = \R[X]$, on pose $P \in E\setminus\{0_E\}$ et $F = P\R[X]$, qui est bien un sous-espace vectoriel de $E$ de dimension infinie ($\dim F = \infty$).
+
+    Cherchons si $F$ admet un supplémentaire de dimension finie. On cherche donc un sous-espace vectoriel $S$ qui vérifie la condition suivante :
+    $$\R[X] = P\R[X] \oplus S$$
+
+    Cette écriture rappelle la division euclidienne des polynômes. En posant $d = \deg(P)$, on peut choisir $S = \R_{d-1}[X]$, qui est de dimension finie $\dim S = d$. En effet, pour tout $Q \in \R[X]$, on peut écrire $Q = P R + S$ avec $R \in \R[X]$ et $S \in \R_{d-1}[X]$ (division euclidienne). De plus, l'intersection $P\R[X] \cap \R_{d-1}[X] = \{0\}$ car un polynôme de degré inférieur à $d$ ne peut pas être multiple de $P$ (qui est de degré $d$).
+    
+    Ainsi, $\R[X] = P\R[X] \oplus \R_{d-1}[X]$ et donc $\codim_{\R[X]}(P\R[X]) = d$.
+\end{example}
+
+\begin{remark}
+    La codimension de $F$ ne dépend pas du supplémentaire $S$ choisi car n'importe quel supplémentaire est isomorphe à $S$, donc leurs dimensions sont égales.
+\end{remark}
+
+\begin{proposition}
+    Si $F$ et $G$ sont des sous-espaces vectoriels de $E$ tels que $F \subset G$, alors :
+    \begin{itemize}
+        \item En dimension finie : $\dim F = \dim G \implies F = G$.
+        \item En dimension infinie : si $\codim F$ est dse dimension finie, alors $\codim G$ est de dimension finie et $\codim G \leq \codim F$. Il y a égalité si et seulement si $F = G$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    En effet, comme $F \subset G$ et que la codimension de $F$ est finie, alors $E = F \oplus S$.
+    $$\codim F < \infty \implies E = F \oplus S \tq \dim S < \infty$$
+\end{proof}
+
+\begin{methodbox}
+    En pratique, la proposition précédente nous permet de montrer une égalité de sous-espaces vectoriels quand un sens de l'inclusion est connu et que l'on peut calculer les dimensions ou codimensions et montrer qu'elles sont égales.
+\end{methodbox}
+
+A RECOP
+
+% justification de $E = F \oplus T = G \oplus T$ et $F \subset G$ $\implies$ $F = G$.
+
+\begin{property}
+    Soit $F$ et $G$ deux sous-espaces vectoriels de $E$ tels que $F \subset G$. Si $T$ est un supplémentaire commun à $F$ et $G$, alors $F = G$, i.e.:
+    $$E = F \oplus T = G \oplus T \et F \subset G \implies F = G$$
+\end{property}
+
+\begin{proof}
+    En dimension finie, il suffit d'utiliser $\dim F = \dim E - \dim T$ et $\dim G = \dim E - \dim T$ pour conclure que $F = G$ comme $F \subset G$.
+
+    En dimension quelconque, on procède par double inclusion. Un sens est déjà connu : $F \subset G$. Il suffit de montrer que $G \subset F$. Soit $g \in G$. On peut encore le ``regarder'' comme élément de $E$, donc il peut s'écrire comme $g = f + t$ avec $f \in F$ et $t \in T$. Comme $g \in G$, on a $t = g - f \in G$. Mais $t \in T$ et $T$ est un supplémentaire de $G$ donc leur intersection $G \cap T = \{0\}$. Ainsi, $t = 0$ et donc $g = f \in F$. On a donc bien $G \subset F$.
+\end{proof}
+
+\begin{consequence}[Hyperplan maximal]
+    Soient $H$ un hyperplan de $E$ et $G$ un sous-espace vectoriel de $E$ tel que $H \subset G$. Alors $G = H$ ou $G = E$.
+    $$H \subset G \subset E \implies G = H \ou G = E$$
+\end{consequence}
+
+\begin{proof}
+    En dimension infinie, la démonstration est triviale : $G$ ne peut être soit de dimension $\dim E - 1$ (et donc égal à $H$) soit de dimension $\dim E$ (et donc égal à $E$).
+
+    En dimension infinie, on sait que $\codim H = 1$ comme c'est un hyperplan. Comme $H \subset G$, alors $\codim G \le \codim H = 1$. Donc $\codim G = 0$ ou $\codim G = 1$. Si $\codim G = 0$, alors $G = E$. Si $\codim G = 1$, alors $G$ est un hyperplan et donc $G = H$, parce qu'il y aura inclusion avec les mêmes codimensions.
+\end{proof}
+
+\begin{remark}
+    Si $H_1$ et $H_2$ sont deux hyperplans de $E$ et $H_1 \subset H_2$, alors $H_1 = H_2$.
+\end{remark}
+
+\begin{remark}
+    Si $H$ est un hyperplan de $E$ et $x_0 \in E\setminus H$, alors $E = H \oplus \Vect(x_0)$.
+\end{remark}
+
+\begin{proof}
+    En effet, on a $H \subset H \oplus \Kset x_0 \subset E$. Comme $H \ne H \oplus \Kset x_0$ (car $x_0 \notin H$), alors par le corollaire précédent, on a $H \oplus \Kset x_0 = E$.
+\end{proof}
+
+\begin{exercise}
+    Soit $F$ un sous-espace vectoriel de $E$ tel que $\codim F < \infty$ et soit $G$ un sous-espace vectoriel de $E$ tel que $F \cap G = \{0\}$. Montrer que $G$ est de dimension finie et que $\dim G \leq \codim F$. De plus, montrer que l'égalité a lieu si et seulement si $E = F \oplus G$.
+\end{exercise}
+
+\begin{correction}
+    On a $F \subset F \oplus G$ (qui est une somme directe parce que l'intersection $F \cap G$ est réduite à 0). On sait aussi que la codimension de $F$ est finie, alors $\codim (F\oplus G) \le \codim F < \infty$. Donc $\exists T$ un sous-espace vectoriel de dimension finie tel que $E = F \oplus (G \oplus T)$. Or $\codim F < \infty$, donc il existe un supplémentaire $S$ de dimension finie tel que $E = F \oplus S$, donc $S \simeq G \oplus T$ (isomorphisme) avec $\dim S < \infty$, ce qui implique que $\dim G < \infty$ et $\dim G \le \dim S = \codim F$.
+
+    Pour montrer que $\dim G = \codim F \iff F \oplus G = E$; dans le sens direct, si $\dim G = \codim F$, alors $\dim S = \dim G + \dim T$ et comme $\dim S = \codim F$, on a $\dim T = 0$, donc $T = \{0\}$ et donc $E = F \oplus G$. Dans le sens réciproque, si $E = F \oplus G$, alors $\codim F = \dim G$.
+\end{correction}
+
+\chapter{Équations d'hyperplans}
+
+\begin{customenv}{\faIcon{lightbulb}}{Éq. d'un hyp. en dim. finie}
+    Soit $H$ un hyperplan de $E$. Dans le cas où $\dim E = n < \infty$, on pose $e = (e_1,\dots,e_n)$ une base de $E$. Alors il existe des scalaires $\alpha_1,\dots,\alpha_n \in \Kset\setminus\{0\}$ tels que :
+    $$H = \{x \in E \tq \alpha_1 x_1 + \dots + \alpha_n x_n = 0\} \text{ où } x = \sum_{i=1}^n x_i e_i$$
+    On dit que $H$ est l'hyperplan d'équation $\alpha_1 x_1 + \dots + \alpha_n x_n = 0$.
+\end{customenv}
+
+\begin{proof}
+    On fait une étude selon le sens de l'implication.
+    \begin{itemize}
+        \item[$\implies$] Dans le sens direct, comme $H$ est un hyperplan, c'est donc le noyau d'une forme linéaire non-nulle
+        $$H = \ker\varphi \tq \varphi \in E^* \setminus \{0\}$$
+        Posons $x = \sum_{i=1}^n x_i e_i \in H$. Alors $\varphi(x) = \sum_{i=1}^n x_i \varphi(e_i) = 0$. Posons $\alpha_i = \varphi(e_i)$ pour $i=1,\dots,n$. Comme $\varphi \ne 0$, il existe au moins un $i$ tel que $\alpha_i \ne 0$. Donc $H = \{x \in E \tq \alpha_1 x_1 + \dots + \alpha_n x_n = 0\}$.
+        \item[$\impliedby$] Dans le sens réciproque, on pose $a = (a_1,\dots,a_n) \in \Kset^n \setminus \{0_{\Kset^n}\}$ tel que $H = \{x \in E \tq a_1 x_1 + \dots + a_n x_n = 0\}$ où $x = \sum_{i=1}^n x_i e_i$. Alors on peut définir une forme linéaire $\varphi : E \to \Kset$ par $\varphi(x) = a_1 x_1 + \dots + a_n x_n$ (et vérifier facilement qu'elle est linéaire). Comme $a \ne 0$, on a $\varphi \ne 0$. Donc $H = \ker\varphi$ est un hyperplan.
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}
+    Soit $\varphi, \psi$ deux formes linéaires non-nulles sur $E$. Alors :
+    $$\ker\varphi = \ker\psi \iff \exists \lambda \in \Kset\setminus\{0\} \tq \varphi = \lambda \psi$$
+    Cette proposition est vraie quelque soit la dimension de $E$.
+\end{proposition}
+
+\begin{proof}
+    Dans le sens indirect, la démonstration est immédiate : si $\varphi = \lambda \psi$ avec $\lambda \ne 0$, alors $\ker\varphi = \ker\psi$.
+
+    Dans le sens direct, supposons que $\ker\varphi = \ker\psi$. Donc leurs noyaux forment un hyperplan de $E$ qu'on notera $H$, et comme $\varphi$ est une forme linéaire non-nulle, il existe $x_0 \in E$ tel que $\varphi(x_0) \ne 0$. Comme $H$ est un hyperplan, on a $E = H \oplus \Kset x_0$. Donc pour tout $x \in E$, il existe un unique couple $(h, \lambda) \in H \times \Kset$ tel que $x = h + \lambda x_0$. Alors :
+    \begin{align*}
+        \varphi(x) &= \varphi(h + \lambda x_0) = \varphi(h) + \lambda \varphi(x_0) = 0 + \lambda \varphi(x_0) = \lambda \varphi(x_0) \\
+        \psi(x) &= \psi(h + \lambda x_0) = \psi(h) + \lambda \psi(x_0) = 0 + \lambda \psi(x_0) = \lambda \psi(x_0)
+    \end{align*}
+    Donc $\varphi(x) = \lambda \varphi(x_0) = \frac{\varphi(x_0)}{\psi(x_0)} \psi(x)$. Posons $\lambda = \frac{\varphi(x_0)}{\psi(x_0)} \ne 0$, alors $\varphi = \lambda \psi$ (sachant que les restrictions de ces formes linéaires à $H$ sont nulles donc égales).
+\end{proof}
+
+\begin{customenv}{\faIcon{lightbulb}}{Éq. d'un hyp. en dim. infinie}
+    Soit $H$ un hyperplan de $E$. Dans le cas où $\dim E = \infty$, on peut montrer que $H$ est le noyau d'une forme linéaire non-nulle $\varphi \in E^* \setminus \{0\}$, donc :
+    $$H = \ker\varphi$$
+    On dit que $H$ est l'hyperplan d'équation $\varphi(x) = 0$. Par la proposition précédente, les autres équations d'hyperplans sont de la forme $\lambda \varphi(x) = 0$ avec $\lambda \in \Kset\setminus\{0\}$.
+\end{customenv}
+
+\begin{example}
+    Soit $H = \{P \in \R[X] , \int_0^1 (x-\frac12) P(x) \mathrm dx = 0\}$. Alors $H$ est un hyperplan de $\R[X]$ et l'équation de $H$ est $\varphi(P) = 0$ avec $\varphi(P) = \int_0^1 (x-\frac12) P(x) \mathrm dx$, qui est clairement une forme linéaire non-nulle sur $\R[X]$ car $\varphi(X-\frac12) > 0$ et la linéarité peut être démontrée facilement.
+\end{example}
+
+\begin{exercise}
+    Soit $H$ un hyperplan de $\mathcal M_n(\R)$. Montrer que :
+    $$\exists A \in \mathcal M_n(\R) \setminus \{0\} \tq M \in H \iff \Tr(\,^tAM) = 0$$
+\end{exercise}
+
+\begin{correction}
+    La trace $\Tr(\,^tAM)$ est donnée par :
+    \begin{align*}
+        \Tr(\,^tAM) &= \sum_{i=1}^n (\,^tAM)_{ii} \\
+        &= \sum_{i=1}^n \sum_{j=1}^n (\,^tA)_{ij} M_{ji} \\
+        &= \sum_{i=1}^n \sum_{j=1}^n A_{ji} M_{ji} \\
+        &= \sum_{1 \le i,j \le n} A_{ij} M_{ij}
+    \end{align*}
+    Soit $e = (E_{ij})_{1 \le i,j \le n}$ la base canonique de $\mathcal M_n(\R)$. On a donc $M = \sum_{i,j} M_{ij} E_{ij} \in \mathcal M_n(\R)$.
+
+    On rappelle que si $E$ est un espace vectoriel de dimension finie $n$ et $e = (e_1,\dots,e_n)$ une base de $E$, alors $H$ est un hyperplan de $E$ si et seulement si il admet une équation de la forme :
+    $$x = \sum_{i=1}^n x_i e_i \in H \iff \sum_{i=1}^n \alpha_i x_i = 0 \text{ avec } (\alpha_1,\dots,\alpha_n) \in \Kset^n \setminus \{0_{\Kset^n}\}$$
+
+    Dans notre
+\end{correction}
+\todo
+
+\begin{application}
+    Montrons que tout hyperplan $H$ de $\mathcal M_n(\R)$ contient une matrice inversible (on prend $n \ge 2$).
+
+    En effet, on sait qu'il existe une matrice $A$ non-nulle ($\exists A \in \mathcal M_n(\R) \setminus \{0\}$) tell que $M \in H \iff \Tr(\,^tAM) = 0$.
+\end{application}
+\todo
+
+\chapter{Intersection finies d'hyperplans}
+
+\begin{proposition}
+    Soit $(\varphi_1,\dots,\varphi_r)$ des formes linéaires non-nulles sur $E$. Alors :
+    $$u : E \longmapsto (\varphi_1(u),\dots,\varphi_r(u)) \in \Kset^r$$
+    est une application linéaire surjective si et seulement si la famille $(\varphi_1,\dots,\varphi_r)$ est libre.
+
+    Dans ce cas, $H_i = \ker\varphi_i$ sont dits hyperplans indépendants et on a :
+    $$\codim \bigcap_{i=1}^r H_i = r$$
+\end{proposition}
+
+\end{document}
