@@ -316,12 +316,204 @@ A RECOP
 \chapter{Intersection finies d'hyperplans}
 
 \begin{proposition}
+    \label{proposition:hyperplans_independants}
     Soit $(\varphi_1,\dots,\varphi_r)$ des formes linéaires non-nulles sur $E$. Alors :
-    $$u : E \longmapsto (\varphi_1(u),\dots,\varphi_r(u)) \in \Kset^r$$
+    $$u : E \to \Kset^r$$
+    $$x \mapsto (\varphi_1(x),\dots,\varphi_r(x))$$
     est une application linéaire surjective si et seulement si la famille $(\varphi_1,\dots,\varphi_r)$ est libre.
 
     Dans ce cas, $H_i = \ker\varphi_i$ sont dits hyperplans indépendants et on a :
     $$\codim \bigcap_{i=1}^r H_i = r$$
+
+    On dit que des hyperplans sont indépendants si et seulement si les formes linéaires qui les définissent sont indépendantes.
 \end{proposition}
+
+\begin{proof}
+    Montrons d'abord que $u$ est une application linéaire. On a $u(\lambda x + y) = (\varphi_1(\lambda x + y), \dots, \varphi_r(\lambda x + y)) = (\lambda \varphi_1(x) + \varphi_1(y), \dots, \lambda \varphi_r(x) + \varphi_r(y)) = \lambda u(x) + u(y)$, donc $u$ est bien linéaire.
+
+    Montrons maintenant que $u$ surjective $\iff$ $(\varphi_1,\dots,\varphi_r)$ est libre. On rappelle que $u$ surjective $\iff \Imf(u) = \Kset^r$. Nous allons raisonner par contraposée, en montrant que si la famille $(\varphi_1,\dots,\varphi_r)$ est liée, alors $u$ n'est pas surjective.
+    $$(\varphi_1,\dots,\varphi_r) \text{ liée } \implies \exists (\lambda_1,\dots,\lambda_r) \in \Kset^r \setminus \{0_{\Kset^r}\} \tq \sum_{i=1}^r \lambda_i \varphi_i = 0$$
+
+    $(\varphi_i)$ est liée $\iff$ il existe des scalaires $(\lambda_1,\dots,\lambda_r) \in \Kset^r \setminus \{0_{\Kset^r}\}$ tels que $\sum_{i=1}^r \lambda_i \varphi_i = 0$. Alors on a $\sum_{i=1}^r \lambda_i \varphi_i = 0$. On peut traduire cette équation en hyperplan d'équation $\sum_{i=1}^r \lambda_i y_i = 0$ dans $\Kset^r$. Donc l'image de $u$ est contenue dans l'hyperplan d'équation $\sum_{i=1}^r \lambda_i y_i = 0$, donc $u$ n'est pas surjective. Donc $(\varphi_i)$ est liée $\iff$ $\exists H$ un hyperplan de $\Kset^r$ tel que $\forall x \in E, u(x) = (\varphi_1(x), \dots, \varphi_r(x)) \in H$.
+    
+    Ainsi, $\Imf(u) \subset H$, donc $u$ n'est pas surjective, parce que $\Imf(u) \subset H \iff \dim(\Imf(u)) \le \dim(H) < \dim(\Kset^r)$ (voir \ref{prop:dim_inclusion_hyperplans}, ce n'est pas évident !).
+    
+    Donc $(\varphi_i)$ est liée $\iff$ $u$ n'est pas surjective. Ainsi, $(\varphi_i)$ libre $\iff$ $u$ surjective. 
+
+    Pour montrer que $\codim \bigcap_{i=1}^r H_i = r$, on pose $H_i = \ker\varphi_i$. Donc $\bigcap_{i=1}^r H_i = \ker(u)$, et par la formule du rang, on a $\codim \ker(u) = \dim(\Imf(u)) = r$, sachant que $u$ est surjective.
+\end{proof}
+
+\begin{property}
+    \label{prop:dim_inclusion_hyperplans}
+    Soit $E$ un espace vectoriel de dimension $r$ et $F$ un sous-espace vectoriel de $E$. Alors :
+    $$\dim F \le r-1 \iff \exists G \text{ hyperplan } \tq F \subset G$$
+\end{property}
+
+\begin{proof}
+    Dans le sens indirect, la démonstration est évidente par propriétés simples de la dimension. Dans le sens direct, la démonstration est plus subtile et repose sur le théorème de la base incomplète.
+
+    On pose $d = \dim F$, donc $(e_1, \dots, e_d)$ est une base de $F$. Comme $d \le r-1$, on peut compléter cette base en une base de $E$ $(e_1, \dots, e_d, e_{d+1}, \dots, e_r)$. On pose alors $G = \Vect(e_1, \dots, e_{r-1})$. Alors $G$ est un hyperplan de $E$ et $F \subset G$.
+\end{proof}
+
+\begin{example}
+    On pose $F = \{P \in \R[X] \mid P(1) = \int_0^1 P = 0\}$.
+    Calculons la codimension de $F$.
+
+    On a $F = \ker(\varphi_1) \cap \ker(\varphi_2)$ avec $\varphi_1(P) = P(1)$ et $\varphi_2(P) = \int_0^1 P$. Montrons que $(\varphi_1, \varphi_2)$ est une famille libre.
+
+    Supposons que $\lambda_1 \varphi_1 + \lambda_2 \varphi_2 = 0$. Alors pour tout $P \in \R[X]$, on a $\lambda_1 P(1) + \lambda_2 \int_0^1 P = 0$. En prenant $P = 1$, on obtient $\lambda_1 + \lambda_2 = 0$. En prenant $P = X-1$, on obtient $\frac{\lambda_2}{2} = 0$. On obtient $\lambda_1 = 0$ et $\lambda_2 = 0$. Donc $(\varphi_1, \varphi_2)$ est une famille libre.
+
+    Donc $\codim F = 2$.
+\end{example}
+
+\chapter{Dualité}
+
+\begin{definition}[Dual]
+    On appelle le dual de $E$, noté $E^*$, l'espace des formes linéaires sur $E$ : $E^* = \mathcal L(E, \Kset)$ (à ne pas confondre avec $E\setminus \{0\}$).
+\end{definition}
+
+\begin{proposition}
+    Si $\dim E = n < \infty$, alors $\dim E^* = n$.
+\end{proposition}
+
+\begin{proof}
+    Si $E$, $F$ sont de dimensiosn finies, alors $\dim \mathcal L(E,F) = \dim E \cdot \dim F$. En particulier pour $F = \Kset$, on trouve $\dim E^* = n \times 1 = n$.
+\end{proof}
+
+\begin{proposition}[Base duale]
+    Soit $(e_1, \dots, e_n)$ une base de $E$. On définit la base duale $e^* = (e_1^*, \dots, e_n^*)$ de $E^*$ par :
+    $$e_i^* : \begin{matrix} E & \longrightarrow & \Kset \\ x & \longmapsto & x_i \end{matrix}$$
+    avec $x_i$ la $i$-ème coordonnée de $x$ dans la base $(e_1, \dots, e_n)$.
+\end{proposition}
+
+\begin{proof}
+    Nous allons montrer que $e^* = (e_1^*, \dots, e_n^*)$ est une base de $E^*$. Pour cela, on montre que $\forall i, e_i^* \in E^*$ et que $(e_1^*, \dots, e_n^*)$ est une famille libre de $E^*$.
+
+    Montrons que $e_i^* \in E^*$.
+
+    On a $x = \sum_{i=1}^n x_i e_i$ et $y = \sum_{i=1}^n y_i e_i$. Alors $e_i^*(x) = x_i$ et $e_i^*(y) = y_i$. Soit $\lambda \in \Kset$. Alors :
+    \begin{align*}
+        e_i^*(\lambda x + y) &= e_i^*\left(\sum_{j=1}^n (\lambda x_j + y_j) e_j\right) \\
+        &= \lambda x_i + y_i \\
+        &= \lambda e_i^*(x) + e_i^*(y)
+    \end{align*}
+    Donc $e_i^*$ est linéaire, donc $e_i^* \in E^*$.
+
+    Montrons que $e_i^*$ est une famille libre de $E^*$.
+    
+    Supposons que $\sum_{i=1}^n \lambda_i e_i^* = 0$. Alors pour tout $x \in E$, on a :
+    $$\sum_{i=1}^n \lambda_i e_i^*(x) = 0$$
+    En particulier, pour $x = e_j$, on a $e_i^*(e_j) = \delta_{ij}$ (le symbole de Kronecker). Donc :
+    $$\sum_{i=1}^n \lambda_i e_i^*(e_j) = \sum_{i=1}^n \lambda_i \delta_{ij} = \lambda_j = 0$$
+    Donc $\lambda_j = 0$ pour tout $j = 1, \dots, n$. Ainsi, $(e_1^*, \dots, e_n^*)$ est une famille libre de $E^*$.
+
+    Comme $\dim E^* = n$, on conclut que $(e_1^*, \dots, e_n^*)$ est une base de $E^*$, vu qu'elle contient $n$ éléments.
+
+    \textbf{Méthode alternative : } Il est possible de montrer que $(e_i^*)$ est une base de $E^*$ en montrant que c'est une famille génératrice de $E^*$. On prend alors une forme linéaire quelconque $\varphi \in \mathcal L(E,\Kset)$ et $\forall x \in E$, on a $\varphi(x) = \sum_{i=1}^n x_i \varphi(e_i) = \sum_{i=1}^n \varphi(e_i) e_i^*(x)$. Donc $\varphi = \sum_{i=1}^n \varphi(e_i) e_i^*$, ce qui montre que $(e_i^*)$ est génératrice de $E^*$ vu que cette égalité est valable pour tout $x \in E$. Comme $\dim E^* = n$, on conclut que $(e_i^*)$ est une base de $E^*$. \textbf{Cette méthode nous permet aussi d'obtenir les coordonnées de $\varphi$ dans la base duale : } $\varphi = \sum_{i=1}^n \varphi(e_i) e_i^*$, donc les coordonnées de $\varphi$ dans la base duale sont $(\varphi(e_1), \dots, \varphi(e_n))$.
+\end{proof}
+
+\begin{remark}
+    Les coordonnées de $\varphi \in \mathcal L(E,\Kset)$ dans la base duale sont données par $\varphi(e_i)$ pour $i=1,\dots,n$.
+\end{remark}
+
+\begin{example}
+    Dans $E = \R^2$ on pose $\varepsilon_1 = (1,1)$ et $\varepsilon_2 = (1,-1)$. Montrons que $\varepsilon = (\varepsilon_1, \varepsilon_2)$ est une base de $E$ et calculons sa base duale $\varepsilon^*$.
+
+    Le déterminant de la matrice de passage de la base canonique à la base $\varepsilon$ est :
+    $$\det\begin{pmatrix}1 & 1 \\ 1 & -1\end{pmatrix} = -2 \ne 0$$
+    Donc $\varepsilon$ est une base de $E$. On a $\varepsilon_1^*(\varepsilon_1) = 1$, $\varepsilon_1^*(\varepsilon_2) = 0$, $\varepsilon_2^*(\varepsilon_1) = 0$ et $\varepsilon_2^*(\varepsilon_2) = 1$. Donc la base duale est :
+    $$\varepsilon^* = (\varepsilon_1^*, \varepsilon_2^*)$$
+
+    Déterminons alors $\varepsilon_1^*$ et $\varepsilon_2^*$. Soit $x \in E$. On a $x = x_1 \varepsilon_1 + x_2 \varepsilon_2$ avec $x_1, x_2 \in \R$. Alors :
+    $$X_1 = \varepsilon_1^*(x) \et X_2 = \varepsilon_2^*(x)$$
+    On a donc le système suivant :
+    $$(x_1,x_2) = X_1(\varepsilon_1) + X_2(\varepsilon_2)$$
+    On peut résoudre ce système pour obtenir $x_1$ et $x_2$ :
+    $$x_1 = \frac{X_1 + X_2}{2} \et x_2 = \frac{X_1 - X_2}{2}$$
+    Donc on a :
+    $$\varepsilon_1^*(x) = \frac{x_1 + x_2}{2} \et \varepsilon_2^*(x) = \frac{x_1 - x_2}{2}$$
+\end{example}
+
+\begin{example}
+    Dans $E = \R_1[X]$, on pose $P_1 = X-1$, $P_2 = X -2$ et $P_1 \ne 0$.
+
+    Si $P_2 = \lambda P_1$ alors $P_1(1) = 0$ et $P_2(1) = 0 = -\lambda$ ce qui est impossible. Donc $P_1$ et $P_2$ sont libres.
+
+    (à recopier)
+\end{example}
+\todo
+
+\begin{exercise}
+    Soient $(x_0,\dots,x_n)$ des réels deux à deux différents.
+    $$L_i(X) = \prod_{j=0 \et j\ne i}^{n}\frac{X-x_j}{x_i-x_j}$$
+    Montrer que $(L_0,\dots,L_n)$ est une base de $\R_n[X]$ et calculer sa base duale.
+\end{exercise}
+
+\begin{correction}
+    On pose $\varepsilon = (L_0,\dots,L_n)$. Son cardinal est $n+1 = \dim(\R_n[X])$, donc il suffit de montrer que $\varepsilon$ est libre. Soit $(\lambda_0,\dots,\lambda_n) \in \R^{n+1}$ tel que $\sum_{i=0}^n \lambda_i L_i = 0$. On évalue cette égalité en $x_j$ pour $j=0,\dots,n$ :
+    $$\sum_{i=0}^n \lambda_i L_i(x_j) = \lambda_j L_j(x_j) = \lambda_j = 0$$
+    Donc $\lambda_j = 0$ pour tout $j=0,\dots,n$.
+
+    Donc $\varepsilon$ est libre et donc c'est une base de $\R_n[X]$.
+
+    (à recopier)
+\end{correction}
+\todo
+
+\begin{proposition}
+    Soit $(\varphi_1,\dots,\varphi_n)$ une base de $E^*$; alors :
+    $$u : \begin{matrix} E & \longrightarrow & \Kset^n \\ x & \longmapsto & (\varphi_1(x),\dots,\varphi_n(x)) \end{matrix}$$
+    est un isomorphisme.
+\end{proposition}
+
+\begin{proof}
+    On vérifie que $u$ est linéaire, surjective (ou injective, parce que $\dim E = \dim \Kset^n$). Comme $(\varphi_1,\dots,\varphi_n)$ est une base de $E^*$, alors on sait que $u$ est surjective (voir \ref{proposition:hyperplans_independants}), et on vérifie facilement qu'elle est linéaire, donc c'est un isomorphisme.
+\end{proof}
+
+\begin{definition}[Base préduale/antéduale]
+    Soit $\varphi = (\varphi_1,\dots,\varphi_n)$ une base de $E^*$. On appelle la base préduale (ou antéduale) tout $\varepsilon = (e_1,\dots,e_n)$ base de $E$ telle que :
+    $$\varepsilon^* = \varphi$$
+\end{definition}
+
+\begin{proposition}
+    Chaque base de $E^*$ admet une unique base préduale.
+\end{proposition}
+
+\begin{proof}
+    % Soit $\varphi = (\varphi_1,\dots,\varphi_n)$ une base de $E^*$. On sait que $u : E \to \Kset^n$ définie par $u(x) = (\varphi_1(x),\dots,\varphi_n(x))$ est un isomorphisme. Soit $\varepsilon = (e_1,\dots,e_n)$ une base préduale de $\varphi$. Alors on a :
+    % $$u(e_i) = (\varphi_1(e_i),\dots,\varphi_n(e_i)) = (0,\dots,0,1,0,\dots,0)$$
+    % avec le 1 à la $i$-ème position. Donc $u(\varepsilon) = ((0,\dots,0,1,0,\dots,0))_{i=1}^n$ est la base canonique de $\Kset^n$. Comme $u$ est un isomorphisme, il est injectif et donc $\varepsilon$ est unique.
+\end{proof}
+\todo
+% yé sui pa sur
+
+\begin{example}
+    Dans $E = \R^2$, on pose :
+    $$\begin{cases}
+        \varphi_1(x) = 2x_1 + x_2 \\
+        \varphi_2(x) = x_1 + 3x_2
+    \end{cases}$$
+    Montrons que $(\varphi_1, \varphi_2)$ est une base de $E^*$ en calculant sa base duale, puis calculons sa base préduale.
+\end{example}
+
+\begin{correction}
+    On a $\varphi_1(x) = 2x_1 + x_2 = 2e_1^*(x) + e_2^*(x)$ et $\varphi_2(x) = x_1 + 3x_2 = e_1^*(x) + 3e_2^*(x)$.
+    
+    Le déterminant de $(\varphi_1, \varphi_2)$ dans la base duale $(e_1^*, e_2^*)$ est :
+    $$\det\begin{pmatrix}2 & 1 \\ 1 & 3\end{pmatrix} = 5 \ne 0$$
+    Donc $(\varphi_1, \varphi_2)$ est une base de $E^*$.
+
+    Pour calculer la base préduale, on pose :
+    $$u : \begin{matrix} E & \longrightarrow & \R^2 \\ x & \longmapsto & (\varphi_1(x), \varphi_2(x)) \end{matrix}$$
+    On cherche à résoudre l'équation $y = u(x)$ pour $x \in E$ et $y \in \R^2$. On a :
+    $$\begin{cases}
+        y_1 = 2x_1 + x_2 \\
+        y_2 = x_1 + 3x_2
+    \end{cases}$$
+    On résout ce système pour $x_1$ et $x_2$ en fonction de $y_1$ et $y_2$. On obtient :
+    $$x_1 = \frac{3y_1 - y_2}{5} \et x_2 = \frac{-y_1 + 2y_2}{5}$$
+    Donc la base préduale est :
+    $$e_1 = \frac{3}{5} e_1 - \frac{1}{5} e_2 \et e_2 = -\frac{1}{5} e_1 + \frac{2}{5} e_2$$
+\end{correction}
 
 \end{document}
