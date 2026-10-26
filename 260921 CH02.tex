@@ -17,7 +17,7 @@
 
 \tableofcontents
 
-\chapter{Notions de base}
+\chapter{Codimension}
 
 \begin{proposition}
     Soit $S$ et $S'$ deux supplémentaires d'un sous-espace vectoriel $F$ de $E$.
@@ -32,8 +32,7 @@
         u : S &\longrightarrow S' \\
         x &\longmapsto p(x)
     \end{align*}
-    où $p$ est la projection de $S$ parallèlement à $S'$.
-
+    où $p$ est la projection de $S'$ parallèlement à $F$.
     Comme $E = F \oplus S'$, les images de $E$ par $p$ peuvent être écrire de la manière suivante :
     $$p : \begin{matrix} E = F \oplus S' & \longrightarrow & S' \\ f + s' & \longmapsto & s' \end{matrix}$$
     Et comme $E = F \oplus S$, les images de $E$ par $p$ peuvent être écrire de la manière suivante :
@@ -159,25 +158,80 @@
     $$u : \begin{matrix} \R[X] & \longrightarrow & \R^2 \\ P & \longmapsto & (P(1),\int_0^1 P(x) \mathrm dx) \end{matrix}$$
     On a $F = \ker(u)$, donc il suffit de montrer que $\rang(u) < \infty$. On sait que $\R^2$ est de dimension finie, donc $\rang(u) \leq 2 < \infty$. Ainsi, $\codim F = \rang(u) < \infty$.
 
+    Il est facile de montrer que $u$ est linéaire et donc que $F$ est un sous-espace vectoriel de $\R[X]$.
+
     Pour construire un supplémentaire de $F$, il suffit de trouver une base de l'image de $u$. On peut prendre les polynômes $1$ et $X$ :
     $$u(1) = (1,1) \et u(X) = (1,\frac12)$$
     On peut vérifier que $(u(1),u(X))$ est une famille libre de $\R^2$ car $\lambda_1 u(1) + \lambda_2 u(X) = 0 \implies (\lambda_1 + \lambda_2, \lambda_1 + \frac12 \lambda_2) = (0,0) \implies \lambda_1 = 0 \et \lambda_2 = 0$. Ainsi, $(u(1),u(X))$ est une base de $\Imf(u)$ et donc un supplémentaire de $F$ est donné par :
     $$S = \Vect(1,X)$$
 \end{example}
 
-\begin{application}[Interpolation polynômiale]
-    Soit $(x_0, x_1, \dots, x_n) \in \Kset^{n+1}$ différents deux à deux. On définit l'application suivante :
-    $$u : \begin{matrix} \Kset_n[X] & \longrightarrow & \Kset^{n+1} \\ P & \longmapsto & (P(x_0), P(x_1), \dots, P(x_n)) \end{matrix}$$
+\section{Interpolation polynômiale}
 
-    Montrons qu'elle est bijective.
+\begin{application}[Interpolation polynômiale -- Surjectivité]
+    Soit $(x_0, x_1, \dots, x_n) \in \Kset^{n+1}$ différents deux à deux. On définit l'application suivante :
+    $$u : \begin{matrix} \Kset[X] & \longrightarrow & \Kset^{n+1} \\ P & \longmapsto & (P(x_0), P(x_1), \dots, P(x_n)) \end{matrix}$$
+
+    Montrons qu'elle est surjective.
+
+    On peut facilement montrer que $u$ est linéaire, ce qui nous permet de calculer son rang en utilisant les formules du rang précédentes.
+
+    On sait que $\Imf(u) \subset \Kset^{n+1}$, donc $\rang(u) \leq n+1$. De plus $\rang(u) = \codim\ker(u)$.
+    
+    Il suffit donc que montrer que $\codim\ker(u) = n+1$.
+
+    Soit $P \in \ker(u)$, alors $P(x_i) = 0$ pour tout $i = 0, 1, \dots, n$.
+
+    \begin{align*}
+        \forall i \in \{0, 1, \dots, n\}, P(x_i) = 0 &\implies \prod_{i=0}^n (X - x_i) \text{ divise } P \text{ sachant que les } x_i \text{ sont deux à deux distincts.}\\
+        &\implies \ker(u) = \prod_{i=0}^n (X - x_i) \Kset[X] \\
+        &\implies \codim\ker(u) = n+1 \text{car il admet} \Kset_n[X] \text{ comme supplémentaire par DE.}
+    \end{align*}
+
+    On en déduit que $\rang(u) = \codim\ker(u) = n+1$ et donc $\Imf(u) = \Kset^{n+1}$, ce qui prouve que $u$ est surjective.
 \end{application}
 
-PC MORT - à recopier
+\begin{application}[Polynôme d'interpolation]
+    Si on définit l'application $u$ comme dans l'application précédente mais avec ensemble de départ $\Kset_n[X]$ au lieu de $\Kset[X]$, elle devient un isomorphisme.
+    $$u : \begin{matrix} \Kset_n[X] & \longrightarrow & \Kset^{n+1} \\ P & \longmapsto & (P(x_0), P(x_1), \dots, P(x_n)) \end{matrix}$$
+    En effet, on avait trouvé $\codim\ker(u) = n+1$ car $\Kset[X] = \ker(u) \oplus \Kset_n[X]$.
+\end{application}
+
+\begin{proposition}
+    Si $x_i \in \Kset$ sont deux à deux distincts, alors :
+    $$\exists! P \in \Kset_n[X] \tq \forall i \in \{0, 1, \dots, n\}, P(x_i) = y_i$$
+    P s'appelle le polynôme d'interpolation de Lagrange associé aux points $(x_i, y_i)$.
+\end{proposition}
+
+On peut donner une expression explicite de $P$. On pose $y = (y_0, \dots, y_n) = \sum_{i=0}^n y_i e_i \in \Kset^{n+1}$, où $e_i$ est la base canonique de $\Kset^{n+1}$.
+
+Il existe un unique $L_i$ dans $\Kset_n[X]$ tel que $e_i = f(L_i)$ avec $f : \Kset_n[X] \to \Kset^{n+1}$ l'application d'interpolation (qu'on avait notée $u$ précédemment). On a donc $P = \sum_{i=0}^n y_i L_i$.
+
+En effet :
+\begin{align*}
+    e_i = f(L_i) &\iff L_i(x_j) = \delta_{ij} \\
+    &\iff \begin{cases}
+    \prod_{j=0, j \ne i}^n (X - x_j) \text{ divise } L_i \\
+    L_i(x_i) = 1
+    \end{cases} \\
+    &\iff \begin{cases}
+    L_i = c_i\prod_{j=0, j \ne i}^n (X - x_j) \scq L_i \in \Kset_n[X] \\
+    L_i(x_i) = 1 \donc c_i = \frac{1}{\prod_{j=0, j \ne i}^n (x_i - x_j)}
+    \end{cases}\\
+    &\iff L_i = \frac{\prod_{j=0, j \ne i}^n (X - x_j)}{\prod_{j=0, j \ne i}^n (x_i - x_j)}\\
+    &\iff \boxed{P = \sum_{i=0}^n y_i L_i = \sum_{i=0}^n y_i \frac{\prod_{j=0, j \ne i}^n (X - x_j)}{\prod_{j=0, j \ne i}^n (x_i - x_j)}}
+\end{align*}
+
+$P$ s'appelle alors le polynôme d'interpolation de Lagrange associé aux points $(x_i, y_i)$.
+\todo
+% recopier page 15 scan
+
+\section{Propriétés sur les sous-espaces vectoriels}
 
 \begin{proposition}
     Si $F$ et $G$ sont des sous-espaces vectoriels de $E$ tels que $F \subset G$, alors :
     \begin{itemize}
-        \item En dimension finie : $\dim F = \dim G \implies F = G$.
+        \item En dimension finie : $\dim F \le \dim G$ avec égalité si et seulement si $F = G$.
         \item En dimension infinie : si $\codim F$ est de dimension finie, alors $\codim G$ est de dimension finie et $\codim G \leq \codim F$. Il y a égalité si et seulement si $F = G$.
     \end{itemize}
 \end{proposition}
@@ -185,13 +239,19 @@ PC MORT - à recopier
 \begin{proof}
     En effet, comme $F \subset G$ et que la codimension de $F$ est finie, alors $E = F \oplus S$.
     $$\codim F < \infty \implies E = F \oplus S \tq \dim S < \infty$$
+
+    $S \cap G$ est un sous-espace vectoriel de $S$. Il existe donc un sous-espace vectoriel $T$ de $S$ tel que $S = (S \cap G) \oplus T$. On a donc :
+    $$E = F \oplus S = F \oplus (S \cap G) \oplus T$$
+    Comme $F \subset G$, on a $F \oplus (S \cap G) \subset G$.
+    $$E \subset G + T \implies E = G + T$$
+    On vérifie que $G \cap T = \{0\}$. On a $G \cap T \subset G \cap S \cap T$ (car $T \subset S$). Mais $S = (S \cap G) \oplus T$, donc $S \cap T = \{0\}$. Ainsi, $G \cap T = \{0\}$ et donc $E = G \oplus T$.
+
+    Donc $\codim G = \dim T \le \dim S = \codim F$. De plus, si $\codim G = \codim F$, alors $\dim T = \dim S$ et donc $S = T$ (car $T \subset S$). Ainsi, $S \cap G = \{0\}$ et donc $F \oplus (S \cap G) = F$. Mais $F \oplus (S \cap G) = G$ car $E = F \oplus (S \cap G) \oplus T = G \oplus T$. Donc $F = G$.
 \end{proof}
 
 \begin{methodbox}
     En pratique, la proposition précédente nous permet de montrer une égalité de sous-espaces vectoriels quand un sens de l'inclusion est connu et que l'on peut calculer les dimensions ou codimensions et montrer qu'elles sont égales.
 \end{methodbox}
-
-A RECOP
 
 % justification de $E = F \oplus T = G \oplus T$ et $F \subset G$ $\implies$ $F = G$.
 
@@ -203,7 +263,13 @@ A RECOP
 \begin{proof}
     En dimension finie, il suffit d'utiliser $\dim F = \dim E - \dim T$ et $\dim G = \dim E - \dim T$ pour conclure que $F = G$ comme $F \subset G$.
 
-    En dimension quelconque, on procède par double inclusion. Un sens est déjà connu : $F \subset G$. Il suffit de montrer que $G \subset F$. Soit $g \in G$. On peut encore le ``regarder'' comme élément de $E$, donc il peut s'écrire comme $g = f + t$ avec $f \in F$ et $t \in T$. Comme $g \in G$, on a $t = g - f \in G$. Mais $t \in T$ et $T$ est un supplémentaire de $G$ donc leur intersection $G \cap T = \{0\}$. Ainsi, $t = 0$ et donc $g = f \in F$. On a donc bien $G \subset F$.
+    En dimension quelconque, on procède par double inclusion. Un sens est déjà connu : $F \subset G$. Il suffit de montrer que $G \subset F$. Soit $g \in G$.
+    
+    On peut encore le ``regarder'' comme élément de $E$, donc il peut s'écrire comme $g = f + t$ avec $f \in F$ et $t \in T$. Comme $g \in G$, on a $t = g - f \in G$. Mais $t \in T$ et $T$ est un supplémentaire de $G$ donc leur intersection $G \cap T = \{0\}$.
+    
+    Ainsi, $t = 0$ et donc $g = f \in F$. On a donc bien $G \subset F$.
+
+    On en déduit que $F = G$.
 \end{proof}
 
 \begin{consequence}[Hyperplan maximal]
@@ -305,6 +371,7 @@ A RECOP
     Dans notre
 \end{correction}
 \todo
+% correction à terminer seulement
 
 \begin{application}
     Montrons que tout hyperplan $H$ de $\mathcal M_n(\R)$ contient une matrice inversible (on prend $n \ge 2$).
@@ -312,6 +379,7 @@ A RECOP
     En effet, on sait qu'il existe une matrice $A$ non-nulle ($\exists A \in \mathcal M_n(\R) \setminus \{0\}$) tell que $M \in H \iff \Tr(\,^tAM) = 0$.
 \end{application}
 \todo
+% correction à recopier intégralement
 
 \chapter{Intersection finies d'hyperplans}
 
@@ -442,6 +510,7 @@ A RECOP
     (à recopier)
 \end{example}
 \todo
+% correction de l'exemple à faire intégralement
 
 \begin{exercise}
     Soient $(x_0,\dots,x_n)$ des réels deux à deux différents.
@@ -459,6 +528,7 @@ A RECOP
     (à recopier)
 \end{correction}
 \todo
+% correction à compléter
 
 \begin{proposition}
     Soit $(\varphi_1,\dots,\varphi_n)$ une base de $E^*$; alors :
@@ -485,7 +555,7 @@ A RECOP
     % avec le 1 à la $i$-ème position. Donc $u(\varepsilon) = ((0,\dots,0,1,0,\dots,0))_{i=1}^n$ est la base canonique de $\Kset^n$. Comme $u$ est un isomorphisme, il est injectif et donc $\varepsilon$ est unique.
 \end{proof}
 \todo
-% yé sui pa sur
+% pas sûr de la preuve. à refaire
 
 \begin{example}
     Dans $E = \R^2$, on pose :
@@ -515,5 +585,605 @@ A RECOP
     Donc la base préduale est :
     $$e_1 = \frac{3}{5} e_1 - \frac{1}{5} e_2 \et e_2 = -\frac{1}{5} e_1 + \frac{2}{5} e_2$$
 \end{correction}
+
+\begin{example}
+    Dans $E = \R_2[X]$, on pose :
+    $$\begin{cases}
+        \varphi_1(P) = P(1) \\
+        \varphi_2(P) = P'(1) \\
+        \varphi_3(P) = \int_0^1 P
+    \end{cases}$$
+
+    Montrons que $(\varphi_1, \varphi_2, \varphi_3)$ est une base de $E^*$ puis calculons sa base préduale.
+
+    On sait que tout polynôme de $\R_2[X]$ peut être écrit comme :
+    $$\forall P \in \R_2[X], P(X) = a_0 + a_1 X + a_2 X^2$$
+    avec $(a_0, a_1, a_2) \in \R^3$. Alors on a :
+    $$\implies \forall P \in \R_2[X], P = \sum_{i=0}^2 a_i X^i$$
+    Donc on peut écrire :
+    $$\begin{cases}
+        \varphi_1(P) = a_0 + a_1 + a_2 \\
+        \varphi_2(P) = a_1 + 2a_2 \\
+        \varphi_3(P) = \int_0^1 (a_0 + a_1 X + a_2 X^2) dX = a_0 + \frac{a_1}{2} + \frac{a_2}{3}
+    \end{cases}$$
+
+    En posant $a_i = e_i^*(P)$ pour $i=0,1,2$, on peut écrire :
+    $$\begin{cases}
+        \varphi_1(P) = e_0^*(P) + e_1^*(P) + e_2^*(P) \\
+        \varphi_2(P) = 0 \cdot e_0^*(P) + 1 \cdot e_1^*(P) + 2 \cdot e_2^*(P) \\
+        \varphi_3(P) = 1 \cdot e_0^*(P) + \frac{1}{2} \cdot e_1^*(P) + \frac{1}{3} \cdot e_2^*(P)
+    \end{cases}$$
+
+    Donc les coordonnées de $\varphi_1$ dans la base duale $(e_0^*, e_1^*, e_2^*)$ sont $(1, 1, 1)$, celles de $\varphi_2$ sont $(0, 1, 2)$ et celles de $\varphi_3$ sont $(1, \frac{1}{2}, \frac{1}{3})$.
+
+    Calculons le déterminant de la matrice des coordonnées de $(\varphi_1, \varphi_2, \varphi_3)$ dans la base duale $(e_0^*, e_1^*, e_2^*)$ :
+    $$\det\begin{pmatrix}
+        1 & 0 & 1 \\
+        1 & 1 & \frac{1}{2} \\
+        1 & 2 & \frac{1}{3}
+    \end{pmatrix} = 1 \cdot (1 \cdot \frac{1}{3} - 2 \cdot \frac{1}{2}) - 0 + 1 \cdot (1 \cdot 2 - 1 \cdot 1) = 1 \cdot (\frac{1}{3} - 1) + 1 \cdot (2 - 1) = -\frac{2}{3} + 1 = \frac{1}{3} \ne 0$$
+
+    On peut aussi simplement vérifier que la famille est libre, et comme elle est de cardinal 3, égal à la dimension de $E^*$, alors c'est une base de $E^*$.
+    
+    En effet, supposons que $\lambda_1 \varphi_1 + \lambda_2 \varphi_2 + \lambda_3 \varphi_3 = 0$. Alors pour tout $P \in \R_2[X]$, on a :
+    $$\lambda_1 P(1) + \lambda_2 P'(1) + \lambda_3 \int_0^1 P = 0$$
+    
+    \begin{itemize}
+        \item En prenant $P(X) = (X-1)^2$, on a $P(1) = 0$ et $P'(1) = 0$, donc $\lambda_3 \int_0^1 (X-1)^2 dX = 0$. Comme $\int_0^1 (X-1)^2 dX > 0$, on obtient $\lambda_3 = 0$.
+        \item En prenant $P(X) = X-1$, on a $P(1) = 0$ et $P'(1) = 1$, donc $\lambda_2 \cdot 1 + \lambda_3 \cdot \int_0^1 (X-1) dX = 0$. Comme $\lambda_3 = 0$, on obtient $\lambda_2 = 0$.
+        \item Enfin, en prenant $P(X) = 1$, on a $P(1) = 1$ et $P'(1) = 0$, donc $\lambda_1 \cdot 1 + \lambda_2 \cdot 0 + \lambda_3 \cdot \int_0^1 1 dX = 0$. Comme $\lambda_2 = \lambda_3 = 0$, on obtient $\lambda_1 = 0$.
+        \item Donc $(\varphi_1, \varphi_2, \varphi_3)$ est une famille libre.
+    \end{itemize}
+
+    Calculons la base préduale. On pose :
+    $$u : \begin{matrix} E & \longrightarrow & \R^3 \\ P & \longmapsto & (\varphi_1(P), \varphi_2(P), \varphi_3(P)) \end{matrix}$$
+    Cette application est un isomorphisme. On a $\varepsilon_i^* = u(c_i)$ avec $c = (c_i)$ la base canonique de $\R^3$. On cherche à résoudre l'équation $y = u(P)$ pour $P \in E$ et $y \in \R^3$. On a :
+    $$\begin{cases}
+        y_1 = P(1) \\
+        y_2 = P'(1) \\
+        y_3 = \int_0^1 P
+    \end{cases}$$
+    On pose $P(X) = a_0 + a_1 X + a_2 X^2$. Alors on a :
+    $$\begin{cases}
+        y_1 = a_0 + a_1 + a_2 \\
+        y_2 = a_1 + 2a_2 \\
+        y_3 = a_0 + \frac{a_1}{2} + \frac{a_2}{3}
+    \end{cases}$$
+    On résout ce système pour $a_0, a_1, a_2$ en fonction de $y_1, y_2, y_3$. On obtient :
+    $$\begin{cases}
+        a_0 = -2y_1 +\frac12 y_2 + 6y_3 \\
+        a_1 = 6y_1 -2 y_2 - 6y_3 \\
+        a_2 = -3y_1 + \frac32 y_2 + 3y_3
+    \end{cases}$$
+    On obtient donc :
+    $$u^{-1}(y) = (-2y_1 +\frac12 y_2 + 6y_3) + (6y_1 -2 y_2 - 6y_3)X + (-3y_1 + \frac32 y_2 + 3y_3)X^2$$
+    Donc la base préduale est :
+    $$\implies \varepsilon = (\varepsilon_1, \varepsilon_2, \varepsilon_3) \avec \begin{cases} \varepsilon_1 = u^{-1}(1,0,0) \\ \varepsilon_2 = u^{-1}(0,1,0) \\ \varepsilon_3 = u^{-1}(0,0,1) \end{cases}$$
+    Après calculs, on trouve :
+    $$\begin{cases}
+        \varepsilon_1 = -2 + 6X - 3X^2 \\
+        \varepsilon_2 = \frac12 - 2X + \frac32 X^2 \\
+        \varepsilon_3 = 3 - 6X + 3X^2
+    \end{cases}$$
+
+    On peut aussi déterminer la base préduale en évaluant l'égalité suivante en des polynômes particuliers.
+
+    En effet, $\forall P \in \R_2[X]$, on a :
+    $$P = \varphi_1(P) \varepsilon_1 + \varphi_2(P) \varepsilon_2 + \varphi_3(P) \varepsilon_3$$
+    Donc $P = P(1) \varepsilon_1 + P'(1) \varepsilon_2 + \int_0^1 P \varepsilon_3$.
+    
+    On pose donc $P(X) = (X-1)^2$. Alors $P(1) = 0$, $P'(1) = 0$ et $\int_0^1 P = \frac{1}{3}$. Donc on obtient :
+    $$\frac{1}{3} \varepsilon_3 = (X-1)^2 \implies \varepsilon_3 = 3(X-1)^2 = 3X^2 - 6X + 3$$
+
+    On pose ensuite $P(X) = X-1$. Alors $P(1) = 0$, $P'(1) = 1$ et $\int_0^1 P = -\frac{1}{2}$. Donc on obtient :
+    $$\varepsilon_2 - \frac{1}{2} \varepsilon_3 = X-1 \implies \varepsilon_2 = X-1 + \frac{1}{2} \varepsilon_3 = X-1 + \frac{1}{2}(3X^2 - 6X + 3) = \frac{3}{2}X^2 - 2X + \frac{1}{2}$$
+
+    Enfin, on pose $P(X) = 1$. Alors $P(1) = 1$, $P'(1) = 0$ et $\int_0^1 P = 1$. Donc on obtient :
+    $$\varepsilon_1 + \varepsilon_3 = 1 \implies \varepsilon_1 = 1 - \varepsilon_3 = 1 - (3X^2 - 6X + 3) = -3X^2 + 6X - 2$$
+
+    Et donc on retrouve bien la base préduale :
+    $$\begin{cases}
+        \varepsilon_1 = -3X^2 + 6X - 2 \\
+        \varepsilon_2 = \frac{3}{2}X^2 - 2X + \frac{1}{2} \\
+        \varepsilon_3 = 3X^2 - 6X + 3
+    \end{cases}$$
+\end{example}
+
+\begin{proposition}
+    \label{prop:equivalence_base_duale}
+    Soit $E$ un espace de dimension finie $n$ et $e = (e_1,\dots,e_n)$ une \textit{famille} quelconque de $E$, avec $\varphi = (\varphi_1,\dots,\varphi_n)$ une famille quelconque de $E^*$. Alors les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $e$ est une base de $E$ et $\varphi$ est la base duale de $e$ (c'est-à-dire $\varphi = e^*$).
+        \item $\forall i,j \in \{1,\dots,n\}, \varphi_i(e_j) = \delta_{ij}$.
+        \item $\forall x \in E, x= \sum_{i=1}^n \varphi_i(x) e_i$.
+        \item $\forall f \in E^*, f = \sum_{i=1}^n f(e_i) \varphi_i$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Montrons que (1) $\implies$ (2). Si $e$ est une base de $E$ et $\varphi$ est la base duale de $e$, alors par définition de la base duale, on a $\varphi_i(e_j) = \delta_{ij}$ pour tout $i,j \in \{1,\dots,n\}$.
+
+    Montrons que (2) $\implies$ (1).
+    \begin{itemize}
+        \item On a $\sum_{i=1}^n \lambda_i e_i = 0 \implies \forall j, \varphi_j\left(\sum_{i=1}^n \lambda_i e_i\right) = \sum_{i=1}^n \lambda_i \varphi_j(e_i) = \lambda_j = 0$. Donc $\lambda_i = 0$ pour tout $i$, donc $e$ est libre. Comme $e$ a $n$ éléments et que $\dim E = n$, alors $e$ est une base de $E$.
+        \item Pour montrer que $e_* = \varphi$, il suffit de montrer que ces deux familles coïncident sur la base $e$. On a $\forall i,j, \varphi_i(e_j) = \delta_{ij} = e_i^*(e_j)$. Donc $\varphi_i$ et $e_i^*$ coïncident sur la base $e$, donc $\varphi = e^*$.
+    \end{itemize}
+
+    Montrons que (1) $\implies$ (3). Si $e$ est une base de $E$ et $\varphi$ est la base duale de $e$, alors pour tout $x \in E$, on peut écrire $x = \sum_{i=1}^n x_i e_i$. Alors $\varphi_j(x) = \varphi_j\left(\sum_{i=1}^n x_i e_i\right) = \sum_{i=1}^n x_i \varphi_j(e_i) = x_j$. Donc $x = \sum_{i=1}^n \varphi_i(x) e_i$.
+
+    Montrons que (3) $\implies$ (1).
+    \begin{itemize}
+        \item Si $\forall x \in E, x= \sum_{i=1}^n \varphi_i(x) e_i$, alors la famille $e$ est génératrice de $E$. Comme $e$ a $n$ éléments et que $\dim E = n$, alors $e$ est une base de $E$.
+        \item Comme les coordonnées de $x$ dans la base $e$ sont uniques, alors $\varphi_i(x)$ sont les coordonnées de $x$ dans la base $e$, donc $\varphi = e^*$.
+    \end{itemize}
+
+    Montrons que (1) $\implies$ (4). Si $e$ est une base de $E$ et $\varphi$ est la base duale de $e$, alors pour tout $f \in E^*$, il existe des scalaires $\lambda_i$ tels que $f = \sum_{i=1}^n \lambda_i \varphi_i$. En évaluant cette égalité en $e_j$, on obtient $f(e_j) = \sum_{i=1}^n \lambda_i \varphi_i(e_j) = \lambda_j$. Donc $\lambda_j = f(e_j)$ et donc $f = \sum_{i=1}^n f(e_i) \varphi_i$.
+
+    Montrons que (4) $\implies$ (1).
+    \begin{itemize}
+        \item On sait que $\forall f \in E^*, f = \sum_{i=1}^n f(e_i) \varphi_i$. En particulier, pour $f = \varphi_j$, on a $\varphi_j = \sum_{i=1}^n \varphi_j(e_i) \varphi_i$.
+        \item En évaluant cette égalité en $e_k$, on obtient $\varphi_j(e_k) = \sum_{i=1}^n \varphi_j(e_i) \varphi_i(e_k)$.
+        \item Comme $\varphi_i(e_k)$ est le coefficient de $e_k$ dans la base duale, on obtient que $\varphi_j(e_k) = \delta_{jk}$.
+        \item Donc (2) est vérifiée, et par ce qui précède, on conclut que (1) est vérifiée.
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    Dans $E = \R_n[X]$, on pose $(x_i)$ une famille de $n+1$ réels différents deux à deux. On définit :
+    $$\varphi_i : \begin{matrix} \R_n[X] & \longrightarrow & \R \\ P & \longmapsto & P(x_i) \end{matrix}$$
+    On note que $\varphi_i$ est un élément de $E^*$ pour chaque $i$.
+
+    On peut utiliser le polynôme d'interpolation de Lagrange pour montrer que $(\varphi_0, \dots, \varphi_n)$ est une base de $E^*$ ; On cherche une famille $(e_i)$ tels que $\varphi_i(e_j) = \delta_{ij}$, c'est-à-dire que $e_j(x_i) = \delta_{ij}$, ce qui rappelle $L_i(x_j) = \delta_{ij}$, le polynôme de Lagrange associé à $x_i$. On peut donc poser $e_i = L_i$ pour $i=0,\dots,n$. On a bien $\varphi_i(e_j) = e_j(x_i) = L_j(x_i) = \delta_{ij}$.
+
+    Donc $(\varphi_0, \dots, \varphi_n)$ est une famille génératrice de $E^*$. Comme elle contient $n+1$ éléments et que $\dim E^* = n+1$, on conclut que $(\varphi_0, \dots, \varphi_n)$ est une base de $E^*$. Sa base préduale est la base de Lagrange $(L_0, \dots, L_n)$.
+\end{example}
+
+\begin{example}
+    Dans $E = \R_n[X]$, on pose $a \in R$ et on définit :
+    $$\varphi_i : \begin{matrix} \R_n[X] & \longrightarrow & \R \\ P & \longmapsto & P^{(i)}(a) \end{matrix}$$
+    Montrons que $(\varphi_0, \dots, \varphi_n)$ est une base de $E^*$ et calculons sa base préduale.
+
+    Ca nous rappelle immédiatement le théorème de Taylor. En effet, pour tout $P \in \R_n[X]$, on a :
+    $$P(X) = \sum_{i=0}^n \frac{P^{(i)}(a)}{i!} (X-a)^i$$
+    Donc on peut poser $e_i = \frac{1}{i!} (X - a)^i$ pour $i=0,\dots,n$.
+    
+    On sait aussi que $\card{(\varphi_i)_{i \in \{0,\dots,n\}}} = n+1 = \dim(E^*)$.
+
+    Alors, par l'équivalence (1) $\iff$ (3) de la proposition précédente, on conclut que $e = (e_0, \dots, e_n)$ est une base de $E$ et que $\varphi = (\varphi_0, \dots, \varphi_n)$ est la base duale de $e$. Donc $(\varphi_0, \dots, \varphi_n)$ est une base de $E^*$ et sa base préduale est $(e_0, \dots, e_n)$.
+\end{example}
+
+\begin{example}
+    On prend $E$ un espace euclidien, et $e$ une base orthonormée de $E$. Donnons sa base duale.
+
+    Comme $e$ est une base orthonormée, alors $\forall i,j$, on a :
+    $$\langle e_i, e_j \rangle = \delta_{ij}$$
+    On peut donc poser $\varphi_i(x) = \langle x, e_i \rangle$ pour tout $x \in E$. $\varphi_i$ est alors une forme linéaire, et $\varphi_i(e_j) = \delta_{ij}$. Donc $(\varphi_1, \dots, \varphi_n)$ est la base duale de $e$.
+\end{example}
+
+\section{Caractérisation matricielle d'une base et sa base duale}
+
+\begin{proposition}
+    Soit $e = (e_1, \dots, e_n)$ une base de $E$, $\varphi = (\varphi_1, \dots, \varphi_n)$ une famille de $E^*$ et $\epsilon = (\epsilon_1, \dots, \epsilon_n)$ la base duale de $e$. On pose aussi :
+    $$\begin{cases}
+    A = \Mat_e(\epsilon_1, \dots, \epsilon_n) \\
+    B = \Mat_{e^*}(\varphi_1, \dots, \varphi_n)
+    \end{cases}$$
+
+    Les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item $\epsilon$ est une base de $E$ et $\varphi = \epsilon^*$.
+        \item $^tAB = I_n$.
+    \end{enumerate} 
+\end{proposition}
+
+\begin{proof}
+    En utilisant la proposition \ref{prop:equivalence_base_duale}, on sait que $\epsilon$ est une base de $E$ et $\varphi = \epsilon^*$ si et seulement si $\forall i,j, \varphi_i(\epsilon_j) = \delta_{ij}$. Il suffit de montrer que cela équivaut à dire que $^tAB = I_n$.
+
+    On sait que $\epsilon_j = \sum_{k=1}^n A_{kj} e_k$ et $\varphi_i = \sum_{l=1}^n B_{li} e_l^*$. Alors :
+    \begin{align*}
+        \forall i,j, \varphi_i(\epsilon_j) = \delta_{ij} &\iff \forall i,j, \varphi_i\left(\sum_{k=1}^n A_{kj} e_k\right) = \delta_{ij} \\
+        &\iff \forall i,j, \sum_{k=1}^n A_{kj} \varphi_i(e_k) = \delta_{ij} \text{ par linéarité de } \varphi_i
+    \end{align*}
+
+    On peut considérer que $\varphi_i$ retourne la $i$-ème colonne de la matrice $B$. On peut donc exprimer $\varphi_i = \sum_{l=1}^n B_{li} e_l^*$. Alors :
+    \begin{align*}
+        \forall i,j, \sum_{k=1}^n A_{kj} \varphi_i(e_k) = \delta_{ij} &\iff \forall i,j, \sum_{k=1}^n A_{kj} \left(\sum_{l=1}^n B_{li} e_l^*(e_k)\right) = \delta_{ij} \text{ sachant que } e_l^*(e_k) = \delta_{lk} \\
+        &\iff \forall i,j, \sum_{k=1}^n A_{kj} B_{ki} = \delta_{ij}
+    \end{align*}
+    Si on veut écrire la dernière expression sous forme de produit matriciel, il faut remarquer que $A_{kj}$ peut faire référence à la $j$-ème ligne et $k$-ème colonne de la transposée de $A$, c'est-à-dire $^tA_{ik}$. Donc on peut réécrire la dernière expression comme suit :
+    $$\forall i,j, \sum_{k=1}^n {^tA}_{jk} B_{ki} = \delta_{ij}$$
+    $$\iff \forall i,j, (^tAB)_{ji} = \delta_{ij}$$
+    $$\iff \boxed{^tAB = I_n}$$
+\end{proof}
+
+\begin{example}
+    Dans $E = \R^n$, $\varphi_i(x) = x_1 + \dots + x_i$ avec $i = 1, \dots, n$. Montrons que $\varphi = (\varphi_1, \dots, \varphi_n)$ est une base de $E^*$ et calculons sa base préduale.
+
+    Pour vérifier que $\varphi$ est une base, il suffit de montrer son déterminant dans la base duale $e^*$ est non-nul.
+
+    La matrice de $\varphi$ dans la base $e^*$ est une matrice triangulaire supérieure avec des 1 sur la diagonale (clair), donc son déterminant est 1, donc non-nul. Donc $\varphi$ est une base de $E^*$.
+
+    On cherche maintenant la base préduale $\epsilon = (\epsilon_1, \dots, \epsilon_n)$ de $\varphi$. On utilise la propriété précédente en cherchant une matrice $A$ telle que $^tAB = I_n$ avec $B = \Mat_{e^*}(\varphi_1, \dots, \varphi_n)$. On a :
+    $$B = \begin{pmatrix}
+        1 & 1 & 1 & \dots & 1 \\
+        0 & 1 & 1 & \dots & 1 \\
+        0 & 0 & 1 & \dots & 1 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & 0 & \dots & 1
+    \end{pmatrix}$$
+    On a $A = (\,^tB)^{-1}$.
+    On sait que $^tB = \begin{pmatrix}
+        1 & 0 & 0 & \dots & 0 \\
+        1 & 1 & 0 & \dots & 0 \\
+        1 & 1 & 1 & \dots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        1 & 1 & 1 & \dots & 1
+    \end{pmatrix}$.
+
+    On résout donc l'équation $^tBX = Y$ pour trouver $X = (\,^tB)^{-1}Y$. On obtient :
+
+    (à recopier)
+\end{example}
+\todo
+% correction à terminer
+
+\begin{remark}
+    Si $E$ est de dimension finie $n$, on peut alors démontrer la propriété ci-dessous :
+    $$(\varphi_i)_{i \in \{1,\dots,r\}} \text{ est libre dans } E^* \iff (\bigcap_{i=1}^r \ker(\varphi_i)) \text{ est de codimension } r$$
+    En complétant $(\varphi_i)$ en une base $\varphi$ de $E^*$. Soit $e$ sa base préduale telle que $e_i^* = \varphi_i$ pour $i=1,\dots,n$.
+    \begin{align*}
+        \bigcap_{i=1}^r \ker(\varphi_i) &= \bigcap_{i=1}^r \ker(e_i^*) \\
+        &= \Vect(e_{r+1},\dots,e_n) \\
+        &\implies \dim(\bigcap_{i=1}^r \ker(\varphi_i)) = n - r
+        &\implies \codim\left(\bigcap_{i=1}^r \ker(\varphi_i)\right) = r
+    \end{align*}
+\end{remark}
+
+\section{Application : Matrices magiques}
+
+\begin{application}
+    (à recopier)
+\end{application}
+\todo
+% application (longue) sur les matrices magiques à recopier intégralement
+
+% cf pic 011026 1104
+% à la fin on essaie de déterminer la dimension des matrices magiques
+% cf other example amine
+
+\chapter{Orthogonalité au sens de la dualité}
+
+\begin{rappel}
+    Le produit scalaire $\langle x, y \rangle$ est une forme bilinéaire symétrique définie positive.
+
+    On dit que $x \perp y$ si $\langle x, y \rangle = 0$.
+
+    Pour parler d'orthogonalité, il suffit d'avoir une forme bilinéaire.
+\end{rappel}
+
+\begin{definition}[Orthogonalité au sens de la dualité]
+    On définit l'application suivante :
+    $$B : \begin{matrix}
+        E^* \times E & \longrightarrow & \Kset \\ (\varphi, x) & \longmapsto & \langle \varphi, x \rangle = \varphi(x)
+    \end{matrix}$$
+    ... une forme bilinéaire.
+
+    On dit alors que $\varphi$ et $x$ sont orthogonaux (au sens de la dualité) si $\langle \varphi, x\rangle = \varphi(x) = 0$.
+
+    $$\varphi \perp x \iff \varphi(x) = 0 \iff x \in \ker(\varphi)$$
+\end{definition}
+
+\begin{example}
+    Dans $E = \R^3$, on pose $\varphi(x) = x_1 + x_2 - 2x_3$. Soit $v = (1,1,1)$. Alors $\varphi(v) = 1 + 1 - 2 \cdot 1 = 0$, donc $\varphi \perp v$.
+\end{example}
+
+\begin{definition}[Orthogonal d'une partie]
+    Si $A \subset E$, on définit l'orthogonal de $A$ par :
+    $$A^\perp = \{\varphi \in E^* \mid \forall x \in A, \varphi(x) = 0\}$$
+    C'est l'ensemble des formes linéaires qui s'annulent sur $A$.
+    On peut aussi définir l'orthogonal d'une partie $B \subset E^*$ par :
+    $$B^\perp = \{x \in E \mid \forall \varphi \in B, \varphi(x) = 0\}$$
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+        \item Si $A \subset E^*$, alors $A^\perp \subset E$.
+        \item Si $A \subset E$, alors $A^\perp \subset E^*$.
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}
+    Soit $A$ une partie non-vide de $E$ (resp. $E^*$). Alors $A^\perp$ est un sous-espace vectoriel de $E^*$ (resp. $E$).
+\end{proposition}
+
+\begin{proof}
+    On montrera chaque cas séparément.
+    \begin{itemize}
+        \item Dans le cas où $A \subset E$, on a $\varphi = 0_{E^*} \in A^\perp$, car $\forall x \in A, 0_{E^*}(x) = 0$. Montrons maintenant la stabilité par combinaisons linéaires. Soient $\varphi,\psi \in A^\perp$ et $\lambda \in \Kset$. Alors $\forall a \in A, \langle \lambda \varphi + \psi, a \rangle = \lambda \langle \varphi, a \rangle + \langle \psi, a \rangle = 0$, donc $\lambda \varphi + \psi \in A^\perp$. Donc $A^\perp$ est un sous-espace vectoriel de $E^*$.
+        \item Dans le cas où $A \subset E^*$, on a $0_E \in A^\perp$, il suffit de repartir de la définition de $A^\perp = \{x \in E, \forall \varphi \in A, \varphi(x) = 0\}$ qui est égal à $\bigcap_{\varphi \in A} \ker(\varphi)$. Comme l'intersection de sous-espaces vectoriels est un sous-espace vectoriel, on conclut que $A^\perp$ est un sous-espace vectoriel de $E$. 
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}
+    $$A^\perp = \left[\Vect(A)\right]^\perp$$
+    C'est-à-dire que l'orthogonal d'une partie est égal à l'orthogonal de son sous-espace vectoriel engendré.
+\end{proposition}
+
+\begin{proof}
+    On décompose encore une fois la preuve en deux parties $A \subset E$ et $A \subset E^*$.
+    \begin{itemize}
+        \item Si $A \subset E$, on a :
+        \begin{align*}
+        \varphi \in \left(\Vect(A)\right)^\perp &\implies \langle \varphi , v \rangle = 0, \forall v \in \Vect(A) \\
+        &\text{en particulier, } \langle \varphi, x \rangle = 0, \forall x \in A \\
+        &\implies \varphi \in A^\perp \\
+        &\implies \left(\Vect(A)\right)^\perp \subset A^\perp
+        \end{align*}
+        Dans le sens inverse, on a :
+        \begin{align*}
+        \varphi \in A^\perp &\implies \langle \varphi, x \rangle = 0, \forall x \in A \\
+        &\implies \sum_{i=1}^n \lambda_i \langle \varphi, x_i \rangle = 0, \forall \lambda_i \in \Kset, \forall x_i \in A \\
+        &\implies \langle \varphi, v \rangle = 0, \forall v \in \Vect(A) \\
+        &\implies \varphi \in \left(\Vect(A)\right)^\perp \end{align*}
+        \item Si $A \subset E^*$, on suit la même démarche en utilisant la linéarité de $(\varphi,x) \mapsto \langle \varphi, x \rangle$ à gauche.
+    \end{itemize}
+\end{proof}
+% à revoir
+
+\begin{property}
+    Si $A \subset B$, alors $B^\perp \subset A^\perp$.
+
+    i.e.: Tout élément orthogonal à $B$ est orthogonal à $A$.
+\end{property}
+
+\begin{proposition}[Orthogonalité et dimension]
+    On considère que $E$ est de dimension finie.
+
+    Si $F$ est un sous-espace vectoriel de $E$, alors :
+    $$\dim(F) + \dim(F^\perp) = \dim(E)$$
+
+    En posant $n = \dim(E)$, on a $\dim(F^\perp) = n - \dim(F)$.
+\end{proposition}
+
+\begin{attention}
+    On ne peut plus écrire $F^\perp \oplus F = E$ car $F^\perp$ est un sous-espace de $E^*$ et non de $E$. On ne peut donc pas additionner $F$ et $F^\perp$.
+\end{attention}
+
+\begin{proof}
+    On décompose la preuve en deux parties $F \subset E$ et $F \subset E^*$.
+    \begin{itemize}
+        \item SI $F$ un sous-espace vectoriel de $E^*$, alors on pose $(\varphi_1, \dots, \varphi_p)$ une base de $F$. On la complète en une base $(\varphi_1, \dots, \varphi_n)$ de $E^*$. Soit $e$ sa base préduale, donc :
+        $$ F = \Vect(\varphi_1, \dots, \varphi_p) \implies F^\perp = \bigcap_{i=1}^p \ker(\varphi_i) = \Vect(e_{p+1}^*, \dots, e_n^*)$$
+        $$F^\perp = \left[ \Vect(e_1^*, \dots, e_p^*) \right]^\perp$$
+        Donc $\dim(F^\perp) = n - p = n - \dim(F)$.
+        \begin{align*}
+            x \in F^\perp &\iff \forall i \in \{1, \dots, p\}, e_i^*(x) = 0 \\
+            &\iff x \in \bigcap_{i=1}^p \ker(e_i^*) \\
+            &\iff \forall i \in \{1, \dots, p\}, x_i = 0 \\
+            &\iff x \in \Vect(e_{p+1}^*, \dots, e_n^*) \\
+            &\implies \boxed{\dim(F^\perp) = n - p = n - \dim(F)}
+        \end{align*}
+    \end{itemize}
+
+    Une autre méthode consiste à utiliser une application définie comme suite :
+    $$u : \begin{matrix} E^* \longrightarrow F^* \\ \varphi \longmapsto \varphi_{|F} \end{matrix}$$
+    Cette application $u$ est linéaire et surjective. En effet, pour tout $f \in F^*$, on peut définir $\varphi \in E^*$ par $\begin{cases} \varphi_{|F} = f \\ \varphi_{|S} = 0 \end{cases}$ où $E = F \oplus S$. Alors $u(\varphi) = f$.
+    \begin{align*}
+        \dim F &= \dim F^* \\
+            &= \rang(u) \\
+            &= \dim E^* - \dim(\ker(u)) \\
+            &= \dim E^* - \dim(F^\perp) \\
+            &= n - \dim(F^\perp) \\
+    \end{align*}
+    % à revoir: sachant que something (page 7)
+
+    \begin{itemize}
+        \item Dans le cas où $F$ est un sous-espace vectoriel de $E$, on pose $(e_1,\dots,e_p)$ une base de $F$ comme suit :
+        $$F^\perp = \left[\Vect(e_1, \dots, e_p)\right]^\perp = \left\{e_1, \dots, e_p\right\}^\perp$$
+        $$\varphi \in F^\perp \iff \forall i \in \{1, \dots, p\}, \varphi(e_i) = 0$$
+        On complète cette base en une base $(e_1, \dots, e_n)$. Alors $\varphi = \sum_{i=1}^n \varphi(e_i)e_i^*$.
+        \begin{align*}
+            \donc \varphi \in F^\perp &\iff \varphi(e_i) = 0, \forall i \in \{1, \dots, p\} \\
+            &\iff \varphi = \sum_{i=p+1}^n \varphi(e_i)e_i^* \\
+            &\iff \varphi \in \Vect(e_{p+1}^*, \dots, e_n^*) \\
+            &\iff F^\perp = \Vect(e_{p+1}^*, \dots, e_n^*) \\
+            &\implies \boxed{\dim(F^\perp) = n - p = n - \dim(F)}
+        \end{align*}
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    Dans $E = \R_3[X]$, on pose :
+    $$F = \{P \in \R_3[X] \mid P(1) = \int_0^1 P = 0\}$$
+    On cherche à calculer la dimension de $F$.
+
+    On décompose $F$ en intersection d'orthogonaux :
+    $$\begin{cases}
+        \varphi_1 : P \mapsto P(1) \\
+        \varphi_2 : P \mapsto \int_0^1 P
+    \end{cases}$$
+    Alors $F = \{P \in R_3[X], \langle \varphi_1, P \rangle = 0 \text{ et } \langle \varphi_2, P \rangle = 0\} = \{\varphi_1, \varphi_2\}^\perp = \left[\Vect(\varphi_1, \varphi_2)\right]^\perp$.
+    Alors $\dim F = \dim(E) - \dim(\Vect(\varphi_1, \varphi_2)) = 4 - 2 = 2$, sachant que $(\varphi_1, \varphi_2)$ est libre dans $E^*$, facilement vérifiable par absurde ou en explicitant les coordonnées de $\varphi_1$ et $\varphi_2$ dans la base duale, et obtenir deux colonnes différentes.
+
+    $$\begin{cases}
+    \varphi_1(P) = P(1) = \sum_{i=0}^3 P_i \avec P_i \text{ les coefficients de } P \text{ dans la base } (1, X, X^2, X^3) \\
+    \varphi_2(P) = \sum_{i=0}^3 \frac{1}{i+1} P_i \avec P_i \text{ les coefficients de } P \text{ dans la base } (1, X, X^2, X^3)
+    \end{cases}$$
+
+    $$\implies
+    \left(\varphi_1\right)_{e^*} = \left(\begin{matrix} 1 \\ 1 \\ 1 \\ 1 \end{matrix}\right) \et 
+    \left(\varphi_2\right)_{e^*} = \left(\begin{matrix} 1 \\ \frac{1}{2} \\ \frac{1}{3} \\ \frac{1}{4} \end{matrix}\right)$$
+
+    On peut aussi calculer la dimension de $F$ en utilisant un résultat précédent sur la codimension et l'intersection d'hyperplans.
+
+    Comme $F = \ker(\varphi_1) \cap \ker(\varphi_2)$, on a $\codim(F) = \codim(\ker(\varphi_1)) + \codim(\ker(\varphi_2)) = 1 + 1 = 2$. Donc $\dim(F) = \dim(E) - \codim(F) = 4 - 2 = 2$.
+\end{example}
+
+\begin{attention}
+    Dans la suite, on considère que $\dim E < \infty$.
+\end{attention}
+
+\begin{proposition}
+    \label{prop:orthogonalite_double}
+    Si $F$ est un sous-espace vectoriel de $E$ (resp. $E^*$) alors $\left(F^\perp\right)^\perp = F$.
+\end{proposition}
+
+\begin{proof}
+    On décompose la preuve en deux parties $F \subset E$ et $F \subset E^*$.
+    \begin{itemize}
+        \item Dans le cas où $F \subset E$, on pose $x \in F$, alors $\forall \varphi \in F^\perp, \langle \varphi, x \rangle = 0$, donc $x \in (F^\perp)^\perp$. Donc $F \subset (F^\perp)^\perp$. Ainsi, $F \subset (F^\perp)^\perp$.
+        \item Dans le cas où $F \subset E^*$, on pose $\varphi \in F$, alors $\forall x \in F^\perp, \langle \varphi, x \rangle = 0$, donc $\varphi \in (F^\perp)^\perp$. Donc $F \subset (F^\perp)^\perp$. Ainsi, $F \subset (F^\perp)^\perp$.
+    \end{itemize}
+    Dans les deux cas, on a $\dim(F) + \dim(F^\perp) = \dim(E)$ et $\dim(F^\perp) + \dim((F^\perp)^\perp) = \dim(E)$, donc $\dim(F) = \dim((F^\perp)^\perp)$. Comme $F \subset (F^\perp)^\perp$ et que les deux sous-espaces ont la même dimension, on conclut que $F = (F^\perp)^\perp$.
+\end{proof}
+
+\begin{proposition}
+    \label{prop:orthogonalite_intersection}
+    Si $(\varphi_i)_{1 \le i \le r} \in E^*, \varphi \in E^*$, alors $\varphi \in \Vect(\varphi_1, \dots, \varphi_r) \iff \bigcap_{i=1}^r \ker(\varphi_i) \subset \ker(\varphi)$.
+\end{proposition}
+
+\begin{remark}
+    Soient $F, G$ deux sous-espaces vectoriels de $E$ (ou de $E^*$). Alors, on sait déjà que $F \subset G \iff G^\perp \subset F^\perp$. On a déjà montré le sens direct, et le sens inverse est vrai car si $G^\perp \subset F^\perp$, alors $(F^\perp)^\perp \subset (G^\perp)^\perp$, donc $F \subset G$, par la proposition \ref{prop:orthogonalite_double}.
+\end{remark}
+
+\begin{proof}
+    On peut maintenant démontrer la proposition \ref{prop:orthogonalite_intersection} en utilisant la remarque précédente. En effet, on a :
+    \begin{align*}
+        \varphi \in \Vect(\varphi_1, \dots, \varphi_r) &\iff \Vect(\varphi) \subset \Vect(\varphi_1, \dots, \varphi_r) \\
+        &\iff \left[\Vect(\varphi_1, \dots, \varphi_r)\right]^\perp \subset [\Vect(\varphi)]^\perp \\
+        &\iff \bigcap_{i=1}^r \ker(\varphi_i) = \left[\Vect(\varphi_1, \dots, \varphi_r)\right]^\perp \subset [\Vect(\varphi)]^\perp = \ker(\varphi)
+    \end{align*}
+\end{proof}
+
+\begin{example}
+    Dans $E = \R^3$, on pose :
+    $$\begin{cases}
+        H_1 = x+y-z = 0 \\
+        H_2 = 2x+y+5z = 0
+        A = (1,1,1)
+    \end{cases}
+    $$
+    Donnons l'équation du plan $H$ passant par $A$ et contenant la droite $D = H_1 \cap H_2$.
+
+    % figure tikz représentative 
+    % \begin{tikzpicture}
+    %     % Plan H1
+    %     \filldraw[fill=blue!20, opacity=0.5] (2,0,2) -- (2,2,0) -- (0,2,2) -- cycle;
+    %     \node at (1.5, 1.5, 1.5) {$H_1$};
+
+    %     % Plan H2
+    %     \filldraw[fill=red!20, opacity=0.5] (1.5,-1.5,-1.5) -- (3,-3,-3) -- (-3,-3,-3) -- cycle;
+    %     \node at (1.5, -1.5, -1.5) {$H_2$};
+
+    %     % Point A
+    %     \filldraw[black] (1,1,1) circle (2pt);
+    %     \node at (1.2, 1.2, 1.2) {$A$};
+
+    %     % Droite D
+    %     \draw[dashed] (-3,-3,-3) -- (3,3,3);
+    %     \node at (2.5, 2.5, 2.5) {$D$};
+    % \end{tikzpicture}
+
+    On peut considérer ces plans $H_1$ et $H_2$ comme des noyaux de formes linéaires. La droite $D$ est l'intersection de ces deux plans, donc $D = H_1 \cap H_2 = \ker(\varphi_1) \cap \ker(\varphi_2)$.
+
+    On pose $H = \ker(\varphi)$.
+    \begin{align*}
+        D \subset H &\iff H_1 \cap H_2 \subset H \\
+        &\iff \ker(\varphi_1) \cap \ker(\varphi_2) \subset \ker(\varphi) \\
+        &\iff \varphi \in \Vect(\varphi_1, \varphi_2) \text{ par la proposition \ref{prop:orthogonalite_intersection}} \\
+    \end{align*}
+    Donc $\varphi(M) = (\lambda \varphi_1 + \mu \varphi_2)(M) = 0$ pour tout $M \in D$.
+
+    Pour $A \in H$, on a $\varphi(A) = 0$, donc $(\lambda \varphi_1 + \mu \varphi_2)(A) = 0$. On obtient donc :
+    (recop)
+\end{example}
+\todo
+
+\section{Equations d'un sous-espace vectoriel}
+
+Soit $F$ un sous-espace vectoriel de $E$. On peut donner une équation de $F$ en utilisant l'orthogonalité. En effet, on peut écrire :
+$$F = (F^\perp)^\perp$$
+On pose alors $\varphi_1, \dots, \varphi_r$ une base de $F^\perp$. Alors :
+$$F^\perp = \Vect(\varphi_1, \dots, \varphi_r)$$
+$$\implies F = (F^\perp)^\perp = \left[\Vect(\varphi_1, \dots, \varphi_r)\right]^\perp = \bigcap_{i=1}^r \ker(\varphi_i)$$
+Donc $F$ est l'intersection des noyaux de $\varphi_1, \dots, \varphi_r$. On peut donc donner une équation de $F$ en donnant une base de $F^\perp$.
+$$x \in F \iff \begin{cases} 
+\varphi_1(x) = 0 \\
+\vdots \\
+\varphi_r(x) = 0
+\end{cases}$$
+On dit que $(\varphi_1, \dots, \varphi_r)$ est un système d'équations de $F$.
+
+De plus, $\codim F = \dim(F^\perp) = r$.
+
+On réécrit ce passage sous forme de proposition.
+
+\begin{proposition}
+    Si $(\varphi_1,\dots,\varphi_r)$ est une base de $F^\perp$, alors :
+    $$x \in F \iff \begin{cases}
+    \varphi_1(x) = 0 \\
+    \vdots \\
+    \varphi_r(x) = 0
+    \end{cases}$$
+    On dit que $$\varphi_1(x) = 0, \dots, \varphi_r(x) = 0$$ est un système d'équations de $F$.
+\end{proposition}
+
+\begin{remark}
+    Le système d'équations de $F$ n'est pas unique. En effet, si $(\varphi_1, \dots, \varphi_r)$ est une base de $F^\perp$, alors :
+    $$\bigcap_{i=1}^r \ker\varphi_i = \bigcap_{j=1}^s \ker\psi_j
+    \iff \Vect(\varphi_1, \dots, \varphi_r) = \Vect(\psi_1, \dots, \psi_s)$$
+    \begin{align*}
+        \text{En effet, } \bigcap_{i=1}^r \ker\varphi_i = \bigcap_{j=1}^s \ker\psi_j &\iff \left[\Vect(\varphi_1, \dots, \varphi_r)\right]^\perp = \left[\Vect(\psi_1, \dots, \psi_s)\right]^\perp \\
+        &\iff \left[\Vect(\varphi_1, \dots, \varphi_r)\right]^{\perp\perp} = \left[\Vect(\psi_1, \dots, \psi_s)\right]^{\perp\perp} \\
+        &\iff \Vect(\varphi_1, \dots, \varphi_r) = \Vect(\psi_1, \dots, \psi_s)
+    \end{align*}
+    Donc $\psi_1 = 0, \dots, \psi_s = 0$ est aussi un système d'équations de $F$.
+\end{remark}
+% y'a un autre truc à recopier là je pense, p14 ou 13 jsp
+\todo
+
+\begin{example}
+    Dans $E = \R^4$, on pose :
+    $$v_1 = (1,2,3,4), v_2 = (1,1,1,1), F = \Vect(v_1, v_2)$$
+    On cherche un système d'équations de $F$.
+    (à recopier)
+    \begin{align*}
+        \varphi(x) &= \sum_{i=1}^4 a_i x_i \\
+        \begin{cases} \varphi(v_1) = 0 \\ \varphi(v_2) = 0 \end{cases} &\iff \begin{cases}
+        a_1 + 2a_2 + 3a_3 + 4a_4 = 0 \\
+        a_1 + a_2 + a_3 + a_4 = 0
+        \end{cases} \\
+        &\iff \begin{cases} 
+        -3a_1-2a82 - a_3 = 0 \\
+        -2a_1-a_2 + a_4 = 0
+        \end{cases}
+        \\
+        &\iff \begin{cases}
+            a_3 = -3a_1 - 2a_2 \\
+            a_4 = 2a_1 + a_2
+        \end{cases}
+    \end{align*}
+    $$\implies \varphi = a_1(x_1 - 3x_3 + 2x_4) + a_2(x_2 - 2x_3 + x_4)$$
+    $$\implies \boxed{F^\perp = \Vect(x_1 - 3x_3 + 2x_4, x_2 - 2x_3 + x_4)}$$
+    Donc un système d'équations de $F$ est :
+    $$\begin{cases}
+        x_1 - 3x_3 + 2x_4 = 0 \\
+        x_2 - 2x_3 + x_4 = 0
+    \end{cases}$$
+\end{example}
+\todo
+% à recopier, page 14-15
+
+\begin{exercise}
+    Soit $(\varphi_1,\dots,\varphi_p)$ une famille de $E^*$. Calculer la dimension $\dim \bigcap_{i=1}^p \ker(\varphi_i)$.
+\end{exercise}
+
+\begin{rappel}
+    Si $(\varphi_1,\dots,\varphi_p)$ une famille libre.
+    $$\codim \bigcap_{i=1}^p \ker(\varphi_i) = p$$
+    $$\implies \dim \bigcap_{i=1}^p \ker(\varphi_i) = n - p$$
+\end{rappel}
+\todo
+% page 16
 
 \end{document}
